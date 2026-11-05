@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Scroll Lab – poke the scroll, steal the code</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F1EAFF;--fg:#1B1140;--ink:#1B1140;--sh:#1B1140;--panel:#fff;--sun:#FFD400;--pink:#FF5FA2;--grape:#6B2FFF;--mint:#7CF2C8;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#150C33;--fg:#F6F0FF;--sh:#000;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#150C33;--fg:#F6F0FF;--sh:#000;color-scheme:dark}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{background:var(--bg);background-image:radial-gradient(rgba(107,47,255,.16) 2px,transparent 2px);background-size:26px 26px;color:var(--fg);font-family:Nunito,system-ui,-apple-system,"Segoe UI",sans-serif;font-weight:600;line-height:1.5;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+h1,h2,.lg,.big{font-family:"Bagel Fat One",system-ui,sans-serif;font-weight:400;letter-spacing:.01em;line-height:1.02}
+:focus-visible{outline:4px solid var(--pink);outline-offset:3px}
+button{font:inherit;font-weight:800;color:var(--ink);cursor:pointer}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:31;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px clamp(14px,4vw,56px);background:var(--bg);border-bottom:3px solid var(--fg)}
+.lg{font-size:1.6rem;color:var(--grape)}
+.tray{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.st{width:28px;height:28px;border-radius:50%;border:2px dashed var(--fg);display:grid;place-items:center;font-size:15px;opacity:.9}
+#cnt{font-weight:800;margin-left:8px}
+.hero{position:relative;min-height:78svh;display:grid;align-content:center;padding:clamp(40px,7vw,90px) clamp(18px,5vw,70px);overflow:hidden}
+.hero h1{font-size:clamp(3.2rem,11vw,9rem);position:relative;z-index:2;max-width:11ch}
+.lt{display:inline-block;cursor:default}
+.wd{display:inline-block;white-space:nowrap}
+.hero p{position:relative;z-index:2;font-size:1.25rem;max-width:36ch;margin:22px 0}
+.idx{position:relative;z-index:2;display:flex;flex-wrap:wrap;gap:10px}
+.idx a{background:var(--a);color:var(--ink);border:3px solid var(--ink);border-radius:99px;padding:6px 16px;text-decoration:none;font-weight:800;box-shadow:3px 3px 0 var(--sh);transition:transform .15s}
+.idx a:hover{transform:translate(-2px,-3px) rotate(-3deg)}
+.sh{position:absolute;cursor:pointer;z-index:1;border:3px solid var(--ink);box-shadow:5px 5px 0 var(--sh);will-change:transform}
+@media(max-width:700px){.sh{opacity:.35}}
+.ch{margin:46px clamp(12px,4vw,56px);border:3px solid var(--ink);border-radius:32px;background:var(--a);color:var(--ink);box-shadow:9px 9px 0 var(--sh);padding:clamp(18px,3vw,38px);display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(20px,4vw,48px)}
+@media(max-width:820px){.ch{grid-template-columns:1fr}}
+.ch h2{font-size:clamp(2.1rem,4.6vw,3.4rem);margin:12px 0}
+.ch p{max-width:44ch;margin-bottom:12px}
+.chip{display:inline-block;background:var(--ink);color:#fff;border-radius:99px;padding:3px 14px;font-weight:800;font-size:.85rem}
+.q{display:inline-block;background:#fff;border:3px solid var(--ink);border-radius:18px;padding:8px 14px;font-weight:800;transform:rotate(-1.5deg);box-shadow:3px 3px 0 var(--ink)}
+.tip{border-left:5px solid var(--ink);padding-left:12px}
+.demo{height:400px;overflow-y:auto;border-radius:24px;background:var(--panel);color:var(--ink);border:3px solid var(--ink);position:relative;scrollbar-width:thin}
+.tall{height:900px;position:relative}
+.stick{position:sticky;top:0;height:400px;overflow:hidden;display:grid;place-items:center}
+.dock{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-top:14px}
+.kn{display:flex;align-items:center;gap:10px;font-weight:800;flex:1 1 220px}.kn input{flex:1;accent-color:var(--ink);height:28px}.kn b{min-width:3ch}
+.bt{background:#fff;border:3px solid var(--ink);border-radius:99px;padding:8px 18px;box-shadow:3px 3px 0 var(--ink);transition:transform .12s,box-shadow .12s}
+.bt:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink)}.bt:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
+.key{background:var(--ink);color:#fff;box-shadow:3px 3px 0 #fff}
+.pbar{position:sticky;top:0;height:8px;background:rgba(127,127,127,.25);z-index:2}.pbar i{display:block;height:100%;background:#6B2FFF;transform-origin:0 50%;transform:scaleX(0)}
+.fl{padding:24px}.fl p{margin-bottom:18px}
+.ri{opacity:0;display:flex;justify-content:space-between;background:#F1EAFF;border:3px solid var(--ink);border-radius:18px;padding:20px;margin:0 24px 46px;font-weight:800;font-size:1.15rem}
+.ly{position:absolute;left:-5%;width:110%;bottom:-160px;height:260px}
+.sun{position:absolute;top:50px;left:58%;width:110px;height:110px;border-radius:50%;background:#FFF3B0}
+.pl{position:absolute;top:34px;left:0;right:0;text-align:center;color:#fff;font:400 2rem "Bagel Fat One",sans-serif;z-index:3}
+.sw{padding:0 28px;font:400 1.8rem/1.25 "Bagel Fat One",sans-serif}.sw span{opacity:.15;display:inline-block;margin-right:.28em}
+.zc{width:100%;height:100%;display:grid;place-items:center;background:linear-gradient(135deg,#6B2FFF,#FF5FA2);color:#fff;font:400 2.6rem "Bagel Fat One",sans-serif}
+.trk{display:flex;gap:16px;padding:0 24px;position:absolute;left:0;top:50%;margin-top:-110px}
+.hc{width:210px;height:220px;flex:none;border-radius:22px;border:3px solid var(--ink);padding:18px;font:400 1.7rem "Bagel Fat One",sans-serif;display:flex;align-items:flex-end}
+.cm{width:100%;height:100%;display:grid;place-items:center;color:#fff;font:400 clamp(2.8rem,9vw,4.6rem) "Bagel Fat One",sans-serif}
+.sk{font:400 3.4rem/1.1 "Bagel Fat One",sans-serif;padding:0 26px}
+.cn{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;align-items:center;margin:0 28px 56px;opacity:0}
+.cn b{font:400 3rem "Bagel Fat One",sans-serif;grid-row:span 2}.cn i{display:block;height:12px;border-radius:9px;background:#FF5FA2;width:0}
+.lg{position:relative;background:none;border:0;padding:0 4px;cursor:pointer;color:var(--brand,var(--grape))}
+.lg .mn{position:relative;z-index:2;display:inline-block}
+.lg .sb{position:absolute;left:100%;top:-8px;margin-left:-30px;z-index:1;font:400 .9rem "Bagel Fat One",sans-serif;color:var(--fg);opacity:.32;transform:rotate(-6deg);white-space:nowrap;transition:opacity .2s,transform .2s}
+.lg:hover .sb{opacity:.95;transform:translateX(10px) rotate(-6deg)}
+#wp{position:fixed;inset:0;z-index:70;pointer-events:none;clip-path:circle(0px at 0 0)}
+.fl{min-height:1100px}
+.mz{position:relative;min-height:394px;display:grid;place-items:center;overflow:hidden}
+.wrap{display:inline-block}
+.mg{background:#1B1140;color:#fff;border:0;border-radius:99px;padding:22px 44px;font:400 1.6rem "Bagel Fat One",sans-serif}
+.tl{width:210px;height:270px;border-radius:26px;display:grid;place-items:center;background:linear-gradient(135deg,#6B2FFF,#FF5FA2);color:#fff;font:400 2rem "Bagel Fat One",sans-serif;border:3px solid var(--ink)}
+.td{position:absolute;border-radius:50%;pointer-events:none}
+.scr{font:400 2.3rem "Bagel Fat One",sans-serif;cursor:pointer;padding:20px;text-align:center}
+.gd{display:grid;grid-template-columns:repeat(8,1fr);gap:12px;padding:26px;width:100%}
+.gp{width:100%;aspect-ratio:1;border-radius:50%;border:0;background:#1B1140;padding:0;cursor:pointer}
+.bl{width:120px;height:120px;border-radius:50%;background:#FFD400;border:3px solid var(--ink);display:grid;place-items:center;font:400 1.3rem "Bagel Fat One",sans-serif;cursor:grab;touch-action:none;user-select:none}
+.mb{background:none;border:0;cursor:pointer;width:270px}.mb svg{width:100%}
+.hb{width:110px;height:110px;border-radius:50%;border:4px solid var(--ink);background:#fff;font-size:3rem;color:#1B1140;cursor:pointer}
+.sp{width:84%;height:72%;border-radius:26px;display:grid;place-items:center;color:#fff;font:400 2rem "Bagel Fat One",sans-serif;background:radial-gradient(circle var(--r,140px) at var(--x,50%) var(--y,50%),rgba(255,95,162,.95),#1B1140 75%);border:3px solid var(--ink)}
+.stp{text-align:center;padding:20px}.stp h3{font:400 1.9rem "Bagel Fat One",sans-serif;margin-top:6px}
+.r1,.r2{white-space:nowrap;font:400 3.4rem/1.3 "Bagel Fat One",sans-serif}
+.sc0{position:sticky;height:220px;border-radius:24px;border:3px solid var(--ink);margin-bottom:150px;font:400 2rem "Bagel Fat One",sans-serif;padding:24px}
+.sn1{height:400px;scroll-snap-align:start;display:grid;place-items:center;font:400 3rem "Bagel Fat One",sans-serif}
+.ov{position:fixed;inset:0;background:rgba(27,17,64,.6);backdrop-filter:blur(3px);opacity:0;pointer-events:none;z-index:48}
+.dr{position:fixed;top:0;right:0;height:100%;width:min(560px,94vw);background:#1B1140;color:#F6F0FF;z-index:49;transform:translateX(110%);display:flex;flex-direction:column;border-left:5px solid var(--sun);padding-top:env(safe-area-inset-top,0px)}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;gap:10px}.dh h3{font:400 1.6rem "Bagel Fat One",sans-serif;color:var(--sun)}
+.tb{display:flex;gap:8px;padding:0 20px 12px;flex-wrap:wrap}
+.tb button{background:transparent;color:#F6F0FF;border:2px solid #F6F0FF;border-radius:99px;padding:4px 16px}
+.tb button[aria-selected=true]{background:var(--pink);border-color:var(--pink);color:#1B1140}
+.dr pre{flex:1;overflow:auto;margin:0;padding:8px 20px 20px;font:600 .88rem/1.7 ui-monospace,Menlo,Consolas,monospace;tab-size:2}
+.ln{display:block;white-space:pre;min-height:1.7em}
+.tc{color:#8E86B8}.ts{color:#7CF2C8}.tk{color:#FF8FC4}.tn{color:#FFD400}.tg{color:#9DB6FF}
+.da{display:flex;gap:10px;flex-wrap:wrap;padding:14px 20px calc(16px + env(safe-area-inset-bottom,0px));border-top:2px solid #3A2D78}
+.da .bt{box-shadow:3px 3px 0 var(--sun)}.da .p{background:var(--sun)}
+.cf{position:fixed;left:0;top:0;width:10px;height:10px;z-index:60;pointer-events:none}
+#win{position:fixed;left:50%;bottom:22px;z-index:45;background:var(--sun);color:var(--ink);border:3px solid var(--ink);border-radius:22px;padding:14px 22px;box-shadow:6px 6px 0 var(--sh);font:400 1.3rem "Bagel Fat One",sans-serif;transform:translate(-50%,200%);text-align:center}
+footer{padding:40px clamp(18px,4vw,56px) 60px;text-align:center;font-weight:800}
+</style>
+</head>
+<body>
+<header><button class="lg" id="sw" aria-label="Switch to Motion Lab" title="Switch to Motion Lab"><span class="mn">Scroll Lab</span><span class="sb">Motion Lab</span></button><div class="tray" id="tray" aria-label="Effects found"></div></header>
+<main>
+<div class="hero" id="hero">
+  <div class="sh" data-z="30" style="width:120px;height:120px;border-radius:50%;background:var(--pink);right:12%;top:10%"></div>
+  <div class="sh" data-z="-24" style="width:100px;height:100px;border-radius:26px;background:var(--mint);right:30%;bottom:12%;transform:rotate(14deg)"></div>
+  <div class="sh" data-z="18" style="width:130px;height:130px;background:var(--sun);right:6%;bottom:18%;clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);border:0;box-shadow:none"></div>
+  <div class="sh" data-z="-40" style="width:90px;height:90px;border-radius:60% 40% 55% 45%;background:var(--grape);right:38%;top:8%"></div>
+  <h1 id="h1" aria-label="Scroll it. Poke it. Steal the code."></h1>
+  <p id="hp"></p>
+  <nav class="idx" id="idx" aria-label="Effects"></nav>
+</div>
+<div id="chs"></div>
+<div id="chm" style="display:none"></div>
+</main>
+<footer>Built with anime.js 3. Every demo is yours to copy.</footer>
+<div id="wp"></div>
+<div id="win" role="status">You found all ten! Go steal some code.</div>
+<div class="ov" id="ov"></div>
+<aside class="dr" id="dr" role="dialog" aria-modal="true" aria-label="Code for this effect" aria-hidden="true">
+  <div class="dh"><h3 id="dt">Code</h3><button class="bt" id="dx" style="box-shadow:3px 3px 0 var(--sun)">Close</button></div>
+  <div class="tb" id="tb" role="tablist"><button role="tab" data-t="h">HTML</button><button role="tab" data-t="c">CSS</button><button role="tab" data-t="j">JavaScript</button></div>
+  <pre id="pre" tabindex="0"></pre>
+  <div class="da"><button class="bt p" id="c1">Copy this tab</button><button class="bt" id="c2">Copy full page</button></div>
+</aside>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script>
+(function(){
+var R=matchMedia('(prefers-reduced-motion: reduce)').matches,D=function(n){return R?0:n},$=function(i){return document.getElementById(i)};
+var cl=function(v,a,b){return Math.max(a,Math.min(b,v))};
+function mixC(a,b,t){var x=parseInt(a.slice(1),16),y=parseInt(b.slice(1),16),o=[];[16,8,0].forEach(function(s){var u=(x>>s)&255,v=(y>>s)&255;o.push(Math.round(u+(v-u)*t))});return'rgb('+o.join()+')'}
+var fill=['A progress bar shows how far along the reader is.','It costs one transform and no layout work.','Keep it thin so it never competes with the content.','Fill it from the left in left-to-right languages.','Update it from a single scroll listener.','Almost there.','Done.'];
+var hcs=[['Plan','#D6FF4F'],['Sketch','#FF8CC6'],['Build','#B8A6FF'],['Test','#FFD400'],['Ship','#7CF2C8']];
+var PAL=[['Candy',['#6B2FFF','#FF5FA2','#FF7A1A','#18B87A']],['Ocean',['#0B3C9D','#1B8FE0','#18B8B0','#0B7A4F']],['Sunset',['#B3123C','#E8541A','#C98A00','#6B2FFF']]];
+var sent='Words light up as you read, so the animation sets the pace of the story.'.split(' ');
+var hill=function(f){return'<svg class="ly" viewBox="0 0 400 200" preserveAspectRatio="none"><path fill="'+f+'" d="M0 110 L60 60 L120 100 L200 30 L280 90 L340 50 L400 100 L400 200 L0 200Z"/></svg>'};
+var IO='new IntersectionObserver(function (entries) {\n';
+
+var C=[
+{id:'progress',e:'📊',a:'#FFD400',t:'Progress bar',k:'Scrub',q:'Scroll the box, then fatten the bar with the knob.',w:'A bar that fills as the reader moves down. It answers one question: how much is left?',tip:'Scale the bar with transform. Changing its width forces layout on every frame.',kn:{l:'Bar height',u:'px',min:4,max:24,v:8},
+ html:'<div class="pbar"><i></i></div><div class="fl">'+fill.map(function(t){return'<p>'+t+'</p>'}).join('')+'</div>',
+ on:function(p,b,v){var r=b.querySelector('.pbar');r.style.height=v+'px';r.firstChild.style.transform='scaleX('+p+')'},
+ code:function(v){return{h:'<div class="bar"></div>',c:'.bar {\n  position: fixed; top: 0; left: 0;\n  width: 100%; height: '+v+'px;\n  background: #6B2FFF;\n  transform-origin: 0 50%;\n  transform: scaleX(0);\n}',i:"var bar = document.querySelector('.bar');",j:"bar.style.transform = 'scaleX(' + p + ')';"}}},
+{id:'reveal',e:'✨',a:'#FF8CC6',t:'Reveal on scroll',k:'Trigger',q:'Scroll slowly. Change the stagger, then hit Restart.',w:'Elements fade and slide in the first time they enter the screen. Alternating direction and staggering delays keeps a list lively.',tip:'Stop observing after the first reveal, and keep content readable if scripts fail.',kn:{l:'Stagger',u:'ms',min:0,max:300,v:110},
+ html:'<div class="tall" style="height:1100px;padding-top:30px">'+['Fast','Smooth','Readable','Friendly','Light','Reusable'].map(function(x,i){return'<div class="ri" data-d="'+(i%2?40:-40)+'"><span>'+x+'</span><span>Item</span></div>'}).join('')+'</div>',
+ init:function(b,x){var n=0,o=new IntersectionObserver(function(es){var k=0;es.forEach(function(e){if(!e.isIntersecting)return;o.unobserve(e.target);anime({targets:e.target,opacity:[0,1],translateX:[+e.target.dataset.d,0],duration:D(800),delay:D(k++*x.kv),easing:'easeOutExpo'});if(++n>=6)x.fd()})},{root:b,threshold:.4});b._o=o;b._n=function(){n=0};b.querySelectorAll('.ri').forEach(function(r){o.observe(r)})},
+ reset:function(b){b._n();b.querySelectorAll('.ri').forEach(function(r){r.style.opacity=0;r.style.transform='';b._o.observe(r)})},
+ code:function(v){return{h:'<div class="item">One</div>\n<div class="item">Two</div>\n<div class="item">Three</div>',c:'.item {\n  opacity: 0;\n  margin: 60vh 0;\n  font: 800 2rem sans-serif;\n}',j:"var io = new IntersectionObserver(function (entries) {\n  var n = 0;\n  entries.forEach(function (e) {\n    if (!e.isIntersecting) return;\n    io.unobserve(e.target);\n    anime({\n      targets: e.target,\n      opacity: [0, 1],\n      translateX: [-40, 0],\n      delay: n++ * "+v+"\n    });\n  });\n}, { threshold: .4 });\ndocument.querySelectorAll('.item').forEach(function (el) {\n  io.observe(el);\n});"}}},
+{id:'parallax',e:'🏔️',a:'#7CF2C8',t:'Parallax layers',k:'Scrub',q:'Scroll and spot which hills move fastest.',w:'Layers move at different speeds, so flat shapes read as depth. Far things move little and near things move a lot.',tip:'Keep the total travel small. Big shifts feel glitchy on phones.',kn:{l:'Depth',u:'%',min:20,max:200,v:100},
+ html:'<div class="tall" style="height:1100px"><div class="stick" style="background:linear-gradient(#FFD08A,#FF8FA3)"><div class="sun"></div><div class="pl">Depth</div>'+hill('#D96C8C')+hill('#A8456F')+hill('#5B2A5E')+'</div></div>',
+ on:function(p,b,v){var l=b.querySelectorAll('.ly');[40,90,150].forEach(function(s,i){l[i].style.transform='translateY('+(-p*s*v/100)+'px)'});b.querySelector('.sun').style.transform='translateY('+(p*80*v/100)+'px) scale('+(1+p*.4)+')'},
+ code:function(v){var f=function(n){return Math.round(n*v/100)};return{h:'<div class="far"></div>\n<div class="near"></div>',c:'.far, .near {\n  position: fixed; left: 0; right: 0;\n  bottom: -150px; height: 260px;\n}\n.far  { background: #FF8FA3; }\n.near { background: #5B2A5E; }',i:"var far = document.querySelector('.far');\nvar near = document.querySelector('.near');",j:"far.style.transform  = 'translateY(' + -p * "+f(40)+" + 'px)';\nnear.style.transform = 'translateY(' + -p * "+f(150)+" + 'px)';"}}},
+{id:'text',e:'🔤',a:'#B8A6FF',t:'Word-by-word text',k:'Scrub',q:'Scroll and read at your own speed.',w:'Words light up one by one as you scroll, so the reader sets the pace of the story.',tip:'Keep it to a sentence or two. Long passages turn into a chore.',kn:{l:'Softness',u:'',min:1,max:8,v:1},
+ html:'<div class="tall" style="height:1000px"><div class="stick"><p class="sw">'+sent.map(function(w){return'<span>'+w+'</span>'}).join(' ')+'</p></div></div>',
+ on:function(p,b,v){var w=b.querySelectorAll('.sw span');w.forEach(function(e,i){e.style.opacity=.15+.85*cl((p*1.2*w.length-i)/v,0,1)})},
+ code:function(v){return{h:'<p class="t">Words light up as you read</p>',c:'.t {\n  position: fixed; top: 30%;\n  left: 2rem; right: 2rem;\n  font: 800 2.2rem sans-serif;\n}\n.t span { opacity: .15; display: inline-block; margin-right: .3em; }',i:"var el = document.querySelector('.t');\nel.innerHTML = el.textContent.split(' ').map(function (w) {\n  return '<span>' + w + '</span>';\n}).join(' ');\nvar spans = el.children;",j:"for (var i = 0; i < spans.length; i++) {\n  var t = (p * spans.length * 1.2 - i) / "+v+";\n  spans[i].style.opacity = .15 + .85 * Math.min(1, Math.max(0, t));\n}"}}},
+{id:'zoom',e:'🔍',a:'#FFA45C',t:'Scale and zoom',k:'Scrub',q:'Scroll to grow the card. Try a tiny start size.',w:'A small card grows to fill the screen while its corners straighten. It feels like moving into the content.',tip:'Animate transform, not width and height. Scaling is much cheaper.',kn:{l:'Start size',u:'%',min:10,max:90,v:35},
+ html:'<div class="tall" style="height:1000px"><div class="stick"><div class="zc">Zoom</div></div></div>',
+ on:function(p,b,v){var e=1-Math.pow(1-p,3),s=v/100,z=b.querySelector('.zc');z.style.transform='scale('+(s+(1-s)*e)+') rotate('+(-10*(1-e))+'deg)';z.style.borderRadius=(120*(1-e))+'px'},
+ code:function(v){var s=v/100;return{h:'<div class="card">Zoom</div>',c:'.card {\n  position: fixed; inset: 0;\n  display: grid; place-items: center;\n  background: linear-gradient(135deg, #6B2FFF, #FF5FA2);\n  color: #fff; font: 800 3rem sans-serif;\n}',i:"var card = document.querySelector('.card');",j:"var e = 1 - Math.pow(1 - p, 3);\ncard.style.transform = 'scale(' + ("+s+" + "+(1-s).toFixed(2)+" * e) + ')';\ncard.style.borderRadius = 120 * (1 - e) + 'px';"}}},
+{id:'horizontal',e:'↔️',a:'#8BD3FF',t:'Sideways scroll',k:'Scrub',q:'Scroll down and watch the cards slide sideways.',w:'Scrolling down slides a row of cards sideways while the section stays pinned. Then the page carries on.',tip:'Keep the pinned distance short and make each card’s edge visible.',kn:{l:'Card gap',u:'px',min:4,max:48,v:16},
+ html:'<div class="tall" style="height:1100px"><div class="stick"><div class="trk">'+hcs.map(function(c){return'<div class="hc" style="background:'+c[1]+'">'+c[0]+'</div>'}).join('')+'</div></div></div>',
+ on:function(p,b,v){var t=b.querySelector('.trk');t.style.gap=v+'px';t.style.transform='translateX('+(-p*(t.scrollWidth-b.clientWidth))+'px)'},
+ code:function(v){return{h:'<div class="track">\n  <div class="card">1</div>\n  <div class="card">2</div>\n  <div class="card">3</div>\n</div>',c:'.track {\n  position: fixed; top: 30%; left: 0;\n  display: flex; gap: '+v+'px; padding: 0 24px;\n}\n.card {\n  width: 220px; height: 220px; flex: none;\n  border-radius: 22px; background: #D6FF4F;\n}',i:"var track = document.querySelector('.track');",j:"var dist = track.scrollWidth - innerWidth;\ntrack.style.transform = 'translateX(' + -p * dist + 'px)';"}}},
+{id:'path',e:'〰️',a:'#D6FF4F',t:'Line drawing',k:'Scrub',q:'Scroll to draw. Make the line chunky.',w:'A line draws itself as you scroll, with a dot riding the tip. Great for routes, timelines and signatures.',tip:'Set the dash length to the path length, then move the dash offset from full to zero.',kn:{l:'Line width',u:'px',min:3,max:20,v:9},
+ html:'<div class="tall" style="height:1000px"><div class="stick"><svg viewBox="0 0 300 380" style="height:96%"><path id="pp" d="M50 30 C250 40 260 120 150 145 S40 230 150 250 S270 320 150 360" fill="none" stroke="#FF5FA2" stroke-linecap="round"/><circle id="pd" r="13" fill="#6B2FFF"/></svg></div></div>',
+ on:function(p,b,v){var s=b.querySelector('#pp'),l=s.getTotalLength(),q=s.getPointAtLength(l*p),d=b.querySelector('#pd');s.style.strokeWidth=v;s.style.strokeDasharray=l;s.style.strokeDashoffset=l*(1-p);d.setAttribute('cx',q.x);d.setAttribute('cy',q.y);d.setAttribute('r',v+4)},
+ code:function(v){return{h:'<svg viewBox="0 0 300 380" class="s">\n  <path id="path" fill="none" stroke="#FF5FA2" stroke-width="'+v+'" stroke-linecap="round"\n    d="M50 30 C250 40 260 120 150 145 S40 230 150 250 S270 320 150 360"/>\n</svg>',c:'.s {\n  position: fixed; top: 0; height: 100vh;\n  left: 50%; transform: translateX(-50%);\n}',i:"var path = document.getElementById('path');\nvar len = path.getTotalLength();\npath.style.strokeDasharray = len;",j:"path.style.strokeDashoffset = len * (1 - p);"}}},
+{id:'color',e:'🎨',a:'#FF7F9F',t:'Color shift',k:'Scrub',q:'Scroll through the moods. Swap the palette.',w:'The background blends from one color to the next to mark a change of mood or topic.',tip:'Check text contrast across the whole blend, not just the ends.',kn:{l:'Palette',u:'',min:1,max:3,v:1},
+ html:'<div class="tall" style="height:1200px"><div class="stick"><div class="cm"><span>Calm</span></div></div></div>',
+ on:function(p,b,v){var c=PAL[v-1][1],f=p*(c.length-1),i=Math.min(Math.floor(f),c.length-2),e=b.querySelector('.cm');e.style.background=mixC(c[i],c[i+1],f-i);e.firstChild.textContent=['One','Two','Three','Four'][Math.round(f)]},
+ code:function(v){return{h:'<h1>Color shift</h1>',c:'body { margin: 0; transition: none; }\nh1 { position: fixed; top: 40%; left: 2rem; color: #fff; font: 800 4rem sans-serif; }',i:"var colors = ['"+PAL[v-1][1].join("', '")+"'];\nfunction mix(a, b, t) {\n  var x = parseInt(a.slice(1), 16), y = parseInt(b.slice(1), 16), o = [];\n  [16, 8, 0].forEach(function (s) {\n    var u = (x >> s) & 255, w = (y >> s) & 255;\n    o.push(Math.round(u + (w - u) * t));\n  });\n  return 'rgb(' + o.join() + ')';\n}",j:"var f = p * (colors.length - 1);\nvar i = Math.min(Math.floor(f), colors.length - 2);\ndocument.body.style.background = mix(colors[i], colors[i + 1], f - i);"}}},
+{id:'velocity',e:'🏄',a:'#FFE66D',t:'Speed skew',k:'Scrub',q:'Flick the scroll fast, then slow.',w:'Text leans the way you scroll, and the lean grows with speed. Stop and it springs back.',tip:'Cap the angle and switch it off for reduced motion.',kn:{l:'Max skew',u:'°',min:5,max:40,v:20},
+ html:'<div class="tall" style="height:1500px;padding-top:20px">'+['Scroll','fast','and the','words','lean into','the motion','then settle'].map(function(r){return'<div class="sk">'+r+'</div>'}).join('')+'</div>',
+ init:function(b,x){var v=0,last=0,s=b.querySelectorAll('.sk');b.addEventListener('scroll',function(){var d=b.scrollTop-last;last=b.scrollTop;v+=(d-v)*.35;if(b.scrollTop>(b.scrollHeight-b.clientHeight)*.85)x.fd()},{passive:true});(function f(){v*=.92;if(!R){var a=cl(v*.5,-x.kv,x.kv);for(var i=0;i<s.length;i++)s[i].style.transform='skewY('+a+'deg)'}requestAnimationFrame(f)})()},
+ code:function(v){return{pad:1,h:'<h1 class="sk">Scroll fast</h1>',c:'.sk {\n  position: fixed; top: 40%; left: 2rem;\n  font: 800 4rem sans-serif;\n}',j:"var el = document.querySelector('.sk');\nvar vel = 0, last = scrollY;\naddEventListener('scroll', function () {\n  vel += ((scrollY - last) - vel) * .35;\n  last = scrollY;\n});\n(function loop() {\n  vel *= .92;\n  var a = Math.max(-"+v+", Math.min("+v+", vel * .5));\n  el.style.transform = 'skewY(' + a + 'deg)';\n  requestAnimationFrame(loop);\n})();"}}},
+{id:'counters',e:'🔢',a:'#9BE8D0',t:'Count-up numbers',k:'Trigger',q:'Scroll until the numbers show up. Restart for a slower count.',w:'Numbers climb to their value the first time they appear, and a bar fills beside them. It makes a stat feel earned.',tip:'Put the final number in the markup so screen readers get it right away.',kn:{l:'Duration',u:'ms',min:400,max:3000,v:1600},
+ html:'<div class="tall" style="height:1100px;padding-top:40px">'+[['1240','readers this week',100],['98','percent finished the page',98],['12','minutes saved',40]].map(function(x){return'<div class="cn" data-n="'+x[0]+'" data-w="'+x[2]+'"><b>0</b><span>'+x[1]+'</span><i></i></div>'}).join('')+'</div>',
+ init:function(b,x){var o=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;o.unobserve(e.target);var el=e.target,n=+el.dataset.n,s={v:0};anime({targets:el,opacity:1,duration:D(300),easing:'linear'});anime({targets:s,v:n,round:1,duration:D(x.kv),easing:'easeOutExpo',update:function(){el.firstChild.textContent=s.v}});anime({targets:el.querySelector('i'),width:el.dataset.w+'%',duration:D(x.kv),easing:'easeOutExpo'});x.fd()})},{root:b,threshold:.6});b._o=o;b.querySelectorAll('.cn').forEach(function(r){o.observe(r)})},
+ reset:function(b){b.querySelectorAll('.cn').forEach(function(r){r.style.opacity=0;r.firstChild.textContent=0;r.querySelector('i').style.width=0;b._o.observe(r)})},
+ code:function(v){return{h:'<div class="num" data-n="1240">0</div>',c:'.num {\n  margin: 60vh 0;\n  font: 800 4rem sans-serif;\n}',j:"var io = new IntersectionObserver(function (entries) {\n  entries.forEach(function (e) {\n    if (!e.isIntersecting) return;\n    io.unobserve(e.target);\n    var o = { v: 0 };\n    anime({\n      targets: o, v: +e.target.dataset.n, round: 1,\n      duration: "+v+", easing: 'easeOutExpo',\n      update: function () { e.target.textContent = o.v; }\n    });\n  });\n});\nio.observe(document.querySelector('.num'));"}}},
+{id:'steps',e:'🪜',a:'#FFB4A2',t:'Pinned steps',k:'Scrub',q:'Scroll and watch the story change in place.',w:'The section stays pinned while its content swaps step by step. Handy for explaining a process.',tip:'Keep each step short and show progress so people know how many are left.',kn:{l:'Swap speed',u:'ms',min:200,max:1000,v:500},
+ html:'<div class="tall" style="height:1400px"><div class="stick"><div class="stp"><div class="big sn" style="font-size:5.5rem">1</div><h3 class="sx">Plan the story</h3></div></div></div>',
+ on:function(p,b,v){var i=Math.min(3,Math.floor(p*4)),t=['Plan the story','Sketch the moves','Build and tune','Ship it'];if(b._i!==i){b._i=i;b.querySelector('.sn').textContent=i+1;b.querySelector('.sx').textContent=t[i];anime({targets:b.querySelector('.stp'),opacity:[0,1],translateY:[30,0],duration:D(v),easing:'easeOutExpo'})}},
+ code:function(v){return{h:'<div class="step"></div>',c:'.step {\n  position: fixed; inset: 0;\n  display: grid; place-content: center;\n  text-align: center; font: 800 2rem sans-serif;\n}',i:"var steps = ['Plan the story', 'Sketch the moves', 'Build and tune', 'Ship it'];\nvar step = document.querySelector('.step'), cur = -1;",j:"var i = Math.min(steps.length - 1, Math.floor(p * steps.length));\nif (i === cur) return;\ncur = i;\nstep.innerHTML = '<b>' + (i + 1) + '</b><p>' + steps[i] + '</p>';\nanime({ targets: step, opacity: [0, 1], translateY: [30, 0], duration: "+v+" });"}}},
+{id:'marquee',e:'🎠',a:'#C3F0FF',t:'Scroll marquee',k:'Scrub',q:'Scroll and watch the two rows pass each other.',w:'Big text rows slide in opposite directions as you scroll. It adds energy to a quiet section.',tip:'Use few words and large type. Moving text is hard to read when it is small.',kn:{l:'Distance',u:'px',min:100,max:700,v:400},
+ html:'<div class="tall" style="height:1000px"><div class="stick"><div style="width:100%"><div class="r1">Scroll ✺ Scroll ✺ Scroll ✺ Scroll ✺ Scroll ✺ Scroll ✺</div><div class="r2" style="color:#6B2FFF">Move ✺ Move ✺ Move ✺ Move ✺ Move ✺ Move ✺</div></div></div></div>',
+ on:function(p,b,v){b.querySelector('.r1').style.transform='translateX('+(-p*v)+'px)';b.querySelector('.r2').style.transform='translateX('+(p*v-v)+'px)'},
+ code:function(v){return{h:'<div class="row a">Scroll ✺ Scroll ✺ Scroll ✺ Scroll ✺ Scroll ✺</div>\n<div class="row b">Move ✺ Move ✺ Move ✺ Move ✺ Move ✺</div>',c:'.row {\n  position: fixed; left: 0; white-space: nowrap;\n  font: 800 4rem sans-serif;\n}\n.a { top: 25%; }\n.b { top: 50%; color: #6B2FFF; }',i:"var a = document.querySelector('.a');\nvar b = document.querySelector('.b');\nvar D = "+v+";",j:"a.style.transform = 'translateX(' + -p * D + 'px)';\nb.style.transform = 'translateX(' + (p * D - D) + 'px)';"}}},
+{id:'stack',e:'🃏',a:'#FFD9A0',t:'Stacking cards',k:'Scrub',q:'Scroll and watch the cards pile up.',w:'Each card sticks near the top while the next one slides over it. It is pure CSS, with no JavaScript.',tip:'Offset each card’s top a little so the pile stays visible.',kn:{l:'Stack offset',u:'px',min:8,max:40,v:20},
+ html:'<div class="tall" style="height:1500px;padding:20px">'+['One|#FFD400','Two|#FF8CC6','Three|#7CF2C8','Four|#B8A6FF'].map(function(c){c=c.split('|');return'<div class="sc0" style="background:'+c[1]+'">'+c[0]+'</div>'}).join('')+'</div>',
+ on:function(p,b,v){b.querySelectorAll('.sc0').forEach(function(c,i){c.style.top=(14+i*v)+'px'})},
+ code:function(v){return{pad:1,h:'<div class="card">One</div>\n<div class="card">Two</div>\n<div class="card">Three</div>',c:'.card {\n  position: sticky; height: 220px;\n  margin-bottom: 150px; padding: 24px;\n  border-radius: 24px; font: 800 2rem sans-serif;\n}\n.card:nth-child(1) { top: 20px; background: #FFD400; }\n.card:nth-child(2) { top: '+(20+v)+'px; background: #FF8CC6; }\n.card:nth-child(3) { top: '+(20+2*v)+'px; background: #7CF2C8; }',j:'// No JavaScript needed. position: sticky does the work.'}}},
+{id:'snap',e:'🧲',a:'#E0C3FF',t:'Scroll snap',k:'Scrub',q:'Scroll gently and feel each panel lock in.',w:'The browser snaps the scroll to the nearest panel, like turning pages. It needs just two lines of CSS.',tip:'Strict snapping can fight long content. Use it only for panels that fit on one screen.',kn:{l:'Snap (1 loose, 2 strict)',u:'',min:1,max:2,v:2},
+ html:'<div class="tall" style="height:1600px">'+['One|#FFD400','Two|#7CF2C8','Three|#FF8CC6','Four|#B8A6FF'].map(function(c){c=c.split('|');return'<div class="sn1" style="background:'+c[1]+'">'+c[0]+'</div>'}).join('')+'</div>',
+ on:function(p,b,v){b.style.scrollSnapType=v===2?'y mandatory':'y proximity'},
+ code:function(v){return{h:'<section>One</section>\n<section>Two</section>\n<section>Three</section>',c:'html { scroll-snap-type: y '+(v===2?'mandatory':'proximity')+'; }\nsection {\n  height: 100vh; scroll-snap-align: start;\n  display: grid; place-items: center;\n  font: 800 3rem sans-serif;\n}',j:'// No JavaScript needed. Two lines of CSS do it.'}}}
+];
+
+/* confetti + stickers */
+var CF=['#FFD400','#FF5FA2','#7CF2C8','#6B2FFF','#FF7A1A'];
+function burst(x,y,n){if(R)return;for(var i=0;i<n;i++){var d=document.createElement('div');d.className='cf';d.style.background=CF[i%5];d.style.borderRadius=i%2?'50%':'3px';d.style.left=x+'px';d.style.top=y+'px';document.body.appendChild(d);
+  anime({targets:d,translateX:(Math.random()-.5)*320,translateY:[{value:-(80+Math.random()*160),duration:380,easing:'easeOutQuad'},{value:120,duration:520,easing:'easeInQuad'}],rotate:Math.random()*720,opacity:[1,0],duration:900,easing:'linear',complete:function(a){a.animatables[0].target.remove()}})}}
+var tray=$('tray'),fdd={s:[],m:[]},mode='s',LS={},stk=[],cnt=document.createElement('span');cnt.id='cnt';
+function nfd(m){return fdd[m].filter(Boolean).length}
+function paint(i,anim){var s=stk[i],x=LS[mode][i];s.textContent=x.e;s.style.background=x.a;s.style.borderStyle='solid';if(anim)anime({targets:s,scale:[0,1.6,1],rotate:[-40,0],duration:D(900),easing:'easeOutElastic(1,.6)'})}
+function drawTray(){tray.innerHTML='';stk=[];LS[mode].forEach(function(x,i){var s=document.createElement('span');s.className='st';s.title=x.t;tray.appendChild(s);stk.push(s);if(fdd[mode][i])paint(i,false)});tray.appendChild(cnt);cnt.textContent=nfd(mode)+'/'+LS[mode].length+' found'}
+function found(m,i){if(fdd[m][i])return;fdd[m][i]=1;if(m!==mode)return;paint(i,true);cnt.textContent=nfd(m)+'/'+LS[m].length+' found';var r=stk[i].getBoundingClientRect();burst(r.left+14,r.top+14,16);
+  if(nfd(m)===LS[m].length){var w=$('win');w.textContent='You found all '+LS[m].length+'! Go steal some code.';anime({targets:w,translateY:['200%','0%'],duration:D(900),easing:'easeOutElastic(1,.7)'});setTimeout(function(){anime({targets:w,translateY:'200%',duration:D(500),easing:'easeInQuad'})},4500)}}
+
+/* code drawer */
+function e(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function hl(l){var re=/(\/\/.*|<!--.*?-->)|('(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*")|\b(var|function|return|new|if|else)\b|(\b\d+(?:\.\d+)?\b)|(<\/?[a-z][a-z0-9]*|\/?>)/gi,o='',i=0,m;
+  while((m=re.exec(l))){o+=e(l.slice(i,m.index))+'<span class="t'+(m[1]?'c':m[2]?'s':m[3]?'k':m[4]?'n':'g')+'">'+e(m[0])+'</span>';i=re.lastIndex}return o+e(l.slice(i))}
+function files(x){var c=x.code(x.kv),j=c.i!==undefined?c.i+"\naddEventListener('scroll', function () {\n  var p = scrollY / (document.documentElement.scrollHeight - innerHeight);\n"+c.j.split('\n').map(function(l){return'  '+l}).join('\n')+'\n});':c.j;return{h:c.h,c:c.c,j:j,pad:c.i!==undefined||c.pad,ctr:c.ctr}}
+function page(x,f){return'<!doctype html>\n<html>\n<head>\n<meta charset="utf-8">\n<title>'+x.t+'</title>\n<style>\nbody { margin: 0; font-family: system-ui, sans-serif; }'+(f.pad?'\n.pad { height: 400vh; }':'')+(f.ctr?'\nbody { display: grid; place-items: center; height: 100vh; }':'')+'\n'+f.c+'\n</style>\n</head>\n<body>\n'+f.h+(f.pad?'\n<div class="pad"></div>':'')+'\n<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"><\/script>\n<script>\n'+f.j+'\n<\/script>\n</body>\n</html>'}
+var dr=$('dr'),ov=$('ov'),pre=$('pre'),tbs=document.querySelectorAll('#tb button'),cur,F,tab='j',opener;
+function show(t){tab=t;tbs.forEach(function(b){b.setAttribute('aria-selected',b.dataset.t===t)});var L=F[t].split('\n');pre.innerHTML=L.map(function(l){return'<span class="ln">'+hl(l)+'</span>'}).join('');pre.scrollTop=0;
+  anime({targets:'#pre .ln',opacity:[0,1],translateX:[40,0],duration:D(500),delay:anime.stagger(D(Math.min(30,700/L.length))),easing:'easeOutExpo'})}
+function open(x,btn){cur=x;opener=btn;F=files(x);$('dt').textContent=x.t;dr.setAttribute('aria-hidden','false');ov.style.pointerEvents='auto';
+  anime({targets:ov,opacity:1,duration:D(300),easing:'linear'});anime({targets:dr,translateX:['110%','0%'],duration:D(1000),easing:'easeOutElastic(1,.75)'});show('j');setTimeout(function(){$('dx').focus()},50)}
+function close(){dr.setAttribute('aria-hidden','true');ov.style.pointerEvents='none';anime({targets:ov,opacity:0,duration:D(250),easing:'linear'});anime({targets:dr,translateX:'110%',duration:D(450),easing:'easeInBack'});opener&&opener.focus()}
+$('dx').onclick=close;ov.onclick=close;addEventListener('keydown',function(ev){if(ev.key==='Escape'&&dr.getAttribute('aria-hidden')==='false')close()});
+tbs.forEach(function(b){b.onclick=function(){show(b.dataset.t)}});
+function copy(txt,btn,lbl){var done=function(m){btn.textContent=m;anime({targets:btn,scale:[1,1.15,1],rotate:[0,-3,0],duration:D(450),easing:'easeOutBack'});var r=btn.getBoundingClientRect();if(m==='Copied!')burst(r.left+r.width/2,r.top,14);setTimeout(function(){btn.textContent=lbl},1600)};
+  var fb=function(){try{var t=document.createElement('textarea');t.value=txt;t.style.position='fixed';t.style.opacity=0;document.body.appendChild(t);t.select();var ok=document.execCommand('copy');t.remove();done(ok?'Copied!':'Select and copy')}catch(x){done('Select and copy')}};
+  try{navigator.clipboard.writeText(txt).then(function(){done('Copied!')},fb)}catch(x){fb()}}
+$('c1').onclick=function(){copy(F[tab],this,'Copy this tab')};
+$('c2').onclick=function(){copy(page(cur,F),this,'Copy full page')};
+
+/* motion lab list */
+var M=[
+{id:'magnet',e:'🧲',a:'#FFD400',t:'Magnetic button',k:'Hover',q:'Bring your cursor near the button, then crank the pull.',w:'The button leans toward your cursor before you touch it. It makes a call to action feel alive.',tip:'Keep the pull small on buttons people need to hit precisely.',kn:{l:'Pull',u:'%',min:10,max:60,v:35},
+ html:'<div class="mz"><span class="wrap"><button class="mg">Come closer</button></span></div>',
+ init:function(b,x){var z=b.querySelector('.mz'),w=b.querySelector('.wrap'),g=b.querySelector('.mg');z.addEventListener('pointermove',function(e){var r=w.getBoundingClientRect(),dx=e.clientX-(r.left+r.width/2),dy=e.clientY-(r.top+r.height/2);if(Math.hypot(dx,dy)<190){g.style.transition='transform .1s';g.style.transform='translate('+dx*x.kv/100+'px,'+dy*x.kv/100+'px)';x.fd()}else{g.style.transition='transform .7s cubic-bezier(.3,1.8,.5,1)';g.style.transform=''}});z.addEventListener('pointerleave',function(){g.style.transition='transform .7s cubic-bezier(.3,1.8,.5,1)';g.style.transform=''})},
+ code:function(v){return{ctr:1,h:'<span class="wrap"><button class="mg">Come closer</button></span>',c:'.wrap { display: inline-block; }\n.mg {\n  background: #1B1140; color: #fff; border: 0;\n  border-radius: 99px; padding: 22px 44px;\n  font: 800 1.6rem sans-serif;\n}',j:"var wrap = document.querySelector('.wrap');\nvar btn = document.querySelector('.mg');\naddEventListener('pointermove', function (e) {\n  var r = wrap.getBoundingClientRect();\n  var dx = e.clientX - (r.left + r.width / 2);\n  var dy = e.clientY - (r.top + r.height / 2);\n  if (Math.hypot(dx, dy) < 190) {\n    btn.style.transition = 'transform .1s';\n    btn.style.transform =\n      'translate(' + dx * "+(v/100)+" + 'px,' + dy * "+(v/100)+" + 'px)';\n  } else {\n    btn.style.transition = 'transform .7s cubic-bezier(.3,1.8,.5,1)';\n    btn.style.transform = '';\n  }\n});"}}},
+{id:'tilt',e:'🃏',a:'#FF8CC6',t:'3D tilt card',k:'Hover',q:'Slide your cursor across the card.',w:'The card turns toward the pointer with a little perspective, then springs flat when you leave.',tip:'Limit the angle. Past about 15 degrees text gets hard to read.',kn:{l:'Tilt',u:'°',min:4,max:30,v:14},
+ html:'<div class="mz"><div class="tl">Tilt me</div></div>',
+ init:function(b,x){var c=b.querySelector('.tl');c.addEventListener('pointermove',function(e){var r=c.getBoundingClientRect(),px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5;c.style.transition='transform .1s';c.style.transform='perspective(700px) rotateX('+(-py*x.kv*2)+'deg) rotateY('+(px*x.kv*2)+'deg)';x.fd()});c.addEventListener('pointerleave',function(){c.style.transition='transform .6s cubic-bezier(.3,1.6,.5,1)';c.style.transform=''})},
+ code:function(v){return{ctr:1,h:'<div class="card">Tilt me</div>',c:'.card {\n  width: 210px; height: 270px; border-radius: 26px;\n  display: grid; place-items: center;\n  background: linear-gradient(135deg, #6B2FFF, #FF5FA2);\n  color: #fff; font: 800 2rem sans-serif;\n}',j:"var card = document.querySelector('.card');\ncard.addEventListener('pointermove', function (e) {\n  var r = card.getBoundingClientRect();\n  var x = (e.clientX - r.left) / r.width - .5;\n  var y = (e.clientY - r.top) / r.height - .5;\n  card.style.transition = 'transform .1s';\n  card.style.transform = 'perspective(700px) rotateX(' + -y * "+(v*2)+" + 'deg) rotateY(' + x * "+(v*2)+" + 'deg)';\n});\ncard.addEventListener('pointerleave', function () {\n  card.style.transition = 'transform .6s cubic-bezier(.3,1.6,.5,1)';\n  card.style.transform = '';\n});"}}},
+{id:'trail',e:'🌈',a:'#7CF2C8',t:'Cursor trail',k:'Move',q:'Wiggle your mouse around the box.',w:'Little dots spawn under the cursor and shrink away, leaving a colorful trail.',tip:'Remove dots when they finish. Leaving them in the page slows everything down.',kn:{l:'Dot size',u:'px',min:8,max:40,v:20},
+ html:'<div class="mz"><span style="font-weight:800;opacity:.5">Move your mouse here</span></div>',
+ init:function(b,x){var z=b.querySelector('.mz'),n=0,lx=-99,ly=-99,K=['#FFD400','#FF5FA2','#7CF2C8','#6B2FFF'];z.addEventListener('pointermove',function(e){var r=z.getBoundingClientRect(),px=e.clientX-r.left,py=e.clientY-r.top;if(Math.hypot(px-lx,py-ly)<10)return;lx=px;ly=py;var d=document.createElement('i'),S=x.kv/2;d.className='td';d.style.cssText='left:'+px+'px;top:'+py+'px;width:'+x.kv+'px;height:'+x.kv+'px;margin:-'+S+'px 0 0 -'+S+'px;background:'+K[n%4];z.appendChild(d);anime({targets:d,scale:[1,0],opacity:[1,0],translateY:-24,duration:D(800),easing:'easeOutQuad',complete:function(){d.remove()}});if(++n>12)x.fd()})},
+ code:function(v){return{h:'<p>Move your mouse</p>',c:'.dot {\n  position: fixed; pointer-events: none;\n  width: '+v+'px; height: '+v+'px; border-radius: 50%;\n  margin: -'+v/2+'px 0 0 -'+v/2+'px;\n}',j:"var colors = ['#FFD400', '#FF5FA2', '#7CF2C8', '#6B2FFF'], n = 0;\naddEventListener('pointermove', function (e) {\n  var d = document.createElement('i');\n  d.className = 'dot';\n  d.style.left = e.clientX + 'px';\n  d.style.top = e.clientY + 'px';\n  d.style.background = colors[n++ % 4];\n  document.body.appendChild(d);\n  anime({\n    targets: d, scale: [1, 0], opacity: [1, 0], translateY: -24,\n    duration: 800, easing: 'easeOutQuad',\n    complete: function () { d.remove(); }\n  });\n});"}}},
+{id:'scramble',e:'🔡',a:'#B8A6FF',t:'Text scramble',k:'Hover',q:'Hover the text, then slow the scramble down.',w:'Letters flicker through random characters and settle one by one. It gives headings a techy feel.',tip:'Keep the final text in the markup so search engines and screen readers see it.',kn:{l:'Frames per letter',u:'',min:1,max:6,v:2},
+ html:'<div class="mz"><h3 class="scr" tabindex="0">Hover to scramble</h3></div>',
+ init:function(b,x){var el=b.querySelector('.scr'),f=el.textContent,ch='!<>-_/[]{}=+*^?#',run=function(){if(R)return;clearInterval(el._t);var n=0;el._t=setInterval(function(){el.textContent=f.split('').map(function(c,i){return c===' '||n>i*x.kv?c:ch[Math.floor(Math.random()*ch.length)]}).join('');if(++n>f.length*x.kv+x.kv){clearInterval(el._t);el.textContent=f}},30);x.fd()};el.addEventListener('pointerenter',run);el.addEventListener('focus',run)},
+ code:function(v){return{ctr:1,h:'<h1 class="s" tabindex="0">Hover to scramble</h1>',c:'.s { font: 800 2.4rem sans-serif; cursor: pointer; }',j:"var el = document.querySelector('.s');\nvar final = el.textContent, chars = '!<>-_/[]{}=+*^?#', timer;\nfunction run() {\n  clearInterval(timer);\n  var n = 0;\n  timer = setInterval(function () {\n    el.textContent = final.split('').map(function (c, i) {\n      if (c === ' ' || n > i * "+v+") return c;\n      return chars[Math.floor(Math.random() * chars.length)];\n    }).join('');\n    if (++n > final.length * "+v+" + "+v+") {\n      clearInterval(timer);\n      el.textContent = final;\n    }\n  }, 30);\n}\nel.addEventListener('pointerenter', run);"}}},
+{id:'ripple',e:'🌊',a:'#FFA45C',t:'Ripple grid',k:'Click',q:'Click any dot and watch the wave spread.',w:'A click sends a wave through a grid, each dot reacting a moment after its neighbor. Stagger does the work.',tip:'Use anime.stagger with the grid option. It calculates distances for you.',kn:{l:'Wave delay',u:'ms',min:10,max:100,v:45},
+ html:'<div class="mz"><div class="gd"></div></div>',
+ init:function(b,x){var g=b.querySelector('.gd'),h='';for(var i=0;i<40;i++)h+='<button class="gp" aria-label="Ripple"></button>';g.innerHTML=h;var d=g.children;[].forEach.call(d,function(p,i){p.addEventListener('click',function(){anime({targets:d,scale:[{value:1.9,duration:180},{value:1,duration:420}],backgroundColor:[{value:'#FF5FA2',duration:180},{value:'#1B1140',duration:420}],delay:anime.stagger(D(x.kv),{grid:[8,5],from:i}),easing:'easeOutQuad'});x.fd()})})},
+ code:function(v){return{h:'<div class="grid"></div>',c:'.grid {\n  display: grid; gap: 12px; padding: 24px;\n  grid-template-columns: repeat(8, 1fr);\n}\n.grid button {\n  aspect-ratio: 1; border: 0; padding: 0;\n  border-radius: 50%; background: #1B1140;\n}',j:"var grid = document.querySelector('.grid');\nfor (var i = 0; i < 40; i++) grid.innerHTML += '<button></button>';\nvar dots = grid.children;\n[].forEach.call(dots, function (dot, i) {\n  dot.addEventListener('click', function () {\n    anime({\n      targets: dots,\n      scale: [{ value: 1.9, duration: 180 }, { value: 1, duration: 420 }],\n      backgroundColor: [{ value: '#FF5FA2', duration: 180 }, { value: '#1B1140', duration: 420 }],\n      delay: anime.stagger("+v+", { grid: [8, 5], from: i }),\n      easing: 'easeOutQuad'\n    });\n  });\n});"}}},
+{id:'drag',e:'🏀',a:'#FFE66D',t:'Spring drag',k:'Drag',q:'Drag the ball, let go and feel it snap back.',w:'You can fling an element around and it springs back home when released. Elastic easing makes it feel physical.',tip:'Set touch-action to none on the draggable so phones don’t scroll instead.',kn:{l:'Bounciness',u:'',min:1,max:10,v:6},
+ html:'<div class="mz"><div class="bl" tabindex="0">Drag me</div></div>',
+ init:function(b,x){var e=b.querySelector('.bl'),sx,sy,dx=0,dy=0,dn=false;e.addEventListener('pointerdown',function(ev){dn=true;anime.remove(e);sx=ev.clientX-dx;sy=ev.clientY-dy;e.setPointerCapture(ev.pointerId);e.style.cursor='grabbing'});e.addEventListener('pointermove',function(ev){if(!dn)return;dx=ev.clientX-sx;dy=ev.clientY-sy;e.style.transform='translate('+dx+'px,'+dy+'px)'});e.addEventListener('pointerup',function(){if(!dn)return;dn=false;e.style.cursor='';var o={x:dx,y:dy};anime({targets:o,x:0,y:0,duration:D(1500),easing:'easeOutElastic(1,'+(0.9-x.kv*.07).toFixed(2)+')',update:function(){dx=o.x;dy=o.y;e.style.transform='translate('+dx+'px,'+dy+'px)'}});x.fd()})},
+ code:function(v){return{ctr:1,h:'<div class="ball">Drag me</div>',c:'.ball {\n  width: 120px; height: 120px; border-radius: 50%;\n  display: grid; place-items: center; background: #FFD400;\n  font: 800 1.3rem sans-serif; touch-action: none; cursor: grab;\n}',j:"var el = document.querySelector('.ball');\nvar sx, sy, dx = 0, dy = 0, down = false;\nel.addEventListener('pointerdown', function (e) {\n  down = true; anime.remove(el);\n  sx = e.clientX - dx; sy = e.clientY - dy;\n  el.setPointerCapture(e.pointerId);\n});\nel.addEventListener('pointermove', function (e) {\n  if (!down) return;\n  dx = e.clientX - sx; dy = e.clientY - sy;\n  el.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';\n});\nel.addEventListener('pointerup', function () {\n  down = false;\n  var o = { x: dx, y: dy };\n  anime({\n    targets: o, x: 0, y: 0, duration: 1500,\n    easing: 'easeOutElastic(1,"+(0.9-v*.07).toFixed(2)+")',\n    update: function () {\n      dx = o.x; dy = o.y;\n      el.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';\n    }\n  });\n});"}}},
+{id:'morph',e:'🫧',a:'#FF7F9F',t:'Blob morph',k:'Click',q:'Click the blob and slow the morph down.',w:'A shape melts into another one. Paths morph smoothly when they have the same number of points.',tip:'Draw every shape with the same commands, or the morph will jump.',kn:{l:'Morph time',u:'ms',min:300,max:2000,v:900},
+ html:'<div class="mz"><button class="mb" aria-label="Morph the blob"><svg viewBox="0 0 200 200"><path d="M100 20C150 20 180 55 180 100C180 150 145 180 100 180C55 180 20 150 20 100C20 55 50 20 100 20Z" fill="#FF5FA2" stroke="#1B1140" stroke-width="4"/></svg></button></div>',
+ init:function(b,x){var p=b.querySelector('path'),i=0,B=['M100 20C150 20 180 55 180 100C180 150 145 180 100 180C55 180 20 150 20 100C20 55 50 20 100 20Z','M110 15C165 30 190 70 175 115C160 160 130 190 85 175C40 160 10 125 25 80C40 35 65 0 110 15Z','M100 30C130 10 185 45 170 95C160 130 190 165 140 180C95 195 60 170 35 140C10 110 40 60 60 45C75 35 85 40 100 30Z'],K=['#FF5FA2','#7CF2C8','#FFD400'];b.querySelector('.mb').addEventListener('click',function(){i=(i+1)%3;anime({targets:p,d:B[i],fill:K[i],duration:D(x.kv),easing:'easeOutElastic(1,.7)'});x.fd()})},
+ code:function(v){return{ctr:1,h:'<svg viewBox="0 0 200 200" width="260" id="s">\n  <path id="blob" fill="#FF5FA2" stroke="#1B1140" stroke-width="4"\n    d="M100 20C150 20 180 55 180 100C180 150 145 180 100 180C55 180 20 150 20 100C20 55 50 20 100 20Z"/>\n</svg>',c:'#s { cursor: pointer; }',j:"var blob = document.getElementById('blob'), i = 0;\nvar shapes = [\n  'M100 20C150 20 180 55 180 100C180 150 145 180 100 180C55 180 20 150 20 100C20 55 50 20 100 20Z',\n  'M110 15C165 30 190 70 175 115C160 160 130 190 85 175C40 160 10 125 25 80C40 35 65 0 110 15Z',\n  'M100 30C130 10 185 45 170 95C160 130 190 165 140 180C95 195 60 170 35 140C10 110 40 60 60 45C75 35 85 40 100 30Z'\n];\ndocument.getElementById('s').addEventListener('click', function () {\n  i = (i + 1) % shapes.length;\n  anime({ targets: blob, d: shapes[i], duration: "+v+", easing: 'easeOutElastic(1,.7)' });\n});"}}},
+{id:'like',e:'💖',a:'#9BE8D0',t:'Like burst',k:'Click',q:'Tap the heart, then add more particles.',w:'A tiny celebration when someone likes something: a squishy pop and a ring of particles.',tip:'Keep it under a second. People will tap this many times.',kn:{l:'Particles',u:'',min:6,max:24,v:12},
+ html:'<div class="mz"><button class="hb" aria-pressed="false" aria-label="Like">♥</button></div>',
+ init:function(b,x){var h=b.querySelector('.hb'),z=b.querySelector('.mz');h.addEventListener('click',function(){var on=h.getAttribute('aria-pressed')!=='true';h.setAttribute('aria-pressed',on);h.style.color=on?'#FF5FA2':'#1B1140';anime({targets:h,scale:[.7,1.25,1],duration:D(700),easing:'easeOutElastic(1,.5)'});if(on){var r=h.getBoundingClientRect(),zr=z.getBoundingClientRect(),cx=r.left-zr.left+r.width/2,cy=r.top-zr.top+r.height/2,K=['#FFD400','#FF5FA2','#7CF2C8','#6B2FFF'];for(var i=0;i<x.kv;i++){var d=document.createElement('i'),a=i/x.kv*6.283;d.className='td';d.style.cssText='left:'+cx+'px;top:'+cy+'px;width:12px;height:12px;margin:-6px;background:'+K[i%4];z.appendChild(d);anime({targets:d,translateX:Math.cos(a)*(80+Math.random()*30),translateY:Math.sin(a)*(80+Math.random()*30),scale:[1,0],opacity:[1,0],duration:D(800),easing:'easeOutExpo',complete:function(an){an.animatables[0].target.remove()}})}}x.fd()})},
+ code:function(v){return{ctr:1,h:'<button class="like" aria-pressed="false">♥</button>',c:'.like {\n  width: 110px; height: 110px; border-radius: 50%;\n  border: 4px solid #1B1140; background: #fff;\n  font-size: 3rem; cursor: pointer; position: relative;\n}\n.p { position: fixed; width: 12px; height: 12px; margin: -6px; border-radius: 50%; }',j:"var btn = document.querySelector('.like');\nbtn.addEventListener('click', function () {\n  var on = btn.getAttribute('aria-pressed') !== 'true';\n  btn.setAttribute('aria-pressed', on);\n  btn.style.color = on ? '#FF5FA2' : '#1B1140';\n  anime({ targets: btn, scale: [.7, 1.25, 1], duration: 700, easing: 'easeOutElastic(1,.5)' });\n  if (!on) return;\n  var r = btn.getBoundingClientRect();\n  for (var i = 0; i < "+v+"; i++) {\n    var a = i / "+v+" * Math.PI * 2, d = document.createElement('i');\n    d.className = 'p';\n    d.style.left = r.left + r.width / 2 + 'px';\n    d.style.top = r.top + r.height / 2 + 'px';\n    d.style.background = ['#FFD400', '#FF5FA2', '#7CF2C8'][i % 3];\n    document.body.appendChild(d);\n    anime({\n      targets: d, translateX: Math.cos(a) * 90, translateY: Math.sin(a) * 90,\n      scale: [1, 0], opacity: [1, 0], duration: 800, easing: 'easeOutExpo',\n      complete: function (an) { an.animatables[0].target.remove(); }\n    });\n  }\n});"}}},
+{id:'spot',e:'🔦',a:'#FFB4A2',t:'Spotlight card',k:'Hover',q:'Sweep the light across the card.',w:'A soft glow follows the pointer inside a card. Two CSS variables and one listener are all it needs.',tip:'Set the light with CSS variables so you only update two numbers per move.',kn:{l:'Light size',u:'px',min:60,max:300,v:140},
+ html:'<div class="mz"><div class="sp">Move over me</div></div>',
+ init:function(b,x){var s=b.querySelector('.sp');x.rs=function(){s.style.setProperty('--r',x.kv+'px')};x.rs();s.addEventListener('pointermove',function(e){var r=s.getBoundingClientRect();s.style.setProperty('--x',e.clientX-r.left+'px');s.style.setProperty('--y',e.clientY-r.top+'px');x.fd()})},
+ code:function(v){return{ctr:1,h:'<div class="card">Move over me</div>',c:'.card {\n  width: 320px; height: 220px; border-radius: 26px;\n  display: grid; place-items: center;\n  color: #fff; font: 800 2rem sans-serif;\n  background: radial-gradient(circle '+v+'px at var(--x, 50%) var(--y, 50%),\n    rgba(255, 95, 162, .95), #1B1140 75%);\n}',j:"var card = document.querySelector('.card');\ncard.addEventListener('pointermove', function (e) {\n  var r = card.getBoundingClientRect();\n  card.style.setProperty('--x', e.clientX - r.left + 'px');\n  card.style.setProperty('--y', e.clientY - r.top + 'px');\n});"}}}
+];
+
+/* chapters */
+var idx=$('idx'),hostS=$('chs'),hostM=$('chm'),built={s:0,m:0},h1=$('h1'),hp=$('hp');
+LS.s=C;LS.m=M;
+function build(list,host,m){list.forEach(function(x,i){
+  x.kv=x.kn.v;x.fd=function(){found(m,i)};
+  var s=document.createElement('section');s.className='ch';s.id=x.id;s.style.setProperty('--a',x.a);
+  s.innerHTML='<div><span class="chip">'+x.k+'</span><h2>'+x.e+' '+x.t+'</h2><p>'+x.w+'</p><p class="q">'+x.q+'</p><p class="tip" style="margin-top:14px">'+x.tip+'</p></div><div><div class="demo" tabindex="0" aria-label="Interactive demo: '+x.t+'">'+x.html+'</div><div class="dock"><label class="kn">'+x.kn.l+'<input type="range" min="'+x.kn.min+'" max="'+x.kn.max+'" value="'+x.kn.v+'"><b>'+x.kn.v+x.kn.u+'</b></label><span><button class="bt rs">Restart</button> <button class="bt key">🔑 Extract code</button></span></div></div>';
+  host.appendChild(s);
+  var b=s.querySelector('.demo'),inp=s.querySelector('input'),rd=s.querySelector('.kn b');
+  var upd=function(){var mx=b.scrollHeight-b.clientHeight,p=mx>0?b.scrollTop/mx:0;if(x.on){x.on(p,b,x.kv);if(mx>0&&p>.92)found(m,i)}};
+  b.addEventListener('scroll',upd,{passive:true});
+  inp.addEventListener('input',function(){x.kv=+inp.value;rd.textContent=x.kn.l==='Palette'?PAL[x.kv-1][0]:x.kv+x.kn.u;x.rs&&x.rs();upd()});
+  if(x.kn.l==='Palette')rd.textContent=PAL[0][0];
+  if(x.init)x.init(b,x);upd();
+  s.querySelector('.rs').onclick=function(){b.scrollTo({top:0,behavior:R?'auto':'smooth'});x.reset&&setTimeout(function(){x.reset(b)},R?0:500)};
+  s.querySelector('.key').onclick=function(){open(x,this)}})}
+function setHero(m){
+  var t=m==='s'?'Scroll it. Poke it. Steal the code.':'Hover it. Drag it. Steal the code.';
+  h1.setAttribute('aria-label',t);
+  h1.innerHTML=t.split(' ').map(function(w,wi){return'<span class="wd" aria-hidden="true" style="color:'+['var(--fg)','var(--grape)','var(--pink)','var(--fg)','var(--grape)','var(--pink)'][wi%6]+'">'+w.split('').map(function(c){return'<span class="lt">'+c+'</span>'}).join('')+'</span> '}).join('');
+  hp.textContent=m==='s'?LS.s.length+' scroll effects to play with. Scroll the boxes, twist the knobs, collect a sticker for each one, then grab the code.':LS.m.length+' motion tricks to play with. Move, drag and click, twist the knobs, collect a sticker for each one, then grab the code.';
+  idx.innerHTML='';LS[m].forEach(function(x){var a=document.createElement('a');a.href='#'+x.id;a.style.setProperty('--a',x.a);a.textContent=x.e+' '+x.t;idx.appendChild(a)});
+  anime({targets:'#h1 .lt',translateY:[80,0],opacity:[0,1],rotate:[function(){return anime.random(-20,20)},0],duration:D(1100),delay:anime.stagger(D(28)),easing:'easeOutElastic(1,.7)'})}
+h1.addEventListener('pointerover',function(ev){var t=ev.target;if(t.classList.contains('lt')&&!t._b){t._b=1;anime({targets:t,translateY:[0,-26,0],rotate:[0,anime.random(-25,25),0],scale:[1,1.25,1],duration:D(700),easing:'easeOutElastic(1,.6)',complete:function(){t._b=0}})}});
+var hero=$('hero'),shp=hero.querySelectorAll('.sh');
+hero.addEventListener('pointermove',function(ev){if(R)return;var r=hero.getBoundingClientRect(),x=(ev.clientX-r.left)/r.width-.5,y=(ev.clientY-r.top)/r.height-.5;shp.forEach(function(s){var z=+s.dataset.z;s.style.translate=(x*z*3)+'px '+(y*z*3)+'px'})});
+shp.forEach(function(s){s.addEventListener('click',function(ev){anime.remove(s);anime({targets:s,scale:[1,1.35,.9,1],rotate:'+='+anime.random(-90,90),duration:D(900),easing:'easeOutElastic(1,.5)'});burst(ev.clientX,ev.clientY,12)})});
+build(C,hostS,'s');built.s=1;drawTray();setHero('s');
+
+/* switch between Scroll Lab and Motion Lab */
+var sw=$('sw'),mn=sw.querySelector('.mn'),sb=sw.querySelector('.sb'),wp=$('wp'),busy=false;
+function swap(m){mode=m;hostS.style.display=m==='s'?'':'none';hostM.style.display=m==='m'?'':'none';
+  if(m==='m'&&!built.m){build(M,hostM,'m');built.m=1}
+  mn.textContent=m==='s'?'Scroll Lab':'Motion Lab';sb.textContent=m==='s'?'Motion Lab':'Scroll Lab';
+  sw.setAttribute('aria-label','Switch to '+sb.textContent);sw.title='Switch to '+sb.textContent;document.title=mn.textContent+' – poke it, then steal the code';
+  document.documentElement.style.setProperty('--brand',m==='s'?'var(--grape)':'#E0338A');
+  scrollTo(0,0);drawTray();setHero(m)}
+sw.onclick=function(){if(busy)return;busy=true;var m=mode==='s'?'m':'s',r=sw.getBoundingClientRect(),cx=Math.round(r.left+40),cy=Math.round(r.top+20),c1='circle(0px at '+cx+'px '+cy+'px)',c2='circle(150% at '+cx+'px '+cy+'px)';
+  wp.style.background=m==='m'?'#FF5FA2':'#6B2FFF';wp.style.pointerEvents='auto';
+  anime({targets:wp,clipPath:[c1,c2],duration:D(600),easing:'easeInQuad',complete:function(){swap(m);anime({targets:wp,clipPath:[c2,c1],duration:D(650),easing:'easeOutQuad',complete:function(){wp.style.pointerEvents='none';busy=false}})}})};
+})();
+</script>
+</body>
+</html>

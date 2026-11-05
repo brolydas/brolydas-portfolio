@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Broly Das - Distinct Always · UI/UX · Motion · Creative Development</title>
+  <meta name="description" content="Portfolio of Broly Das - UI/UX Designer, Motion Specialist & Creative Technologist. Replicating the bold, distinct design language of 1minus1 in Navy & Gold." />
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Vendor Libraries: Three.js for 3D Background, Lenis for Smooth Scroll -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+</head>
+<body class="home-page">
+  <!-- Ambient Atmospheric Lighting (Navy & Gold System) -->
+  <div class="ambient-glow ambient-glow-1"></div>
+  <div class="ambient-glow ambient-glow-2"></div>
+
+  <!-- Three.js 3D Interactive WebGL Undulating Grid Canvas (1minus1 style) -->
+  <canvas id="webglCanvas"></canvas>
+
+  <!-- Minimal Gold Cursor Dot (No Motion Trail) -->
+  <div class="custom-cursor" id="customCursor"></div>
+
+  <!-- 1MINUS1 HEADER & NAVBAR -->
+  <header class="site-header">
+    <a href="/" class="header-brand">
+      BROLY DAS <span>✦</span>
+    </a>
+
+    <!-- Pill Nav: WORK links to /work, SERVICES links to /services -->
+    <nav class="nav-pill-container" aria-label="Main Navigation">
+      <a href="/work" class="nav-pill-link">Work</a>
+      <a href="/services" class="nav-pill-link">Services</a>
+      <a href="#contact" class="nav-pill-link contact-pill">Contact</a>
+    </nav>
+
+    <div class="header-meta">
+      <div class="status-pill" style="display: flex; align-items: center; gap: 8px; font-family: var(--font-display); font-size: 0.78rem; color: var(--accent-steel);">
+        <span class="status-dot" style="width: 8px; height: 8px; border-radius: 50%; background: var(--accent-gold); box-shadow: 0 0 8px var(--accent-gold);"></span>
+        <span > AVAILABLE FOR WORK</span>
+        <!-- <script>
+          const updateHeaderTime = () => {
+            const time = new Intl.DateTimeFormat('en-IN', {
+              timeZone: 'Asia/Kolkata',
+              hour: '2-digit',
+              minute: '2-digit',
+              hour12: false
+            }).format(new Date());
+            document.getElementById('headerTimeTicker').textContent = `IST ${time} · AVAILABLE FOR WORK`;
+          };
+          updateHeaderTime();
+          setInterval(updateHeaderTime, 60000); -->
+        <!-- </script> -->
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ======================================================================
+         BENTO BLUEPRINT HERO SYSTEM (WACACO / USER BLUEPRINT SPECIFICATION)
+         Matching media_1793878043135_305ac836.jpg & media_1793878043143_585f5542.jpg
+         ====================================================================== -->
+    <section class="bento-hero-section" id="hero">
+      <div class="bento-shell">
+        <!-- Top Row: Logo Capsule on Left, Navigation Pill + CTA Pill on Right -->
+        <div class="bento-topbar">
+          <a href="/" class="bento-logo-pill">
+            <span class="logo-mark">✦</span>
+            <span class="logo-text">BROLY DAS</span>
+          </a>
+          <div class="bento-nav-group">
+            <nav class="bento-nav-pill" aria-label="Bento Navigation">
+              <a href="/" class="bento-nav-link active">Home</a>
+              <a href="/work" class="bento-nav-link">Work</a>
+              <a href="/services" class="bento-nav-link">Services</a>
+            </nav>
+            <a href="#contact" class="bento-cta-pill">
+              <span>CONTACT</span>
+              <span class="cta-arrow">↗</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Bento Grid: 4 Asymmetric Interlocking Quadrants -->
+        <div class="bento-main-grid">
+          <!-- CARD A (TOP-LEFT): Title, Square Thumbnail, Description, 2 Buttons matching Blueprint & Image 1 -->
+          <div class="bento-box bento-box-title">
+            <!-- Top: Eyebrow Greeting & Main Title matching Image 1 -->
+            <div class="bento-title-header">
+              <div class="bento-greeting">Hi, I’m Broly</div>
+              <h1 class="bento-hero-title scramble-hover" title="Click or hover to distort">
+                I design and build data-driven interfaces
+              </h1>
+            </div>
+
+            <!-- Content Row: Kinetic Roll on left | [Text + Buttons] on right -->
+            <div class="bento-content-row">
+              <!-- Kinetic Roll Dial Knob (Restored Full Tactile Rotary Dial) -->
+              <div class="bento-knob-thumb" id="heroKineticDial" title="Drag or hover to rotate kinetic dial">
+                <div class="dial-thumb-ring">
+                  <div class="dial-thumb-knob" id="dialKnob">
+                    <div class="dial-indicator"></div>
+                    <div class="dial-center-cap">
+                      <span class="dial-val" id="dialDegText">45°</span>
+                      <span class="dial-label">ROT</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right: Status, Intro, Tools & Image 1 Action Buttons -->
+              <div class="bento-text-actions">
+                <div class="bento-status-badge">
+                  <span class="status-pulse-dot"></span>
+                  <span>AVAILABLE TO WORK / FREELANCE</span>
+                </div>
+
+                <p class="bento-intro-text">
+                  UI/UX, Graphic &amp; Motion Designer. Crafting living digital interfaces, high-impact brand systems, and tactile web experiences.
+                </p>
+
+                <div class="bento-tools-wrap">
+                  <span class="tools-label">TOOLS:</span>
+                  <div class="tools-pills-row">
+                    <span class="tool-pill">FIGMA</span>
+                    <span class="tool-pill">PHOTOSHOP</span>
+                    <span class="tool-pill">FRAMER</span>
+                    <span class="tool-pill">SKETCH</span>
+                    <span class="tool-pill">AFFINITY</span>
+                  </div>
+                </div>
+
+                <!-- Action Buttons matching Image 1 -->
+                <div class="bento-buttons-row">
+                  <a href="/work" class="bento-btn bento-btn-gold">
+                    <span>View projects</span>
+                  </a>
+                  <a href="#contact" class="bento-btn bento-btn-navy">
+                    <span>Contact</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD B (TOP-RIGHT): Organic Curved Hero Visual Frame (Graphic Studio Preview) -->
+          <div class="bento-box bento-box-organic">
+            <div class="bento-organic-media-wrap">
+              <img src="Kamewear Anime Streetwear Homepage.png" alt="Kamewear Anime Streetwear Hub — Graphic Design Studio" class="bento-organic-img" />
+              <div class="bento-organic-overlay">
+                <div class="organic-tag">✦ LIVE STUDIO SHOWCASE</div>
+                <div class="organic-meta">
+                  <h4 class="scramble-hover">GRAPHIC DESIGN STUDIO</h4>
+                  <p>Kamewear Streetwear, Editorial Posters & Variable Type</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD C (BOTTOM-LEFT): Wide Visual Showcase (Tactile Poster Laboratory) -->
+          <div class="bento-box bento-box-wide">
+            <div class="bento-wide-inner">
+              <img src="Biohazard_ Grace Ashcroft Editorial Poster.png" alt="Biohazard Editorial Poster — Graphic Design Studio" class="bento-wide-img" />
+              <div class="bento-wide-content">
+                <div class="bento-wide-badge">✦ 01. EDITORIAL ARCHIVE</div>
+                <h3 class="bento-wide-title scramble-hover">KAMEWEAR &amp; EDITORIAL POSTERS</h3>
+                <p class="bento-wide-desc">
+                  Explore 9 curated graphic works: high-energy streetwear storefronts, distressed cyberpunk editorial covers, and live Archivo variable typography.
+                </p>
+                <div class="bento-wide-actions">
+                  <a href="/Graphic Design Studio.html" target="_blank" rel="noopener" class="bento-btn bento-btn-gold">
+                    <span>Launch Studio ↗</span>
+                  </a>
+                  <a href="#studio-spotlight" class="bento-btn bento-btn-navy">
+                    <span>Live Lab ↓</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD D (BOTTOM-RIGHT): Angled Chamfer Card (Interactive Clay Robot Raymarched SDF) -->
+          <div class="bento-box bento-box-robot" id="bentoRobotCard" title="Clay Robot: Tracks cursor, tap to hop, waves hello">
+            <div class="clay-robot-mount" id="clayRobotMount"></div>
+            <div class="bento-robot-overlay">
+              <div class="robot-hint">TRACKS CURSOR · TAP TO HOP · 60 FPS</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bento Shell Footer: Navy & Gold Palette Bar matching Image 1 -->
+        <div class="bento-shell-footer">
+          <div class="bento-palette-strip">
+            <span class="palette-title">5. NAVY AND GOLD</span>
+            <div class="palette-swatches">
+              <span class="palette-swatch" style="background:#0A1628;" title="#0A1628 - Deep Void Navy"></span>
+              <span class="palette-swatch" style="background:#12233D;" title="#12233D - Midnight Steel"></span>
+              <span class="palette-swatch" style="background:#E5B84B;" title="#E5B84B - Radiant Gold"></span>
+              <span class="palette-swatch" style="background:#7C93B5;" title="#7C93B5 - Slate Blue"></span>
+              <span class="palette-swatch" style="background:#F1F5F9;" title="#F1F5F9 - Crisp Off-White"></span>
+            </div>
+            <div class="palette-codes">
+              <span>#0A1628</span>
+              <span>#12233D</span>
+              <span>#E5B84B</span>
+              <span>#7C93B5</span>
+              <span>#F1F5F9</span>
+            </div>
+          </div>
+          <div class="bento-system-meta">
+            <span class="meta-tag">BROLY DAS // LIVING UI SYSTEM</span>
+            <span class="meta-fps">60 FPS REALTIME</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         FEATURED LABORATORY: GRAPHIC DESIGN STUDIO (BELOW HEADER PAGE)
+         Replaces Scroll Lab with the full Interactive Design Studio
+         ====================================================================== -->
+    <section class="studio-spotlight-section" id="studio-spotlight">
+      <div class="spotlight-header">
+        <div class="spotlight-eyebrow">// 01. PREMIER FEATURED LABORATORY</div>
+        <h2 class="spotlight-title scramble-hover">GRAPHIC DESIGN STUDIO</h2>
+        <p class="spotlight-subtitle">
+          A living typography workshop and generative poster laboratory engineered with Archivo variable font axes, SVG vector maths, and dark/light aesthetics. Available to work — crafting bold interfaces in Figma, Photoshop, Framer, Sketch, and Affinity.
+        </p>
+      </div>
+
+      <div class="studio-interactive-window">
+        <div class="studio-window-bar">
+          <div class="window-controls">
+            <span class="ctrl-dot ctrl-red"></span>
+            <span class="ctrl-dot ctrl-yellow"></span>
+            <span class="ctrl-dot ctrl-green"></span>
+            <span class="window-address">broly://studio/graphic-design-studio.html</span>
+          </div>
+          <div class="window-actions">
+            <a href="/Graphic Design Studio.html" target="_blank" rel="noopener" class="window-action-btn">Open Fullscreen ↗</a>
+          </div>
+        </div>
+        
+        <div class="studio-iframe-container">
+          <iframe src="/Graphic Design Studio.html" title="Graphic Design Studio Interactive View" class="studio-live-iframe" loading="lazy"></iframe>
+        </div>
+
+        <div class="studio-features-bar">
+          <div class="studio-feature-pill">✦ 9 Curated Works (Kamewear, Biohazard, Joker)</div>
+          <div class="studio-feature-pill">✦ Archivo Variable Type Lab (wdth 62-125, wgt 100-900)</div>
+          <div class="studio-feature-pill">✦ Interactive Lightbox & Modal Previews</div>
+          <div class="studio-feature-pill">✦ 5-Color Accent Palette Switcher</div>
+          <div class="studio-feature-actions">
+            <button class="btn-outline-1minus1" data-open-case="graphic_studio">Case Study Breakdown →</button>
+            <a href="/Graphic Design Studio.html" target="_blank" rel="noopener" class="btn-gold-1minus1">Live Present ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         1MINUS1 SERVICES OVERVIEW SECTION (HOMEPAGE)
+         ====================================================================== -->
+    <section class="services-section-1minus1" id="services">
+      <div class="services-header-top">
+        <div style="font-family: var(--font-display); font-size: 0.85rem; color: var(--accent-gold); margin-bottom: 0.75rem;">// WHAT WE BRING TO LIFE</div>
+        <h2 class="services-main-title scramble-hover" title="Hover to distort text">CAPABILITIES ENGINEERED FOR THE EXCEPTIONAL.</h2>
+        <p class="services-main-subtitle">
+          We connect product strategy, living motion systems, 3D spatial engineering, and interactive web laboratories to make digital experiences stand out and thrive.
+        </p>
+      </div>
+
+      <!-- Jump Pill Bar -->
+      <div class="services-jump-bar">
+        <span class="jump-label">✦ DIRECT ACCESS:</span>
+        <a href="/services#strategy" class="jump-pill-btn">01. STRATEGY</a>
+        <a href="/services#creative" class="jump-pill-btn">02. CREATIVE & MOTION</a>
+        <a href="/services#web-development" class="jump-pill-btn">03. WEB DEVELOPMENT</a>
+        <a href="/services#campaigns" class="jump-pill-btn">04. INTERACTION & AUDIO</a>
+      </div>
+
+      <!-- 4 Authentic 1minus1 Service Blocks in Stacking Deck -->
+      <div class="services-cards-stack" id="servicesStack">
+        <!-- CARD 01: STRATEGY -->
+        <article class="parts-serviceBlock" data-card-index="0" style="--card-i: 0;">
+          <span class="service-corner-square service-corner-tl"></span>
+          <span class="service-corner-square service-corner-tr"></span>
+          <span class="service-corner-square service-corner-bl"></span>
+          <span class="service-corner-square service-corner-br"></span>
+          <div class="service-watermark-num">01</div>
+
+          <div class="service-block-content-grid reverse">
+            <div class="service-info-pane">
+              <div>
+                <div class="service-category-tag"><span>✦ PLANNING</span></div>
+                <h3 class="service-heading scramble-hover">STRATEGY & ARCHITECTURE</h3>
+                <p class="service-lead-desc">Clear evidence-based strategy built to clarify vision, sharpen positioning, and plan for scale.</p>
+                <p class="service-body-desc">
+                  From user mental models to design token architectures and rapid wireframing, we build the foundations and a clear path forward for your brand and product.
+                </p>
+              </div>
+              <div class="service-capsules-grid">
+                <div class="service-capsule-item"><span>✦ Research & Insights</span></div>
+                <div class="service-capsule-item"><span>✦ Design Systems</span></div>
+                <div class="service-capsule-item"><span>✦ Journey Mapping</span></div>
+                <div class="service-capsule-item"><span>✦ Rapid Wireframing</span></div>
+              </div>
+              <div style="margin-top: 2rem;">
+                <a href="/services#strategy" class="btn-outline-1minus1" style="padding: 12px 24px; font-size: 0.82rem;">FULL STRATEGY BREAKDOWN →</a>
+              </div>
+            </div>
+            <div class="service-visual-pane">
+              <div class="service-visual-frame">
+                <img src="project_assets/pepper_club_detail.png" alt="Strategy Preview" class="service-visual-img" />
+              </div>
+              <div class="service-projects-label"><span>✦ PROJECTS:</span></div>
+              <div class="service-projects-pills">
+                <a href="/work" class="service-project-pill">PEPPER CLUB COMMERCE ↗</a>
+                <a href="/work" class="service-project-pill">UI ZOO SYSTEM ↗</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- CARD 02: CREATIVE & MOTION -->
+        <article class="parts-serviceBlock" data-card-index="1" style="--card-i: 1;">
+          <span class="service-corner-square service-corner-tl"></span>
+          <span class="service-corner-square service-corner-tr"></span>
+          <span class="service-corner-square service-corner-bl"></span>
+          <span class="service-corner-square service-corner-br"></span>
+          <div class="service-watermark-num">02</div>
+
+          <div class="service-block-content-grid">
+            <div class="service-info-pane">
+              <div>
+                <div class="service-category-tag"><span>✦ MAKING</span></div>
+                <h3 class="service-heading scramble-hover">CREATIVE & MOTION</h3>
+                <p class="service-lead-desc">Distinct award-winning motion and visual craft that sets your digital presence apart from the rest.</p>
+                <p class="service-body-desc">
+                  Identities and interfaces intentionally crafted so they feel alive and unmistakably yours. 60 FPS animation curves, physical scroll kinetics, and tactile micro-interactions.
+                </p>
+              </div>
+              <div class="service-capsules-grid">
+                <div class="service-capsule-item"><span>✦ Kinetic Typography</span></div>
+                <div class="service-capsule-item"><span>✦ 60 FPS Micro-Interactions</span></div>
+                <div class="service-capsule-item"><span>✦ 3D Spatial Systems</span></div>
+                <div class="service-capsule-item"><span>✦ Tactile Spring Physics</span></div>
+              </div>
+              <div style="margin-top: 2rem;">
+                <a href="/services#creative" class="btn-outline-1minus1" style="padding: 12px 24px; font-size: 0.82rem;">EXPLORE MOTION SUITE →</a>
+              </div>
+            </div>
+            <div class="service-visual-pane">
+              <div class="service-visual-frame">
+                <img src="project_assets/scroll_lab_hero.png" alt="Motion Preview" class="service-visual-img" />
+              </div>
+              <div class="service-projects-label"><span>✦ PROJECTS:</span></div>
+              <div class="service-projects-pills">
+                <a href="/work" class="service-project-pill">SCROLL PHYSICS LAB ↗</a>
+                <a href="/work" class="service-project-pill">TINY GAMES FOR MOODS ↗</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- CARD 03: WEB DEVELOPMENT -->
+        <article class="parts-serviceBlock" data-card-index="2" style="--card-i: 2;">
+          <span class="service-corner-square service-corner-tl"></span>
+          <span class="service-corner-square service-corner-tr"></span>
+          <span class="service-corner-square service-corner-bl"></span>
+          <span class="service-corner-square service-corner-br"></span>
+          <div class="service-watermark-num">03</div>
+
+          <div class="service-block-content-grid reverse">
+            <div class="service-info-pane">
+              <div>
+                <div class="service-category-tag"><span>✦ BUILDING</span></div>
+                <h3 class="service-heading scramble-hover">WEB DEVELOPMENT</h3>
+                <p class="service-lead-desc">Bespoke web platforms engineered with zero-bloat code to perform effortlessly at scale.</p>
+                <p class="service-body-desc">
+                  Bridging Figma artboards and high-performance WebGL, Canvas, and Three.js runtimes. Silky-smooth 60 FPS rendering and zero layout thrashing across all devices.
+                </p>
+              </div>
+              <div class="service-capsules-grid">
+                <div class="service-capsule-item"><span>✦ Three.js & WebGL</span></div>
+                <div class="service-capsule-item"><span>✦ Anime.js 3 Engines</span></div>
+                <div class="service-capsule-item"><span>✦ Canvas 2D Physics</span></div>
+                <div class="service-capsule-item"><span>✦ Hardware Acceleration</span></div>
+              </div>
+              <div style="margin-top: 2rem;">
+                <a href="/services#web-development" class="btn-outline-1minus1" style="padding: 12px 24px; font-size: 0.82rem;">VIEW DEV PIPELINE →</a>
+              </div>
+            </div>
+            <div class="service-visual-pane">
+              <div class="service-visual-frame">
+                <img src="project_assets/ui_zoo_hero.png" alt="Development Preview" class="service-visual-img" />
+              </div>
+              <div class="service-projects-label"><span>✦ PROJECTS:</span></div>
+              <div class="service-projects-pills">
+                <a href="/work" class="service-project-pill">14-PHYSICS LAB ↗</a>
+                <a href="/work" class="service-project-pill">UI ZOO SYSTEM ↗</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- CARD 04: INTERACTION & AUDIO -->
+        <article class="parts-serviceBlock" data-card-index="3" style="--card-i: 3;">
+          <span class="service-corner-square service-corner-tl"></span>
+          <span class="service-corner-square service-corner-tr"></span>
+          <span class="service-corner-square service-corner-bl"></span>
+          <span class="service-corner-square service-corner-br"></span>
+          <div class="service-watermark-num">04</div>
+
+          <div class="service-block-content-grid">
+            <div class="service-info-pane">
+              <div>
+                <div class="service-category-tag"><span>✦ PUSHING</span></div>
+                <h3 class="service-heading scramble-hover">INTERACTION & AUDIO</h3>
+                <p class="service-lead-desc">Living interface experiments that turn passive visitors into captivated active participants.</p>
+                <p class="service-body-desc">
+                  Procedural Web Audio frequency synthesis, sentient UI primitives that react to cursor velocity, and 30-second therapeutic micro-games.
+                </p>
+              </div>
+              <div class="service-capsules-grid">
+                <div class="service-capsule-item"><span>✦ Web Audio API Synth</span></div>
+                <div class="service-capsule-item"><span>✦ Sentient UI Creatures</span></div>
+                <div class="service-capsule-item"><span>✦ Micro-Games</span></div>
+                <div class="service-capsule-item"><span>✦ Generative Poster Machine</span></div>
+              </div>
+              <div style="margin-top: 2rem;">
+                <a href="/services#campaigns" class="btn-outline-1minus1" style="padding: 12px 24px; font-size: 0.82rem;">LAUNCH INTERACTIVE LABS →</a>
+              </div>
+            </div>
+            <div class="service-visual-pane">
+              <div class="service-visual-frame">
+                <img src="project_assets/tiny_games_hero.png" alt="Interaction Preview" class="service-visual-img" />
+              </div>
+              <div class="service-projects-label"><span>✦ PROJECTS:</span></div>
+              <div class="service-projects-pills">
+                <a href="/work" class="service-project-pill">TINY GAMES FOR MOODS ↗</a>
+                <a href="/work" class="service-project-pill">UI ZOO LIVING ENGINE ↗</a>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div style="text-align: center; margin-top: 4rem;">
+        <a href="/services" class="btn-gold-1minus1" style="font-size: 1.05rem; padding: 18px 36px; display: inline-flex;">
+          <span>EXPLORE COMPLETE SERVICES PAGE (ILLUSTRATIONS & CAPABILITIES)</span>
+          <span>↗</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         FEATURED WORK TEASER (INVITATION TO WORK PAGE)
+         ====================================================================== -->
+    <section class="work-page-main" style="padding-top: 0; padding-bottom: 6rem;">
+      <div class="services-header-top" style="text-align: center; margin-bottom: 3.5rem;">
+        <div style="font-family: var(--font-display); font-size: 0.85rem; color: var(--accent-gold); margin-bottom: 0.75rem;">// SELECTED PORTFOLIO</div>
+        <h2 class="services-main-title">FEATURED CLIENT WORK & LABS</h2>
+        <p style="color: #b0c2d9; max-width: 640px; margin: 1rem auto 0; font-size: 1.15rem; font-family: var(--font-body);">
+          Explore our featured projects below, or visit the dedicated Work page for full case studies, UX dilemmas, technical breakdowns, and live present links.
+        </p>
+      </div>
+
+      <div class="work-cards-grid">
+        <!-- TEASER CARD 01: GRAPHIC DESIGN STUDIO -->
+        <article class="work-card-1minus1">
+          <div class="work-card-visual-wrap">
+            <img src="Kamewear Anime Streetwear Homepage.png" alt="Graphic Design Studio — Kamewear & Editorial" class="work-card-img" />
+            <div class="work-card-pills-overlay">
+              <span class="work-badge-tag">STREETWEAR UI</span>
+              <span class="work-badge-tag">EDITORIAL POSTERS</span>
+              <span class="work-badge-tag">VARIABLE TYPE</span>
+            </div>
+          </div>
+          <div class="work-card-body">
+            <div class="work-card-client">01 / BRAND & TYPOGRAPHIC WORKSHOP</div>
+            <h3 class="work-card-title">Graphic Design Studio - Kamewear, Posters & Type Lab</h3>
+            <p class="work-card-desc">
+              A comprehensive digital design studio exploring high-energy anime streetwear storefronts (Kamewear), distressed crime-editorial broadsheets (Biohazard, Joker), interactive lightboxes, and real-time Archivo variable typography.
+            </p>
+            <div class="work-card-actions">
+              <button class="btn-outline-1minus1" data-open-case="graphic_studio">Case Study →</button>
+              <a href="/Graphic Design Studio.html" target="_blank" rel="noopener" class="btn-gold-1minus1">Live Present ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- TEASER CARD 02: SCROLL LAB -->
+        <article class="work-card-1minus1">
+          <div class="work-card-visual-wrap">
+            <img src="project_assets/scroll_lab_hero.png" alt="Scroll Physics Lab" class="work-card-img" />
+            <div class="work-card-pills-overlay">
+              <span class="work-badge-tag">MOTION</span>
+              <span class="work-badge-tag">60FPS</span>
+            </div>
+          </div>
+          <div class="work-card-body">
+            <div class="work-card-client">02 / EXPERIMENTAL PLAYGROUND</div>
+            <h3 class="work-card-title">Scroll Physics Lab</h3>
+            <p class="work-card-desc">
+              14 kinetic physics modes engineered with Anime.js 3 exploring spring physics, momentum damping, chromatic aberration, and canvas particle trails.
+            </p>
+            <div class="work-card-actions">
+              <button class="btn-outline-1minus1" data-open-case="scroll_lab">Case Study →</button>
+              <a href="/scroll-lab-play.html" target="_blank" rel="noopener" class="btn-gold-1minus1">Live Present ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- TEASER CARD 03: PEPPER CLUB -->
+        <article class="work-card-1minus1">
+          <div class="work-card-visual-wrap">
+            <img src="project_assets/pepper_club_hero.png" alt="Pepper Club" class="work-card-img" />
+            <div class="work-card-pills-overlay">
+              <span class="work-badge-tag">UI/UX</span>
+              <span class="work-badge-tag">COMMERCE</span>
+            </div>
+          </div>
+          <div class="work-card-body">
+            <div class="work-card-client">03 / ARTISANAL COMMERCE</div>
+            <h3 class="work-card-title">Pepper Club Fermentation</h3>
+            <p class="work-card-desc">
+              A tactile direct-to-consumer digital storefront for small-batch barrel-aged hot sauces, featuring Scoville sensory dials and real-time basket kinetics.
+            </p>
+            <div class="work-card-actions">
+              <button class="btn-outline-1minus1" data-open-case="pepper_club">Case Study →</button>
+              <a href="/pepper-club.html" target="_blank" rel="noopener" class="btn-gold-1minus1">Live Present ↗</a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div style="text-align: center; margin-top: 4rem;">
+        <a href="/work" class="btn-gold-1minus1" style="font-size: 1.05rem; padding: 18px 36px; display: inline-flex;">
+          <span>VIEW ALL 5 PROJECTS ON WORK PAGE</span>
+          <span>↗</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Sanjeev Sriram-Style Case Study Full-Screen Modal -->
+    <div class="case-study-modal" id="caseStudyModal" role="dialog" aria-modal="true" aria-label="Case Study Detailed View" data-lenis-prevent="true">
+      <div class="modal-container" data-lenis-prevent="true">
+        <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close Case Study">✕</button>
+        <div id="modalContent"></div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         1MINUS1 CONTACT SECTION: TELL US YOUR STORY
+         ====================================================================== -->
+    <section class="contact-section-1minus1" id="contact">
+      <div class="contact-container">
+        <div class="contact-info-col">
+          <h2 class="contact-headline">
+            TELL US YOUR <br /><span>STORY</span>
+          </h2>
+          <p class="contact-sub">
+            Got an ambitious product in need of distinction, a high-stakes UI/UX redesign, or a physics-driven concept that needs bringing to life? Let's make something iconic together.
+          </p>
+
+          <div class="social-pills-row">
+            <a href="https://twitter.com" target="_blank" rel="noopener" class="social-pill">TWITTER / X ↗</a>
+            <a href="https://github.com" target="_blank" rel="noopener" class="social-pill">GITHUB ↗</a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-pill">LINKEDIN ↗</a>
+            <a href="https://dribbble.com" target="_blank" rel="noopener" class="social-pill">DRIBBBLE ↗</a>
+            <a href="mailto:brolydas853@gmail.com" class="social-pill" style="border-color: var(--accent-gold); color: var(--accent-gold);">EMAIL: BROLYDAS853@GMAIL.COM ✉</a>
+          </div>
+        </div>
+
+        <div class="contact-form-box">
+          <form id="contactForm" onsubmit="event.preventDefault(); alert('Thank you for reaching out! Broly will respond within 24 hours.');">
+            <div class="form-group">
+              <label class="form-label" for="contactName">YOUR NAME</label>
+              <input type="text" id="contactName" class="form-input" placeholder="e.g. Alex Morgan" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contactEmail">EMAIL ADDRESS</label>
+              <input type="email" id="contactEmail" class="form-input" placeholder="alex@company.com" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="projectType">SERVICE INTEREST</label>
+              <select id="projectType" class="form-input" style="background: rgba(10, 22, 40, 0.95);">
+                <option value="uiux">UI/UX & Product Design</option>
+                <option value="motion">Motion & Kinetic Interaction</option>
+                <option value="creative-dev">Creative Web Development & WebGL</option>
+                <option value="full-scope">Full-Scope Brand & Interface</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contactMessage">TELL US ABOUT YOUR PROJECT</label>
+              <textarea id="contactMessage" class="form-textarea" placeholder="What are you building? What is the vision and timeline?" required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit-1minus1">
+              SEND INQUIRY ✦
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-1minus1-bottom">
+        <div>© 2026 BROLY DAS | ALL RIGHTS RESERVED</div>
+        <!-- <div>NAVY & GOLD SYSTEM (#0A1628 / #12233D / #E5B84B / #7C93B5 / #F1F5F9)</div> -->
+        <div><a href="#hero" style="color: var(--accent-gold); text-decoration: none;">BACK TO TOP ↑</a></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Three.js 3D Background & Controller -->
+  <script src="js/three_bg.js"></script>
+  <script src="js/clay_robot.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
