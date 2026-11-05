@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <base href="/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>My Services-Broly Das · Design System</title>
+  <meta name="description" content="Capabilities engineered for the exceptional. Strategy, Creative, Web Development, and Interaction Design by Broly Das in Navy & Gold." />
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Vendor Libraries: Three.js for 3D Background, Lenis for Smooth Scroll -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+</head>
+<body>
+  <!-- Ambient Atmospheric Lighting (Navy & Gold) -->
+  <div class="ambient-glow ambient-glow-1"></div>
+  <div class="ambient-glow ambient-glow-2"></div>
+
+  <!-- Three.js 3D Interactive WebGL Undulating Grid Canvas -->
+  <canvas id="webglCanvas"></canvas>
+
+  <!-- Minimal Gold Cursor Dot (No Motion Trail) -->
+  <div class="custom-cursor" id="customCursor"></div>
+
+  <!-- 1MINUS1 HEADER & NAVBAR -->
+  <header class="site-header">
+    <a href="/" class="header-brand">
+      BROLY DAS <span>✦</span>
+    </a>
+
+    <!-- Pill Nav: SERVICES is ACTIVE -->
+    <nav class="nav-pill-container" aria-label="Main Navigation">
+      <a href="/" class="nav-pill-link">Home</a>
+      <a href="/work" class="nav-pill-link">Work</a>
+      <a href="/services" class="nav-pill-link active">Services</a>
+      <a href="#contact" class="nav-pill-link contact-pill">Contact</a>
+    </nav>
+
+    <div class="header-meta">
+      <div class="status-pill" style="display: flex; align-items: center; gap: 8px; font-family: var(--font-display); font-size: 0.78rem; color: var(--accent-steel);">
+        <span class="status-dot" style="width: 8px; height: 8px; border-radius: 50%; background: var(--accent-gold); box-shadow: 0 0 8px var(--accent-gold);"></span>
+        <span>· AVAILABLE FOR WORK</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Right-Hand Floating Vertical Progress Navigation Tracker -->
+  <nav class="services-sidebar-tracker" aria-label="Services Navigation Tracker">
+    <a href="#strategy" class="tracker-item active" data-target="strategy">
+      <span>• 01</span> <span>STRATEGY</span>
+    </a>
+    <a href="#creative" class="tracker-item" data-target="creative">
+      <span>• 02</span> <span>CREATIVE</span>
+    </a>
+    <a href="#web-development" class="tracker-item" data-target="web-development">
+      <span>• 03</span> <span>DEV</span>
+    </a>
+    <a href="#campaigns" class="tracker-item" data-target="campaigns">
+      <span>• 04</span> <span>PUSHING</span>
+    </a>
+  </nav>
+
+  <main>
+    <!-- ======================================================================
+         1MINUS1 SERVICES HERO & JUMP BAR
+         ====================================================================== -->
+    <section class="services-section-1minus1">
+      <div class="services-header-top">
+        <h1 class="services-main-title">MY SERVICES</h1>
+        <p class="services-main-subtitle">
+          Independent UI/UX Architect, Motion Specialist & Creative Technologist. We connect product strategy, living motion systems, 3D spatial engineering, and interactive web laboratories to make digital experiences stand out and thrive.
+        </p>
+      </div>
+
+      <!-- Jump To Sub-Navigation (1minus1 style) -->
+      <div class="services-jump-bar">
+        <span class="jump-label">
+          <svg class="svg-doubleslash" style="width: 16px; height: 10px; color: var(--accent-gold);" viewBox="0 0 18 10" fill="none">
+            <rect x="8" y="9.27" width="3.09" height="3.09" transform="rotate(-90 8 9.27)" fill="currentColor"></rect>
+            <rect x="11.09" y="6.18" width="3.09" height="3.09" transform="rotate(-90 11.09 6.18)" fill="currentColor"></rect>
+            <rect x="14.18" y="3.09" width="3.09" height="3.09" transform="rotate(-90 14.18 3.09)" fill="currentColor"></rect>
+            <rect y="9.27" width="3.09" height="3.09" transform="rotate(-90 0 9.27)" fill="currentColor"></rect>
+            <rect x="3.09" y="6.18" width="3.09" height="3.09" transform="rotate(-90 3.09 6.18)" fill="currentColor"></rect>
+            <rect x="6.18" y="3.09" width="3.09" height="3.09" transform="rotate(-90 6.18 3.09)" fill="currentColor"></rect>
+          </svg>
+          JUMP TO
+        </span>
+        <a href="#strategy" class="jump-pill-btn active">STRATEGY</a>
+        <a href="#creative" class="jump-pill-btn">CREATIVE</a>
+        <a href="#web-development" class="jump-pill-btn">WEB DEVELOPMENT</a>
+        <a href="#campaigns" class="jump-pill-btn">MOTION & AUDIO</a>
+      </div>
+
+      <!-- ==================================================================
+           01. PLANNING & STRATEGY BLOCK (1minus1 authentic layout)
+           ================================================================== -->
+      <article id="strategy" class="parts-serviceBlock">
+        <!-- 4 Corner Accent Pixel Squares -->
+        <span class="service-corner-square service-corner-tl"></span>
+        <span class="service-corner-square service-corner-tr"></span>
+        <span class="service-corner-square service-corner-bl"></span>
+        <span class="service-corner-square service-corner-br"></span>
+
+        <!-- Giant Background Watermark Number -->
+        <div class="service-watermark-num">01</div>
+
+        <div class="service-block-content-grid reverse">
+          <!-- Text & Capabilities Pane -->
+          <div class="service-info-pane">
+            <div>
+              <div class="service-category-tag">
+                <svg class="svg-doubleslash" style="width: 15px; height: 9px;" viewBox="0 0 18 10" fill="none">
+                  <rect x="8" y="9.27" width="3.09" height="3.09" transform="rotate(-90 8 9.27)" fill="currentColor"></rect>
+                  <rect x="11.09" y="6.18" width="3.09" height="3.09" transform="rotate(-90 11.09 6.18)" fill="currentColor"></rect>
+                  <rect x="14.18" y="3.09" width="3.09" height="3.09" transform="rotate(-90 14.18 3.09)" fill="currentColor"></rect>
+                  <rect y="9.27" width="3.09" height="3.09" transform="rotate(-90 0 9.27)" fill="currentColor"></rect>
+                  <rect x="3.09" y="6.18" width="3.09" height="3.09" transform="rotate(-90 3.09 6.18)" fill="currentColor"></rect>
+                  <rect x="6.18" y="3.09" width="3.09" height="3.09" transform="rotate(-90 6.18 3.09)" fill="currentColor"></rect>
+                </svg>
+                <span>PLANNING</span>
+              </div>
+              <h2 class="service-heading">STRATEGY</h2>
+              <p class="service-lead-desc">
+                Clear evidence-based strategy built to clarify product vision, sharpen positioning, and architect scalable digital systems.
+              </p>
+              <p class="service-body-desc">
+                It all starts with understanding user mental models, information hierarchies, and where your product needs to dominate. Through rapid architectural sprints, design token frameworks, and user journey mapping, we build the foundations and a clear path forward for your brand, platform, or digital venture.
+              </p>
+            </div>
+
+            <div class="service-capsules-grid">
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>Research & User Insights</span>
+              </div>
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>Design Sprints & Workshops</span>
+              </div>
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>Product Architecture</span>
+              </div>
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>Market Positioning</span>
+              </div>
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>Design Systems & Tokens</span>
+              </div>
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>User Journey Mapping</span>
+              </div>
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>Wireframing & Rapid Flows</span>
+              </div>
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>Conversion Ergonomics</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Illustration & Showcase Pane -->
+          <div class="service-visual-pane">
+            <div class="service-visual-frame">
+              <img src="project_assets/pepper_club_detail.png" alt="Strategy & Architecture Illustration" class="service-visual-img" />
+            </div>
+            <div class="service-projects-label">
+              <span>✦ PROJECTS UTILIZING THIS SERVICE:</span>
+            </div>
+            <div class="service-projects-pills">
+              <a href="/work" class="service-project-pill">PEPPER CLUB COMMERCE ↗</a>
+              <a href="/work" class="service-project-pill">UI ZOO SYSTEM ↗</a>
+              <a href="/work" class="service-project-pill">SCROLL LAB ↗</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ==================================================================
+           02. MAKING & CREATIVE BLOCK (1minus1 authentic layout)
+           ================================================================== -->
+      <article id="creative" class="parts-serviceBlock">
+        <!-- 4 Corner Accent Pixel Squares -->
+        <span class="service-corner-square service-corner-tl"></span>
+        <span class="service-corner-square service-corner-tr"></span>
+        <span class="service-corner-square service-corner-bl"></span>
+        <span class="service-corner-square service-corner-br"></span>
+
+        <!-- Giant Background Watermark Number -->
+        <div class="service-watermark-num">02</div>
+
+        <div class="service-block-content-grid">
+          <!-- Text & Capabilities Pane -->
+          <div class="service-info-pane">
+            <div>
+              <div class="service-category-tag">
+                <svg class="svg-doubleslash" style="width: 15px; height: 9px;" viewBox="0 0 18 10" fill="none">
+                  <rect x="8" y="9.27" width="3.09" height="3.09" transform="rotate(-90 8 9.27)" fill="currentColor"></rect>
+                  <rect x="11.09" y="6.18" width="3.09" height="3.09" transform="rotate(-90 11.09 6.18)" fill="currentColor"></rect>
+                  <rect x="14.18" y="3.09" width="3.09" height="3.09" transform="rotate(-90 14.18 3.09)" fill="currentColor"></rect>
+                  <rect y="9.27" width="3.09" height="3.09" transform="rotate(-90 0 9.27)" fill="currentColor"></rect>
+                  <rect x="3.09" y="6.18" width="3.09" height="3.09" transform="rotate(-90 3.09 6.18)" fill="currentColor"></rect>
+                  <rect x="6.18" y="3.09" width="3.09" height="3.09" transform="rotate(-90 6.18 3.09)" fill="currentColor"></rect>
+                </svg>
+                <span>MAKING</span>
+              </div>
+              <h2 class="service-heading">CREATIVE</h2>
+              <p class="service-lead-desc">
+                Distinct award-winning creative and motion craft that sets your digital presence apart from the rest.
+              </p>
+              <p class="service-body-desc">
+                Identities and interfaces intentionally crafted so they feel alive, tangible, and unmistakably yours. From kinetic micro-interactions to 3D spatial systems and bespoke animation curves, every element is engineered with purpose and personality.
+              </p>
+            </div>
+
+            <div class="service-capsules-grid">
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>Motion Design & Curves</span>
+              </div>
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>60 FPS Micro-Interactions</span>
+              </div>
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>3D Spatial Systems</span>
+              </div>
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>Kinetic Typography</span>
+              </div>
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>Visual Identity & UI Systems</span>
+              </div>
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>Tactile Spring Physics</span>
+              </div>
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>Custom WebGL Shaders</span>
+              </div>
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>Creative Direction</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Illustration & Showcase Pane -->
+          <div class="service-visual-pane">
+            <div class="service-visual-frame">
+              <img src="project_assets/scroll_lab_hero.png" alt="Creative & Motion Design Showcase" class="service-visual-img" />
+            </div>
+            <div class="service-projects-label">
+              <span>✦ PROJECTS UTILIZING THIS SERVICE:</span>
+            </div>
+            <div class="service-projects-pills">
+              <a href="/work" class="service-project-pill">SCROLL PHYSICS LAB ↗</a>
+              <a href="/work" class="service-project-pill">TINY GAMES FOR MOODS ↗</a>
+              <a href="/work" class="service-project-pill">PEPPER CLUB SENSORY ↗</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ==================================================================
+           03. BUILDING & WEB DEVELOPMENT BLOCK (1minus1 authentic layout)
+           ================================================================== -->
+      <article id="web-development" class="parts-serviceBlock">
+        <!-- 4 Corner Accent Pixel Squares -->
+        <span class="service-corner-square service-corner-tl"></span>
+        <span class="service-corner-square service-corner-tr"></span>
+        <span class="service-corner-square service-corner-bl"></span>
+        <span class="service-corner-square service-corner-br"></span>
+
+        <!-- Giant Background Watermark Number -->
+        <div class="service-watermark-num">03</div>
+
+        <div class="service-block-content-grid reverse">
+          <!-- Text & Capabilities Pane -->
+          <div class="service-info-pane">
+            <div>
+              <div class="service-category-tag">
+                <svg class="svg-doubleslash" style="width: 15px; height: 9px;" viewBox="0 0 18 10" fill="none">
+                  <rect x="8" y="9.27" width="3.09" height="3.09" transform="rotate(-90 8 9.27)" fill="currentColor"></rect>
+                  <rect x="11.09" y="6.18" width="3.09" height="3.09" transform="rotate(-90 11.09 6.18)" fill="currentColor"></rect>
+                  <rect x="14.18" y="3.09" width="3.09" height="3.09" transform="rotate(-90 14.18 3.09)" fill="currentColor"></rect>
+                  <rect y="9.27" width="3.09" height="3.09" transform="rotate(-90 0 9.27)" fill="currentColor"></rect>
+                  <rect x="3.09" y="6.18" width="3.09" height="3.09" transform="rotate(-90 3.09 6.18)" fill="currentColor"></rect>
+                  <rect x="6.18" y="3.09" width="3.09" height="3.09" transform="rotate(-90 6.18 3.09)" fill="currentColor"></rect>
+                </svg>
+                <span>BUILDING</span>
+              </div>
+              <h2 class="service-heading">WEB DEVELOPMENT</h2>
+              <p class="service-lead-desc">
+                Bespoke web platforms engineered with zero-bloat runtime code to perform effortlessly at scale.
+              </p>
+              <p class="service-body-desc">
+                We bridge the gap between high-fidelity Figma designs and production-grade WebGL, Canvas, and Three.js runtimes. Every interface is built for blistering 60 FPS rendering, full keyboard accessibility, and zero layout thrashing across all devices.
+              </p>
+            </div>
+
+            <div class="service-capsules-grid">
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>Three.js & WebGL Shaders</span>
+              </div>
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>Vanilla JS High-Perf Engines</span>
+              </div>
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>Anime.js 3 Motion Runtimes</span>
+              </div>
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>Canvas 2D Physics Systems</span>
+              </div>
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>Responsive Fluid Layouts</span>
+              </div>
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>Web Audio API Synthesis</span>
+              </div>
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>Zero-Bloat Bundle Delivery</span>
+              </div>
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>Hardware Acceleration</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Illustration & Showcase Pane -->
+          <div class="service-visual-pane">
+            <div class="service-visual-frame">
+              <img src="project_assets/ui_zoo_hero.png" alt="Web Development & Systems Showcase" class="service-visual-img" />
+            </div>
+            <div class="service-projects-label">
+              <span>✦ PROJECTS UTILIZING THIS SERVICE:</span>
+            </div>
+            <div class="service-projects-pills">
+              <a href="/work" class="service-project-pill">14-PHYSICS SCROLL LAB ↗</a>
+              <a href="/work" class="service-project-pill">ANTHROPOMORPHIC UI ZOO ↗</a>
+              <a href="/work" class="service-project-pill">PEPPER CLUB STORE ↗</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ==================================================================
+           04. PUSHING & CAMPAIGNS BLOCK (1minus1 authentic layout)
+           ================================================================== -->
+      <article id="campaigns" class="parts-serviceBlock">
+        <!-- 4 Corner Accent Pixel Squares -->
+        <span class="service-corner-square service-corner-tl"></span>
+        <span class="service-corner-square service-corner-tr"></span>
+        <span class="service-corner-square service-corner-bl"></span>
+        <span class="service-corner-square service-corner-br"></span>
+
+        <!-- Giant Background Watermark Number -->
+        <div class="service-watermark-num">04</div>
+
+        <div class="service-block-content-grid">
+          <!-- Text & Capabilities Pane -->
+          <div class="service-info-pane">
+            <div>
+              <div class="service-category-tag">
+                <svg class="svg-doubleslash" style="width: 15px; height: 9px;" viewBox="0 0 18 10" fill="none">
+                  <rect x="8" y="9.27" width="3.09" height="3.09" transform="rotate(-90 8 9.27)" fill="currentColor"></rect>
+                  <rect x="11.09" y="6.18" width="3.09" height="3.09" transform="rotate(-90 11.09 6.18)" fill="currentColor"></rect>
+                  <rect x="14.18" y="3.09" width="3.09" height="3.09" transform="rotate(-90 14.18 3.09)" fill="currentColor"></rect>
+                  <rect y="9.27" width="3.09" height="3.09" transform="rotate(-90 0 9.27)" fill="currentColor"></rect>
+                  <rect x="3.09" y="6.18" width="3.09" height="3.09" transform="rotate(-90 3.09 6.18)" fill="currentColor"></rect>
+                  <rect x="6.18" y="3.09" width="3.09" height="3.09" transform="rotate(-90 6.18 3.09)" fill="currentColor"></rect>
+                </svg>
+                <span>PUSHING</span>
+              </div>
+              <h2 class="service-heading">INTERACTION & AUDIO</h2>
+              <p class="service-lead-desc">
+                Living interface experiments that turn passive website visitors into captivated active participants.
+              </p>
+              <p class="service-body-desc">
+                Pushing digital interaction beyond static documents. By integrating real-time Web Audio synthesis, sentient UI primitives that react to cursor velocity, and 30-second therapeutic micro-games, we create software people love touching.
+              </p>
+            </div>
+
+            <div class="service-capsules-grid">
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>Procedural Audio Synthesis</span>
+              </div>
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>Anthropomorphic UI Creatures</span>
+              </div>
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>30-Second Micro-Games</span>
+              </div>
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>Interactive Poster Machines</span>
+              </div>
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>Sound FX & Gain Envelopes</span>
+              </div>
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>Emotional UX Ergonomics</span>
+              </div>
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>Physics Damping & Friction</span>
+              </div>
+              <div class="service-capsule-item">
+                <span style="color: var(--accent-gold);">✦</span> <span>Generative Art Experiments</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Illustration & Showcase Pane -->
+          <div class="service-visual-pane">
+            <div class="service-visual-frame">
+              <img src="project_assets/tiny_games_hero.png" alt="Interaction & Audio Showcase" class="service-visual-img" />
+            </div>
+            <div class="service-projects-label">
+              <span>✦ PROJECTS UTILIZING THIS SERVICE:</span>
+            </div>
+            <div class="service-projects-pills">
+              <a href="/work" class="service-project-pill">TINY GAMES FOR MOODS ↗</a>
+              <a href="/work" class="service-project-pill">UI ZOO LIVING ENGINE ↗</a>
+              <a href="/work" class="service-project-pill">SOUND SYNTHESIZER ↗</a>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ======================================================================
+         1MINUS1 CONTACT SECTION: TELL US YOUR STORY
+         ====================================================================== -->
+    <section class="contact-section-1minus1" id="contact">
+      <div class="contact-container">
+        <div class="contact-info-col">
+          <h2 class="contact-headline">
+            TELL US YOUR <br /><span>STORY</span>
+          </h2>
+          <p class="contact-sub">
+            Got an ambitious product in need of distinction, a high-stakes UI/UX redesign, or a physics-driven concept that needs bringing to life? Let's make something iconic together.
+          </p>
+
+          <div class="social-pills-row">
+            <a href="https://twitter.com" target="_blank" rel="noopener" class="social-pill">TWITTER / X ↗</a>
+            <a href="https://github.com" target="_blank" rel="noopener" class="social-pill">GITHUB ↗</a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-pill">LINKEDIN ↗</a>
+            <a href="https://dribbble.com" target="_blank" rel="noopener" class="social-pill">DRIBBBLE ↗</a>
+            <a href="mailto:brolydas853@gmail.com" class="social-pill" style="border-color: var(--accent-gold); color: var(--accent-gold);">EMAIL: BROLYDAS853@GMAIL.COM ✉</a>
+          </div>
+        </div>
+
+        <div class="contact-form-box">
+          <form id="contactForm" onsubmit="event.preventDefault(); alert('Thank you for reaching out! Broly will respond within 24 hours.');">
+            <div class="form-group">
+              <label class="form-label" for="contactName">YOUR NAME</label>
+              <input type="text" id="contactName" class="form-input" placeholder="e.g. Alex Morgan" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contactEmail">EMAIL ADDRESS</label>
+              <input type="email" id="contactEmail" class="form-input" placeholder="alex@company.com" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="projectType">SERVICE INTEREST</label>
+              <select id="projectType" class="form-input" style="background: rgba(10, 22, 40, 0.95);">
+                <option value="strategy">01. Strategy & Product Architecture</option>
+                <option value="creative">02. Creative Direction & Motion Design</option>
+                <option value="dev">03. Web Development & WebGL</option>
+                <option value="audio">04. Interaction Design & Audio</option>
+                <option value="full">All Services (Full-Scope)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contactMessage">TELL US ABOUT YOUR PROJECT</label>
+              <textarea id="contactMessage" class="form-textarea" placeholder="What are you building? What is the vision and timeline?" required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit-1minus1">
+              SEND INQUIRY ✦
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-1minus1-bottom">
+        <div>© 2026 BROLY DAS — ALL RIGHTS RESERVED</div>
+        <div>NAVY & GOLD SYSTEM (#0A1628 / #12233D / #E5B84B / #7C93B5 / #F1F5F9)</div>
+        <div><a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" style="color: var(--accent-gold); text-decoration: none;">BACK TO TOP ↑</a></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Interaction & Three.js Scripts -->
+  <script src="js/three_bg.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

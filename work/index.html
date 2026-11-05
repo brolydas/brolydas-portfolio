@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <base href="/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>My Work — Broly Das · Design System</title>
+  <meta name="description" content="Selected work by Broly Das. Living digital interfaces, motion systems, and creative engineering in Navy & Gold." />
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Vendor Libraries: Three.js for 3D Background, Lenis for Smooth Scroll -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+</head>
+<body>
+  <!-- Ambient Atmospheric Lighting (Navy & Gold System) -->
+  <div class="ambient-glow ambient-glow-1"></div>
+  <div class="ambient-glow ambient-glow-2"></div>
+
+  <!-- Three.js 3D Interactive WebGL Undulating Grid Canvas (1minus1 style) -->
+  <canvas id="webglCanvas"></canvas>
+
+  <!-- Minimal Gold Cursor Dot (No Motion Trail) -->
+  <div class="custom-cursor" id="customCursor"></div>
+
+  <!-- 1MINUS1 HEADER & NAVBAR -->
+  <header class="site-header">
+    <a href="/" class="header-brand">
+      BROLY DAS <span>✦</span>
+    </a>
+
+    <!-- Pill Nav: WORK is ACTIVE -->
+    <nav class="nav-pill-container" aria-label="Main Navigation">
+      <a href="/" class="nav-pill-link">Home</a>
+      <a href="/work" class="nav-pill-link active">Work</a>
+      <a href="/services" class="nav-pill-link">Services</a>
+      <a href="#contact" class="nav-pill-link contact-pill">Contact</a>
+    </nav>
+
+    <div class="header-meta">
+      <div class="status-pill" style="display: flex; align-items: center; gap: 8px; font-family: var(--font-display); font-size: 0.78rem; color: var(--accent-steel);">
+        <span class="status-dot" style="width: 8px; height: 8px; border-radius: 50%; background: var(--accent-gold); box-shadow: 0 0 8px var(--accent-gold);"></span>
+        <span>· AVAILABLE FOR WORK</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ======================================================================
+         1MINUS1 WORK SHOWCASE SECTION
+         ====================================================================== -->
+    <section class="work-page-main">
+      <div class="work-hero-header">
+        <h1 class="work-page-title scramble-hover">MY WORK</h1>
+        <div class="work-page-subtitle">I DESIGN & BUILD LIVING INTERFACES FOR VISIONARY DIGITAL PRODUCTS.</div>
+      </div>
+
+      <!-- Filter Pill Bar -->
+      <div class="work-filter-bar">
+        <span class="filter-label">FILTER BY:</span>
+        <button class="work-filter-btn active" data-filter="all">ALL (5)</button>
+        <button class="work-filter-btn" data-filter="graphic">GRAPHIC DESIGN (1)</button>
+        <button class="work-filter-btn" data-filter="motion">MOTION & PHYSICS (1)</button>
+        <button class="work-filter-btn" data-filter="commerce">BRAND & COMMERCE (1)</button>
+        <button class="work-filter-btn" data-filter="systems">UI/UX SYSTEMS (1)</button>
+        <button class="work-filter-btn" data-filter="audio">INTERACTION & AUDIO (1)</button>
+      </div>
+
+      <!-- 5 1minus1 Project Cards Grid -->
+      <div class="work-cards-grid">
+        <!-- 01. GRAPHIC DESIGN STUDIO -->
+        <article class="work-card-1minus1 project-card" data-category="graphic design">
+          <div class="work-card-visual-wrap">
+            <img src="Kamewear Anime Streetwear Homepage.png" alt="Graphic Design Studio — Kamewear & Editorial" class="work-card-img" />
+            <div class="work-card-pills-overlay">
+              <span class="work-badge-tag">STREETWEAR UI</span>
+              <span class="work-badge-tag">EDITORIAL POSTERS</span>
+              <span class="work-badge-tag">VARIABLE TYPE</span>
+            </div>
+          </div>
+          <div class="work-card-body">
+            <div class="work-card-client">01 / BRAND & TYPOGRAPHIC WORKSHOP</div>
+            <h2 class="work-card-title">Graphic Design Studio - Kamewear, Posters & Type Lab</h2>
+            <p class="work-card-desc">
+              A comprehensive digital design studio exploring high-energy anime streetwear storefronts (Kamewear), distressed crime-editorial broadsheets (Biohazard, Joker), interactive lightboxes, and real-time Archivo variable typography.
+            </p>
+            <div class="work-card-actions">
+              <button class="btn-outline-1minus1" data-open-case="graphic_studio">
+                <span>Case Study</span>
+                <span>→</span>
+              </button>
+              <a href="/Graphic Design Studio.html" target="_blank" rel="noopener" class="btn-gold-1minus1">
+                <span>Live Present</span>
+                <span>↗</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 02. SCROLL PHYSICS LAB -->
+        <article class="work-card-1minus1 project-card" data-category="motion physics">
+          <div class="work-card-visual-wrap">
+            <img src="project_assets/scroll_lab_hero.png" alt="Scroll Physics Lab" class="work-card-img" />
+            <div class="work-card-pills-overlay">
+              <span class="work-badge-tag">MOTION</span>
+              <span class="work-badge-tag">60FPS</span>
+              <span class="work-badge-tag">ANIME.JS 3</span>
+            </div>
+          </div>
+          <div class="work-card-body">
+            <div class="work-card-client">02 / EXPERIMENTAL PLAYGROUND</div>
+            <h2 class="work-card-title">Scroll Physics Lab - 14 Inertial Dynamics & 3D Optics</h2>
+            <p class="work-card-desc">
+              An experimental motion playground engineered with Anime.js 3 exploring spring physics, momentum damping, chromatic aberration, and canvas particle trails across 14 distinct interactive scroll modes.
+            </p>
+            <div class="work-card-actions">
+              <button class="btn-outline-1minus1" data-open-case="scroll_lab">
+                <span>Case Study</span>
+                <span>→</span>
+              </button>
+              <a href="/scroll-lab-play.html" target="_blank" rel="noopener" class="btn-gold-1minus1">
+                <span>Live Present</span>
+                <span>↗</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 03. PEPPER CLUB -->
+        <article class="work-card-1minus1 project-card" data-category="commerce uiux">
+          <div class="work-card-visual-wrap">
+            <img src="project_assets/pepper_club_hero.png" alt="Pepper Club Fermentation" class="work-card-img" />
+            <div class="work-card-pills-overlay">
+              <span class="work-badge-tag">UI/UX</span>
+              <span class="work-badge-tag">COMMERCE</span>
+              <span class="work-badge-tag">BRANDING</span>
+            </div>
+          </div>
+          <div class="work-card-body">
+            <div class="work-card-client">02 / ARTISANAL COMMERCE</div>
+            <h2 class="work-card-title">Pepper Club- Slow-Fermented Heat E-Commerce</h2>
+            <p class="work-card-desc">
+              A tactile, high-conversion direct-to-consumer digital storefront for small-batch barrel-aged hot sauces, featuring Scoville sensory dials, fermentation bubbles, and real-time basket kinetics.
+            </p>
+            <div class="work-card-actions">
+              <button class="btn-outline-1minus1" data-open-case="pepper_club">
+                <span>Case Study</span>
+                <span>→</span>
+              </button>
+              <a href="/pepper-club.html" target="_blank" rel="noopener" class="btn-gold-1minus1">
+                <span>Live Present</span>
+                <span>↗</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 04. THE ANTHROPOMORPHIC UI ZOO -->
+        <article class="work-card-1minus1 project-card" data-category="systems uiux">
+          <div class="work-card-visual-wrap">
+            <img src="project_assets/ui_zoo_hero.png" alt="UI Zoo Design Systems" class="work-card-img" />
+            <div class="work-card-pills-overlay">
+              <span class="work-badge-tag">UI/UX</span>
+              <span class="work-badge-tag">DESIGN SYSTEM</span>
+              <span class="work-badge-tag">ACCESSIBLE</span>
+            </div>
+          </div>
+          <div class="work-card-body">
+            <div class="work-card-client">04 / LIVING INTERFACE LAB</div>
+            <h2 class="work-card-title">UI Zoo - Emotion-Driven Component Architecture</h2>
+            <p class="work-card-desc">
+              A radical exploration of UI ergonomics where standard form primitives behave like living creatures that react to cursor velocity, hover proximity, and typing cadence.
+            </p>
+            <div class="work-card-actions">
+              <button class="btn-outline-1minus1" data-open-case="ui_zoo">
+                <span>Case Study</span>
+                <span>→</span>
+              </button>
+              <a href="/ui-zoo.html" target="_blank" rel="noopener" class="btn-gold-1minus1">
+                <span>Live Present</span>
+                <span>↗</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 05. TINY GAMES FOR MOODS -->
+        <article class="work-card-1minus1 project-card" data-category="audio motion">
+          <div class="work-card-visual-wrap">
+            <img src="project_assets/tiny_games_hero.png" alt="Tiny Games for Moods" class="work-card-img" />
+            <div class="work-card-pills-overlay">
+              <span class="work-badge-tag">AUDIO API</span>
+              <span class="work-badge-tag">INTERACTIVE</span>
+              <span class="work-badge-tag">0 ADS</span>
+            </div>
+          </div>
+          <div class="work-card-body">
+            <div class="work-card-client">05 / SOUND & PLAY LAB</div>
+            <h2 class="work-card-title">Tiny Games for Moods - Micro-Experiences & Sound Synthesis</h2>
+            <p class="work-card-desc">
+              A digital sanctuary offering 30-second therapeutic micro-games designed with feelings, real-time Web Audio oscillator synthesis, and fluid dynamics for instant mental resets.
+            </p>
+            <div class="work-card-actions">
+              <button class="btn-outline-1minus1" data-open-case="tiny_games">
+                <span>Case Study</span>
+                <span>→</span>
+              </button>
+              <a href="/tiny-games-for-moods.html" target="_blank" rel="noopener" class="btn-gold-1minus1">
+                <span>Live Present</span>
+                <span>↗</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SANJEEV SRIRAM STYLE MODAL FOR DEEP CASE STUDIES
+         ====================================================================== -->
+    <div class="case-study-modal" id="caseStudyModal" role="dialog" aria-modal="true" aria-label="Case Study Detailed View" data-lenis-prevent="true">
+      <div class="modal-container" data-lenis-prevent="true">
+        <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close Case Study">✕</button>
+        <div id="modalContent"></div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         1MINUS1 CONTACT SECTION: TELL US YOUR STORY
+         ====================================================================== -->
+    <section class="contact-section-1minus1" id="contact">
+      <div class="contact-container">
+        <div class="contact-info-col">
+          <h2 class="contact-headline">
+            TELL US YOUR <br /><span>STORY</span>
+          </h2>
+          <p class="contact-sub">
+            Got an ambitious product in need of distinction, a high-stakes UI/UX redesign, or a physics-driven concept that needs bringing to life? Let's make something iconic together.
+          </p>
+
+          <div class="social-pills-row">
+            <!-- <a href="https://twitter.com" target="_blank" rel="noopener" class="social-pill">TWITTER / X ↗</a>
+            <a href="https://github.com" target="_blank" rel="noopener" class="social-pill">GITHUB ↗</a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-pill">LINKEDIN ↗</a>
+            <a href="https://dribbble.com" target="_blank" rel="noopener" class="social-pill">DRIBBBLE ↗</a> -->
+            <a href="mailto:brolydas853@gmail.com" class="social-pill" style="border-color: var(--accent-gold); color: var(--accent-gold);">EMAIL: BROLYDAS853@GMAIL.COM ✉</a>
+          </div>
+        </div>
+
+        <div class="contact-form-box">
+          <form id="contactForm" onsubmit="event.preventDefault(); alert('Thank you for reaching out! Broly will respond within 24 hours.');">
+            <div class="form-group">
+              <label class="form-label" for="contactName">YOUR NAME</label>
+              <input type="text" id="contactName" class="form-input" placeholder="e.g. Alex Morgan" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contactEmail">EMAIL ADDRESS</label>
+              <input type="email" id="contactEmail" class="form-input" placeholder="alex@company.com" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="projectType">SERVICE INTEREST</label>
+              <select id="projectType" class="form-input" style="background: rgba(10, 22, 40, 0.95);">
+                <option value="uiux">UI/UX & Product Design</option>
+                <option value="motion">Motion & Kinetic Interaction</option>
+                <option value="creative-dev">Creative Web Development & WebGL</option>
+                <option value="full-scope">Full-Scope Brand & Interface</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="contactMessage">TELL US ABOUT YOUR PROJECT</label>
+              <textarea id="contactMessage" class="form-textarea" placeholder="What are you building? What is the vision and timeline?" required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit-1minus1">
+              SEND INQUIRY ✦
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-1minus1-bottom">
+        <div>© 2026 BROLY DAS | ALL RIGHTS RESERVED</div>
+        <!-- <div>NAVY & GOLD SYSTEM (#0A1628 / #12233D / #E5B84B / #7C93B5 / #F1F5F9)</div> -->
+        <div><a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" style="color: var(--accent-gold); text-decoration: none;">BACK TO TOP ↑</a></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Three.js 3D Background & Controller -->
+  <script src="js/three_bg.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
