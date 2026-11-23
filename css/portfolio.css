@@ -153,3 +153,46 @@ html[data-mode=intelligence] .home-page .feature-visual{background:#10232d}
 @media(prefers-reduced-motion:reduce){.home-page .hero-art-main img,.home-page .hero-art-detail{transition:none!important}}
 
 @media(min-width:761px){html[data-mode=intelligence] .home-page .hero h1{font-size:clamp(5.4rem,8vw,10.6rem);margin-right:0}html[data-mode=intelligence] .home-page .hero .title-line.second{padding-left:2vw}}
+
+/* Two materials: carbon black and paper white. */
+:root[data-mode=design]{--accent:#f2ede4}
+:root[data-mode=intelligence]{--canvas:#faf9f6;--ink:#161717;--muted:#5e6263;--line:#cdd0ce;--accent:#003153;color-scheme:light;background:#faf9f6;color:#161717}
+body{background:var(--canvas);color:var(--ink)}
+.mode-dock{background:#050404;border-color:#666;color:#f2ede4;box-shadow:0 8px 30px #0002}
+.mode-dock .dock-slider{background:#262626;border:1px solid #737373}
+.mode-dock button[aria-pressed=true]{color:#fff}
+html[data-mode=intelligence] .mode-dock{background:#fff;border-color:#b9bfbe;color:#5e6263}
+html[data-mode=intelligence] .mode-dock .dock-slider{background:#f0f1ee;border-color:#aab0ae}
+html[data-mode=intelligence] .mode-dock button[aria-pressed=true]{color:#050404}
+html[data-mode=intelligence] .home-page .hero-meta,
+html[data-mode=intelligence] .home-page .hero-bottom p{color:#3b4141}
+html[data-mode=intelligence] .home-page .hero-meta span:last-child,
+html[data-mode=intelligence] .home-page .section-kicker,
+html[data-mode=intelligence] .home-page .feature-meta,
+html[data-mode=intelligence] .home-page .hero-rail{color:#626968}
+html[data-mode=intelligence] .home-page .hero-bottom,
+html[data-mode=intelligence] .home-page .feature-meta,
+html[data-mode=intelligence] .home-page .site-footer{border-color:#bfc6c4}
+html[data-mode=intelligence] .home-page .hero-system{background:#edf0ec;color:#122b34}
+html[data-mode=intelligence] .home-page .hero-system:before{background-image:linear-gradient(#12313d0a 1px,transparent 1px),linear-gradient(90deg,#12313d0a 1px,transparent 1px)}
+html[data-mode=intelligence] .home-page .system-node b{color:#4b626b}
+html[data-mode=intelligence] .home-page .system-foot span{color:#003153}
+html[data-mode=intelligence] .home-page .system-node:after{background:#003153}
+html[data-mode=intelligence] .home-page .hero-art-index{background:#faf9f6;color:#161717;border-color:#bfc6c4}
+html[data-mode=intelligence] .home-page .hero-art-index span{color:#626968}
+html[data-mode=intelligence] .diagram-preview{background:#e9efed}
+html[data-mode=intelligence] .diagram-node{color:#183a49;border-color:#a8b9bc}
+html[data-mode=intelligence] .diagram-node span{color:#4b626b}
+html[data-mode=intelligence] .home-page .feature-visual{outline-color:#bfc6c4}
+html[data-mode=intelligence] .home-page .interlude{background:#e4e9e5;color:#172a2c}
+html[data-mode=intelligence] .home-page .about-mark{color:#7b8582}
+/* The well is a dark cinema within either portfolio. */
+.well-stage{color:#f2ede4;background:#050404;--ink:#f2ede4;--muted:#aaa49b;--line:#38332e}
+.liquid-transition{position:fixed;inset:0;z-index:90;pointer-events:none;overflow:hidden;contain:layout paint}
+.liquid-snapshot{pointer-events:none}
+.liquid-running .mode-dock{transition:none}
+@media(prefers-reduced-motion:reduce){.liquid-transition{display:none}}
+
+html[data-mode=intelligence] .mode-dock button[aria-pressed=false]{color:#525958}
+
+@media(max-width:760px){html[data-mode=intelligence] .sound-control{background:#faf9f6;color:#161717;border:1px solid #cdd0ce}}
