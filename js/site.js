@@ -33,7 +33,7 @@ document.querySelectorAll('[data-mode-button]').forEach(b=>b.addEventListener('c
 document.querySelector('[data-other-mode]')?.addEventListener('click',()=>{setMode(mode==='design'?'intelligence':'design');document.getElementById('main').scrollIntoView({behavior:simpleMotion?'instant':'smooth'});});
 addEventListener('popstate',()=>setMode(modeFromURL(),{updateURL:false}));
 const gate=document.getElementById('sound-gate');
-if(gate){if(!safeSession.get('portfolio-entered'))gate.showModal();gate.addEventListener('cancel',()=>safeSession.set('portfolio-entered','quiet'));gate.querySelectorAll('[data-enter]').forEach(b=>b.addEventListener('click',async()=>{await setSound(b.dataset.enter==='sound');safeSession.set('portfolio-entered',b.dataset.enter);gate.close();audio.cue('open');document.dispatchEvent(new Event('portfolio:enter'));}));}
+if(gate){if(!safeSession.get('portfolio-well-entered'))gate.showModal();gate.addEventListener('cancel',()=>safeSession.set('portfolio-well-entered','quiet'));gate.querySelectorAll('[data-enter]').forEach(b=>b.addEventListener('click',async()=>{await setSound(b.dataset.enter==='sound');safeSession.set('portfolio-well-entered',b.dataset.enter);gate.close();audio.cue('open');document.dispatchEvent(new Event('portfolio:enter'));}));}
 reduced.addEventListener('change',e=>{simpleMotion=e.matches;root.classList.toggle('no-motion',simpleMotion);document.dispatchEvent(new CustomEvent('portfolio:motion',{detail:{reduced:simpleMotion}}));});
 root.classList.toggle('no-motion',simpleMotion);
 setMode(mode,{updateURL:false,animate:false});

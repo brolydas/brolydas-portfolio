@@ -12,3 +12,10 @@
 .dock-slider{background:var(--accent);box-shadow:inset 0 0 0 1px #ffe0a885}
 .screen-selected .well-caption{opacity:.18;transition:opacity .35s}
 .screen-selected .well-hover{color:var(--accent)}
+
+.hero-side-note{position:absolute;right:var(--space);top:34%;width:min(21vw,260px);height:290px;border-left:1px solid #6b5e4d;padding:15px 0 0 22px;display:flex;flex-direction:column;justify-content:space-between;color:var(--muted);font:1rem/1.5 var(--body)}
+.hero-side-note span:first-child{color:var(--accent)}
+.well-intro{background:#050404d9;padding:24px 28px 24px 0;max-width:min(630px,72vw)}
+.well-caption{background:#050404df;padding:15px 25px 17px 0}
+@media(max-width:900px){.hero-side-note{top:25%;height:180px;right:var(--space)}}
+@media(max-width:600px){.hero-side-note{top:22%;right:22px;width:130px;height:95px;font-size:.8rem;opacity:.7;border-color:#54493c;padding-left:12px}.hero-side-note span:last-child{display:none}}

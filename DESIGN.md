@@ -9,7 +9,7 @@ The user supplied the palette, typography, two portfolio modes, sound gate, and 
 Near black #050404; bone #f2ede4; Prussian blue #003153 for the well floor; warm amber #edac56 for the single bright control. Bodoni Moda display, Jost body. Rectangular controls, ruled editorial rows, asymmetric work spreads. No marketing badges, gradients in text, pill containers, fabricated reviews, statistical banners, generic icon cards, or bouncing motion.
 
 ## Journey and feeling
-1. Arrival: curiosity through oversized restrained type and a cropped architectural ring.
+1. Arrival: curiosity through oversized restrained type and an asymmetric side note. The spatial well opens only from Work.
 2. Choice: agency through a persistent Design / Intelligence switch.
 3. Evidence: clarity through genuine existing work and specific descriptions.
 4. Descent: discovery through narrowing rings of curved screens.
@@ -38,7 +38,7 @@ The 10s motorcycle reference goes from line drawing to photographic object, then
 
 The supplied project-well image has concentric, offset rings of curved screens around a small central figure. The camera looks down into the opening, so each layer remains distinct; one violet pool of light supplies scale and focus. Our adaptation uses five staggered rings with fewer screens and real project content, a concentrated Prussian-blue floor and a small observer. The camera begins directly above the rim and continues looking down as it travels through the rings; the screen geometry leans toward that overhead view. The one bright amber moment remains in the portfolio switch. The image alone does not specify motion timing, playback, or interactions, so those behaviors follow the user's written brief and are tested as part of the implementation.
 
-These reference videos are edited screen recordings. Their sampled frames show the sequence and visual relationships, but they cannot prove that every transition is controlled by scroll on the original sites. The implementation should map those stages to measured scroll progress, with normal scrolling, reduced-motion and keyboard alternatives. Screen imagery comes from existing project assets; genuine scroll-recording files can be assigned via the optional video field in js/projects.js. Still imagery is scrubbed vertically until recordings are supplied.
+These reference videos are edited screen recordings. Their sampled frames show the sequence and visual relationships, but they cannot prove that every transition is controlled by scroll on the original sites. The implementation should map those stages to measured scroll progress, with normal scrolling, reduced-motion and keyboard alternatives. Screen imagery comes from existing project assets and scrolls vertically through paired project captures. The site pages are not represented as continuous video recordings; those would need dedicated media captures.
 
 ## Technical boundaries
 Static HTML/CSS/modules; pinned Three.js CDN imports. Audio begins only after explicit consent and can be muted at all times. Earshot one-shots supplement Web Audio synthesis. WebGL failure leaves the complete DOM project index available. Scene resources and animation loops are disposed on teardown. Device performance requires real hardware verification; no award or performance guarantee is claimed.
