@@ -151,3 +151,5 @@ html[data-mode=intelligence] .home-page .feature-visual{background:#10232d}
  .home-page .hero-art-detail{width:34%}
 }
 @media(prefers-reduced-motion:reduce){.home-page .hero-art-main img,.home-page .hero-art-detail{transition:none!important}}
+
+@media(min-width:761px){html[data-mode=intelligence] .home-page .hero h1{font-size:clamp(5.4rem,8vw,10.6rem);margin-right:0}html[data-mode=intelligence] .home-page .hero .title-line.second{padding-left:2vw}}
