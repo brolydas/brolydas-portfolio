@@ -69,7 +69,8 @@ function buildWorld(){
   renderer.setPixelRatio(Math.min(devicePixelRatio,1.6));renderer.setSize(innerWidth,innerHeight,false);
   renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.28;
   camera=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,.1,90);
-  camera.position.set(0,16,22);camera.lookAt(0,1,0);
+  // The camera begins above the mouth of the well and continues to look down.
+  camera.position.set(0,25,10);camera.lookAt(0,0,0);
   clock=new THREE.Clock();raycaster=new THREE.Raycaster();pointer=new THREE.Vector2();
   scene.add(new THREE.AmbientLight('#9c9fac',1.45));
   const key=new THREE.PointLight('#e8dfd2',85,32);key.position.set(2,6,5);scene.add(key);
@@ -82,19 +83,36 @@ function buildWorld(){
   const content=projects[mode];
   for(let row=0;row<5;row++){
     const group=new THREE.Group(),count=5,radius=9.2-row*.67,height=2.15;
-    const rim=new THREE.Mesh(new THREE.TorusGeometry(radius,.015,5,80),new THREE.MeshBasicMaterial({color:row===5?'#31506b':'#373035',transparent:true,opacity:.62}));
-    rim.rotation.x=Math.PI/2;rim.position.y=-height*.65;group.add(rim);
+    const rim=new THREE.Mesh(new THREE.TorusGeometry(radius+height*.6,.015,5,80),new THREE.MeshBasicMaterial({color:row===4?'#31506b':'#373035',transparent:true,opacity:.45}));
+    rim.rotation.x=Math.PI/2;rim.position.y=height*.5;group.add(rim);
     for(let i=0;i<count;i++){
       const project=content[(i+row*2)%content.length];
       const angle=i*Math.PI*2/count+(row%2?.38:0),width=Math.PI*2/count*.70;
       const geometry=new THREE.CylinderGeometry(radius,radius,height,20,1,true,angle,width);
+      // Lean the upper edge outward. Each curved surface now faces the
+      // descending overhead camera, as the screens do in the reference.
+      const positions=geometry.getAttribute('position');
+      for(let vertex=0;vertex<positions.count;vertex++){
+        const x=positions.getX(vertex),y=positions.getY(vertex),z=positions.getZ(vertex);
+        const distance=Math.hypot(x,z);
+        const leaned=distance+y*1.2;
+        positions.setXYZ(vertex,x*leaned/distance,y,z*leaned/distance);
+      }
+      positions.needsUpdate=true;geometry.computeVertexNormals();
       const mat=new THREE.MeshBasicMaterial({map:makeTexture(project),side:THREE.DoubleSide,transparent:true,opacity:row<2?.93:.96});
       const screen=new THREE.Mesh(geometry,mat);screen.userData={project,row,angle,home:null};group.add(screen);screens.push(screen);
       const edge=new THREE.LineSegments(new THREE.EdgesGeometry(geometry),new THREE.LineBasicMaterial({color:'#665865',transparent:true,opacity:.14}));screen.add(edge);
     }
     group.position.y=6-row*4.1;scene.add(group);rings.push(group);
   }
-  largeScreen=new THREE.Mesh(new THREE.CylinderGeometry(5.9,5.9,2.25,36,1,true,Math.PI*.25,Math.PI*.47),new THREE.MeshBasicMaterial({map:makeTexture(content[0]),side:THREE.DoubleSide}));
+  const featureGeometry=new THREE.CylinderGeometry(5.9,5.9,2.25,36,1,true,Math.PI*.25,Math.PI*.47);
+  const featurePositions=featureGeometry.getAttribute('position');
+  for(let vertex=0;vertex<featurePositions.count;vertex++){
+    const x=featurePositions.getX(vertex),y=featurePositions.getY(vertex),z=featurePositions.getZ(vertex),distance=Math.hypot(x,z),leaned=distance+y*1.2;
+    featurePositions.setXYZ(vertex,x*leaned/distance,y,z*leaned/distance);
+  }
+  featurePositions.needsUpdate=true;featureGeometry.computeVertexNormals();
+  largeScreen=new THREE.Mesh(featureGeometry,new THREE.MeshBasicMaterial({map:makeTexture(content[0]),side:THREE.DoubleSide}));
   largeScreen.position.y=-12.3;scene.add(largeScreen);
   document.body.classList.add('well-available');
 }
@@ -123,11 +141,11 @@ function animate(){
   const dt=Math.min(clock.getDelta(),.05);
   velocity=THREE.MathUtils.damp(velocity,targetVelocity,3,dt);targetVelocity=THREE.MathUtils.damp(targetVelocity,0,5,dt);
   const end=progress>.83?(progress-.83)/.17:0;
-  const y=THREE.MathUtils.lerp(16,2,Math.min(progress/.83,1))+end*33;
-  const z=THREE.MathUtils.lerp(22,9,Math.min(progress/.83,1))+end*11;
+  const y=THREE.MathUtils.lerp(25,-1,Math.min(progress/.83,1))+end*36;
+  const z=THREE.MathUtils.lerp(10,4,Math.min(progress/.83,1))+end*10;
   camera.position.y=THREE.MathUtils.damp(camera.position.y,y,2.6,dt);
   camera.position.z=THREE.MathUtils.damp(camera.position.z,z,2.6,dt);
-  const lookY=progress>.83?-12.5:THREE.MathUtils.lerp(1,-14,Math.min(progress/.83,1));
+  const lookY=progress>.83?-14:THREE.MathUtils.lerp(0,-15,Math.min(progress/.83,1));
   camera.lookAt(0,lookY,0);
   rings.forEach((ring,i)=>{ring.rotation.y=progress*(i%2?-.84:1.0)*(1+i*.23)+velocity*(i%2?-.11:.11);});
   if(largeScreen){const active=projects[mode][Math.min(projects[mode].length-1,Math.floor(progress*projects[mode].length))];if(largeScreen.userData.id!==active.id){largeScreen.material.map=makeTexture(active);largeScreen.userData.id=active.id;}}
