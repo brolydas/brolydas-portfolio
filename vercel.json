@@ -3,13 +3,37 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/work", "destination": "/work.html" },
-    { "source": "/services", "destination": "/services.html" },
-    { "source": "/graphic-design-studio", "destination": "/Graphic Design Studio.html" },
-    { "source": "/pepper-club", "destination": "/pepper-club.html" },
-    { "source": "/scroll-lab", "destination": "/scroll-lab-play.html" },
-    { "source": "/ui-zoo", "destination": "/ui-zoo.html" },
-    { "source": "/tiny-games", "destination": "/tiny-games-for-moods.html" }
+    {
+      "source": "/projects",
+      "destination": "/work.html"
+    },
+    {
+      "source": "/work",
+      "destination": "/work.html"
+    },
+    {
+      "source": "/services",
+      "destination": "/services.html"
+    },
+    {
+      "source": "/graphic-design-studio",
+      "destination": "/Graphic Design Studio.html"
+    },
+    {
+      "source": "/pepper-club",
+      "destination": "/pepper-club.html"
+    },
+    {
+      "source": "/scroll-lab",
+      "destination": "/scroll-lab-play.html"
+    },
+    {
+      "source": "/ui-zoo",
+      "destination": "/ui-zoo.html"
+    },
+    {
+      "source": "/tiny-games",
+      "destination": "/tiny-games-for-moods.html"
+    }
   ]
 }
-
