@@ -1,0 +1,26 @@
+name: Portfolio browser QA
+on:
+  pull_request:
+  workflow_dispatch:
+  push:
+    branches: ['design/portfolio-demo-refinement']
+permissions:
+  contents: read
+jobs:
+  chromium:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-save --package-lock=false playwright@1.51.1 animejs@3.2.1
+      - run: npx playwright install --with-deps chromium
+      - run: node tests/portfolio-browser.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: portfolio-browser-qa
+          path: test-results/portfolio/
+          retention-days: 14
