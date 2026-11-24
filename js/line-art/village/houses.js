@@ -461,7 +461,7 @@ export function buildStreet(layers, defs) {
   })();
 
   return {
-    windows, lanterns, norens, furin, shoji, blossoms, canopy, pails,
+    buildings:[h1,h2,h3,h4], windows, lanterns, norens, furin, shoji, blossoms, canopy, pails,
     parasol, benchTop, alleyLamp,
     bench: { x0: 518, x1: 598, y: 330 },
     chimney: [901, 64],

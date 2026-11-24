@@ -8,6 +8,7 @@ import { buildStreet } from './houses.js';
 import { buildCanal } from './canal.js';
 import { createKimono, createCyclist, createKid, createBoat } from './people.js';
 import { createCat, createSparrows, createSwallows, createPetals, createSmoke } from './critters.js';
+import {createFutureVillage} from './future.js?v=1';
 
 const section=document.querySelector('#contact'),host=section.querySelector('[data-contact-art]'),card=section;
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
@@ -18,8 +19,8 @@ function palette(tau){
 }
 function run(draw){
  let id=0,last=0,t=0,visible=false;
- function frame(now){id=0;if(!visible||document.documentElement.dataset.mode==='intelligence'||document.hidden||reduced.matches)return;const dt=last?Math.min((now-last)/1000,.033):1/60;last=now;t+=dt;draw(t,dt);id=requestAnimationFrame(frame);}
- function sync(){if(id)cancelAnimationFrame(id);id=0;last=0;if(visible&&document.documentElement.dataset.mode!=='intelligence'&&!document.hidden&&!reduced.matches)id=requestAnimationFrame(frame);}
+ function frame(now){id=0;if(!visible||document.hidden||reduced.matches)return;const dt=last?Math.min((now-last)/1000,.033):1/60;last=now;t+=dt;draw(t,dt);id=requestAnimationFrame(frame);}
+ function sync(){if(id)cancelAnimationFrame(id);id=0;last=0;if(visible&&!document.hidden&&!reduced.matches)id=requestAnimationFrame(frame);}
  const observer=new IntersectionObserver(entries=>{visible=entries.some(e=>e.isIntersecting);sync();});observer.observe(section);
  const refresh=()=>{draw(t,0);sync();};
  document.addEventListener('portfolio:mode',refresh);document.addEventListener('visibilitychange',sync);reduced.addEventListener('change',refresh);
@@ -49,7 +50,6 @@ const LIFE=1,TRAFFIC=1;
 // ------------------------------------------------------------------ wind from the pointer
 let wind = 0.3, windTarget = 0.3, lastX = null, lastT = 0;
 section.addEventListener('pointermove', (e) => {
-  if(document.documentElement.dataset.mode==='intelligence')return;
   const now = performance.now();
   if (lastX !== null && !svg.classList.contains('scrubbing')) windTarget = clamp(windTarget + ((e.clientX - lastX) / Math.max(8, now - lastT)) * 0.8, -2.4, 2.4);
   lastX = e.clientX; lastT = now;
@@ -106,9 +106,10 @@ function addPerson(kind, x) {
   if (kind === 'bike') p = createCyclist(walkers, glow, { dir, x: sx, y: LANE.front + rnd(-1, 1) });
   if (kind === 'kid') p = createKid(walkers, glow, { dir, x: sx, y: LANE.mid + rnd(-1, 1) });
   on(p.g, () => { p.poke(); if (p.kind === 'bike') setTimeout(() => sparrows.flush(), 150); });
-  people.push(p);
+  p.futureKind=kind;people.push(p);
 }
 
+const future=createFutureVillage({svg,defs,scene,walkers,buildings:street.buildings,people,reduced});
 // ------------------------------------------------------------------ hud
 
 // ------------------------------------------------------------------ frame
@@ -166,8 +167,9 @@ run((t, dt) => {
       if (k === 'kid') { spawn[k] = rnd(14, 24); if (dayish) addPerson('kid'); }
     }
   }
-  for (let i = people.length - 1; i >= 0; i--) { const p = people[i]; p.draw(t, dt * LIFE, P, wind); if (p.done) { p.remove(); people.splice(i, 1); } else if (p.ringing && Math.random() < dt * 4) sparrows.flush(); }
-  people.slice().sort((a, b) => a.y - b.y).forEach((p) => walkers.appendChild(p.g));
+  for (let i = people.length - 1; i >= 0; i--) { const p = people[i]; if(!p.futureHeld)p.draw(t, dt * LIFE, P, wind); if (p.done) { p.remove(); people.splice(i, 1); } else if (p.ringing && Math.random() < dt * 4) sparrows.flush(); }
+  future.draw(t,dt);
+  [...people,...future.robots].sort((a,b)=>a.y-b.y).forEach(p=>walkers.appendChild(p.g));
 
 });
 
