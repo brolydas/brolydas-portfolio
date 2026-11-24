@@ -1,0 +1,49 @@
+/* Material switch — Symbiote + Mercury-inspired monochrome capsule. */
+.home-page .mode-dock{
+ --orb:48px;--track:#15171a;--rim:#42464b;--label:#a9adb2;--selected:#fff;
+ width:398px;max-width:calc(100vw - 32px);padding:6px;gap:0;border:1px solid var(--rim);
+ border-radius:999px;background:linear-gradient(170deg,#3b3d42 0%,#16181b 31%,#090a0c 76%,#25272a 100%);
+ box-shadow:0 12px 32px #0009,0 2px 5px #000b,inset 0 1px 1px #ffffff38,inset 0 -1px 1px #000b;
+ isolation:isolate;view-transition-name:portfolio-dock;z-index:40;
+}
+.home-page .mode-dock:before{content:"";position:absolute;inset:5px;border-radius:999px;z-index:-1;background:radial-gradient(ellipse at 30% 0%,#60677138,transparent 65%),linear-gradient(180deg,#090a0c,#1c2025);box-shadow:inset 0 3px 9px #000e,inset 0 -1px 1px #ffffff20;pointer-events:none}
+.home-page .mode-dock button{height:64px;width:50%;padding:0 7px 0 calc(var(--orb) + 13px);gap:0;justify-content:flex-start;align-items:center;border-radius:999px;position:relative;z-index:2;color:var(--label);touch-action:manipulation;transition:color .35s}
+.home-page .mode-dock button[aria-pressed=true]{color:var(--selected)}
+.home-page .mode-dock button[aria-pressed=false]{color:var(--label)}
+.home-page .mode-dock button>span:last-child{font-size:1rem;font-weight:500;white-space:nowrap;line-height:1.15}
+.home-page .mode-dock small{font-size:.64rem;font-weight:400;opacity:.83;white-space:nowrap;letter-spacing:-.01em;margin-top:4px}
+.home-page .mode-dock .mode-symbol{display:none}
+.home-page .mode-dock .dock-slider{
+ position:absolute;z-index:1;top:50%;left:13px;bottom:auto;width:var(--orb);height:var(--orb);border-radius:50%;
+ transform:translateY(-50%);border:1px solid #b7c0c9;
+ background:radial-gradient(ellipse at 30% 18%,#fff 0%,#dfe6ee 12%,#8f99a7 27%,#353c47 48%,#0b101a 57%,#75889e 81%,#d2dce8 100%);
+ box-shadow:0 5px 12px #000b,0 0 14px #a9c5e93d,inset 0 1px 2px #fff9;
+ transition:left .7s cubic-bezier(.2,.86,.24,1.08),background .5s,box-shadow .5s,border-color .4s;
+ view-transition-name:portfolio-orb;pointer-events:none;
+}
+.home-page .mode-dock .dock-slider:before{content:"";position:absolute;inset:9px 11px auto;height:11px;border-radius:50%;background:linear-gradient(#fff9,#fff0);filter:blur(1.5px)}
+html[data-mode=intelligence] .home-page .mode-dock{
+ --rim:#bcc0c4;--label:#555b63;--selected:#151719;
+ background:linear-gradient(165deg,#fff 0%,#e4e6eb 43%,#b8bcc4 76%,#f4f5f8 100%);
+ box-shadow:0 9px 28px #30343d35,0 2px 4px #383b4826,inset 0 1px 1px #fff;
+}
+html[data-mode=intelligence] .home-page .mode-dock:before{background:linear-gradient(#b9bec8,#f6f7fa 43%,#e1e4ea);box-shadow:inset 0 4px 9px #4b526452,inset 0 -1px 1px #fff}
+html[data-mode=intelligence] .home-page .mode-dock .dock-slider{
+ left:calc(50% + 7px);transform:translateY(-50%);border-color:#fff;
+ background:radial-gradient(ellipse at 28% 19%,#fff 0%,#fafbfc 21%,#e0e4ea 48%,#a9b0bd 75%,#e6e9ee 100%);
+ box-shadow:0 5px 12px #555c6b65,0 0 13px #ffffffc0,inset 0 1px 3px white;
+}
+html[data-mode=intelligence] .home-page .mode-dock button[aria-pressed=true]{color:var(--selected)}
+html[data-mode=intelligence] .home-page .mode-dock button[aria-pressed=false]{color:var(--label)}
+.home-page .mode-dock button:focus-visible{outline:2px solid var(--selected);outline-offset:-3px}
+.home-page .mode-dock button:active>span:last-child{transform:scale(.97)}
+@media(max-width:420px){.home-page .mode-dock{--orb:38px;width:calc(100vw - 28px)}.home-page .mode-dock button{height:54px;padding-left:calc(var(--orb) + 12px)}.home-page .mode-dock .dock-slider{left:11px}html[data-mode=intelligence] .home-page .mode-dock .dock-slider{left:calc(50% + 5px)}.home-page .mode-dock button>span:last-child{font-size:.9rem}.home-page .mode-dock small{font-size:.56rem}}
+/* A switch-origin material ripple using native snapshots (never clones the SVG village). */
+html.mode-flow::view-transition-group(root){animation:none}
+html.mode-flow::view-transition-old(root){animation:none;mix-blend-mode:normal}
+html.mode-flow::view-transition-new(root){animation:material-reveal .82s cubic-bezier(.25,.75,.2,1) both;mix-blend-mode:normal}
+html.mode-flow::view-transition-group(portfolio-dock){animation-duration:.65s;z-index:2}
+html.mode-flow::view-transition-group(portfolio-orb){animation-duration:.7s;animation-timing-function:cubic-bezier(.2,.86,.24,1.08);z-index:3}
+html.mode-flow::view-transition-old(portfolio-orb),html.mode-flow::view-transition-new(portfolio-orb){animation-duration:.55s;mix-blend-mode:normal}
+@keyframes material-reveal{from{clip-path:circle(0px at var(--mode-reveal-x) var(--mode-reveal-y))}to{clip-path:circle(var(--mode-reveal-r) at var(--mode-reveal-x) var(--mode-reveal-y))}}
+@media(prefers-reduced-motion:reduce){.home-page .mode-dock,.home-page .mode-dock *,html.mode-flow::view-transition-group(*),html.mode-flow::view-transition-old(*),html.mode-flow::view-transition-new(*){animation:none!important;transition:none!important}}
