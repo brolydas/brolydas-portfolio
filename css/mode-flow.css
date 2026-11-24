@@ -1,0 +1,59 @@
+/* Liquid metal: a full-width active capsule, not a separate moving ball. */
+.home-page .mode-dock{
+ --rim:#42464b;--label:#b7bac1;--selected:#15171a;
+ width:398px;max-width:calc(100vw - 28px);padding:6px;gap:0;border:1px solid var(--rim);
+ border-radius:999px;background:linear-gradient(170deg,#484b50 0%,#191b1e 31%,#090a0c 76%,#292b30 100%);
+ box-shadow:0 12px 32px #0009,0 2px 5px #000b,inset 0 1px 1px #ffffff38,inset 0 -1px 1px #000b;
+ isolation:isolate;view-transition-name:portfolio-dock;z-index:40;
+}
+.home-page .mode-dock:before{content:"";position:absolute;inset:5px;border-radius:999px;z-index:-1;background:radial-gradient(ellipse at 30% 0%,#60677138,transparent 65%),linear-gradient(180deg,#090a0c,#1c2025);box-shadow:inset 0 3px 9px #000e,inset 0 -1px 1px #ffffff20;pointer-events:none}
+.home-page .mode-dock button{
+ height:60px;width:50%;min-width:0;padding:0 7px;gap:0;justify-content:center;align-items:center;
+ text-align:center;border-radius:999px;position:relative;z-index:2;color:var(--label);touch-action:manipulation;transition:color .35s;
+}
+.home-page .mode-dock button[aria-pressed=true]{color:var(--selected)}
+.home-page .mode-dock button[aria-pressed=false]{color:var(--label)}
+.home-page .mode-dock button>span:last-child{font-size:1rem;font-weight:500;white-space:nowrap;line-height:1.15}
+.home-page .mode-dock small{font-size:.64rem;font-weight:400;opacity:.85;white-space:nowrap;letter-spacing:-.01em;margin-top:4px}
+.home-page .mode-dock .mode-symbol{display:none}
+.home-page .mode-dock button[data-mode-button="design"]{view-transition-name:portfolio-label-design}
+.home-page .mode-dock button[data-mode-button="intelligence"]{view-transition-name:portfolio-label-intelligence}
+.home-page .mode-dock .dock-slider{
+ position:absolute;z-index:1;top:6px;left:6px;bottom:6px;width:calc(50% - 6px);height:auto;
+ border-radius:999px;transform:translateX(0);border:1px solid #d9dce1;
+ background:linear-gradient(164deg,#fafbfc 0%,#dce1e7 24%,#aeb7c3 43%,#bfc6cf 54%,#e5e8ec 83%,#b6bec8 100%);
+ box-shadow:0 4px 9px #0009,inset 0 1px 2px #fff,0 0 12px #b7c3d044;
+ transition:transform .7s cubic-bezier(.2,.86,.24,1.04),background .5s,box-shadow .5s,border-color .4s;
+ view-transition-name:portfolio-metal;pointer-events:none;
+}
+.home-page .mode-dock .dock-slider:before{content:"";position:absolute;inset:3px 9px auto;height:35%;border-radius:999px;background:linear-gradient(180deg,#ffffff70,transparent);pointer-events:none}
+html[data-mode=intelligence] .home-page .mode-dock{
+ --rim:#bcc0c4;--label:#4e535a;--selected:#fff;
+ background:linear-gradient(165deg,#fff 0%,#e4e6eb 43%,#b8bcc4 76%,#f4f5f8 100%);
+ box-shadow:0 9px 28px #30343d35,0 2px 4px #383b4826,inset 0 1px 1px #fff;
+}
+html[data-mode=intelligence] .home-page .mode-dock:before{background:linear-gradient(#b9bec8,#f6f7fa 43%,#e1e4ea);box-shadow:inset 0 4px 9px #4b526452,inset 0 -1px 1px #fff}
+html[data-mode=intelligence] .home-page .mode-dock .dock-slider{
+ transform:translateX(100%);border-color:#555960;
+ background:linear-gradient(165deg,#565b63 0%,#373b43 24%,#181b21 47%,#101216 64%,#363a42 100%);
+ box-shadow:0 4px 9px #0005,inset 0 1px 2px #ffffff55,0 0 12px #31394522;
+}
+html[data-mode=intelligence] .home-page .mode-dock .dock-slider:before{background:linear-gradient(180deg,#ffffff25,transparent)}
+html[data-mode=intelligence] .home-page .mode-dock button[aria-pressed=true]{color:var(--selected)}
+html[data-mode=intelligence] .home-page .mode-dock button[aria-pressed=false]{color:var(--label)}
+.home-page .mode-dock button:focus-visible{outline:2px solid currentColor;outline-offset:-4px}
+.home-page .mode-dock button:active>span:last-child{transform:scale(.97)}
+@media(max-width:420px){.home-page .mode-dock{width:calc(100vw - 28px)}.home-page .mode-dock button{height:54px;padding:0 4px}.home-page .mode-dock button>span:last-child{font-size:.92rem}.home-page .mode-dock small{font-size:.58rem}}
+/* Native snapshots keep the animated street intact. Layer the labels over the moving metal. */
+html.mode-flow::view-transition-group(root){animation:none}
+html.mode-flow::view-transition-old(root){animation:none;mix-blend-mode:normal}
+html.mode-flow::view-transition-new(root){animation:material-reveal .82s cubic-bezier(.25,.75,.2,1) both;mix-blend-mode:normal}
+html.mode-flow::view-transition-group(portfolio-dock){animation-duration:.65s;z-index:2}
+html.mode-flow::view-transition-group(portfolio-metal){animation-duration:.7s;animation-timing-function:cubic-bezier(.2,.86,.24,1.04);z-index:3}
+html.mode-flow::view-transition-image-pair(portfolio-metal){animation:metal-stretch .7s ease-in-out both;transform-origin:center}
+html.mode-flow::view-transition-old(portfolio-metal),html.mode-flow::view-transition-new(portfolio-metal){animation-duration:.55s;mix-blend-mode:normal}
+html.mode-flow::view-transition-group(portfolio-label-design),html.mode-flow::view-transition-group(portfolio-label-intelligence){animation-duration:.7s;z-index:4}
+html.mode-flow::view-transition-old(portfolio-label-design),html.mode-flow::view-transition-old(portfolio-label-intelligence),html.mode-flow::view-transition-new(portfolio-label-design),html.mode-flow::view-transition-new(portfolio-label-intelligence){animation-duration:.55s;mix-blend-mode:normal}
+@keyframes metal-stretch{0%,100%{transform:scaleX(1) scaleY(1)}35%{transform:scaleX(1.09) scaleY(.96)}72%{transform:scaleX(.985) scaleY(1.01)}}
+@keyframes material-reveal{from{clip-path:circle(0px at var(--mode-reveal-x) var(--mode-reveal-y))}to{clip-path:circle(var(--mode-reveal-r) at var(--mode-reveal-x) var(--mode-reveal-y))}}
+@media(prefers-reduced-motion:reduce){.home-page .mode-dock,.home-page .mode-dock *,html.mode-flow::view-transition-group(*),html.mode-flow::view-transition-image-pair(*),html.mode-flow::view-transition-old(*),html.mode-flow::view-transition-new(*){animation:none!important;transition:none!important}}

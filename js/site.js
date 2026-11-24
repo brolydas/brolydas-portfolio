@@ -24,7 +24,31 @@ function renderHeroVisual(){
 function diagramMarkup(p){return `<div class="diagram-preview" aria-label="${esc(p.title)} architecture">${p.diagram.map((n,i)=>`<div class="diagram-node">${esc(n)}<span aria-hidden="true">${i===p.diagram.length-1?'●':'↓'}</span></div>`).join('')}</div>`;}
 function renderFeatured(){const el=document.querySelector('#featured-projects');if(!el)return;const selection=mode==='design'?projects.design.slice(0,3):[projects.intelligence[0],projects.intelligence[3],projects.intelligence[6]];el.innerHTML=selection.map(p=>`<article class="feature" style="--project-color:${p.color}"><a class="feature-visual" href="/work.html?mode=${mode}&project=${p.id}#project-index" aria-label="Read about ${esc(p.title)}">${p.image?`<span class="image-fallback" aria-hidden="true">${esc(p.title)}</span><img loading="lazy" decoding="async" src="${esc(p.image)}" alt="${esc(p.title)} project preview">`:diagramMarkup(p)}</a><div class="feature-copy"><div class="feature-meta"><span>${esc(p.kind)}</span><span>Selected work</span></div><h3>${esc(p.title)}</h3><p>${esc(p.description)}</p><a class="text-link" href="/work.html?mode=${mode}&project=${p.id}#project-index">View project <span aria-hidden="true">↗</span></a></div></article>`).join('');el.querySelectorAll('img').forEach(img=>img.addEventListener('error',()=>img.classList.add('failed'),{once:true}));}
 function kineticTitle(){if(simpleMotion)return;document.querySelectorAll('[data-hero-line]').forEach(el=>{let i=0;const walk=node=>{for(const child of Array.from(node.childNodes)){if(child.nodeType===Node.TEXT_NODE){const fragment=document.createDocumentFragment();for(const char of child.textContent){if(char===' '){fragment.append(' ');continue;}const span=document.createElement('span');span.className='letter';span.style.setProperty('--i',i++);span.textContent=char;fragment.append(span);}child.replaceWith(fragment);}else walk(child);}};el.setAttribute('aria-label',el.textContent);walk(el);el.querySelectorAll('.letter').forEach(x=>x.setAttribute('aria-hidden','true'));});}
-export function setMode(next,{updateURL=true,animate=true}={}){
+let modeFlow=null;
+export function setMode(next,options={}){
+ const animate=options.animate!==false;
+ if(!projects[next])return;
+ // Keep the orb and page reveal on one compositor-driven transition.
+ if(next!==mode && animate && !simpleMotion && document.body.classList.contains('home-page') && typeof document.startViewTransition==='function'){
+  modeFlow?.skipTransition();
+  const dock=document.querySelector('.mode-dock');
+  const rect=dock?.getBoundingClientRect();
+  const x=rect?rect.left+rect.width/2:innerWidth/2;
+  const y=rect?rect.top+rect.height/2:innerHeight;
+  const radius=Math.hypot(Math.max(x,innerWidth-x),Math.max(y,innerHeight-y))+20;
+  root.style.setProperty('--mode-reveal-x',x+'px');
+  root.style.setProperty('--mode-reveal-y',y+'px');
+  root.style.setProperty('--mode-reveal-r',radius+'px');
+  root.classList.add('mode-flow');
+  const transition=document.startViewTransition(()=>applyMode(next,{...options,animate:false}));
+  modeFlow=transition;
+  const finish=()=>{if(modeFlow===transition){modeFlow=null;root.classList.remove('mode-flow');}};
+  transition.finished.then(finish,finish);
+  return;
+ }
+ return applyMode(next,{...options,animate:document.body.classList.contains('home-page')?false:animate});
+}
+function applyMode(next,{updateURL=true,animate=true}={}){
   if(!projects[next])return;const changed=next!==mode;
   const reveal=changed&&animate&&!simpleMotion?prepareLiquidTransition(next):null;
   mode=next;root.dataset.mode=mode;document.querySelectorAll('[data-mode-button]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.modeButton===mode)));
@@ -51,7 +75,7 @@ document.querySelector('[data-other-mode]')?.addEventListener('click',()=>{setMo
 addEventListener('popstate',()=>setMode(modeFromURL(),{updateURL:false}));
 const gate=document.getElementById('sound-gate');
 if(gate){if(!safeSession.get('portfolio-well-entered'))gate.showModal();gate.addEventListener('cancel',()=>safeSession.set('portfolio-well-entered','quiet'));gate.querySelectorAll('[data-enter]').forEach(b=>b.addEventListener('click',async()=>{await setSound(b.dataset.enter==='sound');safeSession.set('portfolio-well-entered',b.dataset.enter);gate.close();audio.cue('open');document.dispatchEvent(new Event('portfolio:enter'));}));}
-reduced.addEventListener('change',e=>{simpleMotion=e.matches;if(simpleMotion)cancelLiquidTransition();root.classList.toggle('no-motion',simpleMotion);document.dispatchEvent(new CustomEvent('portfolio:motion',{detail:{reduced:simpleMotion}}));});
+reduced.addEventListener('change',e=>{simpleMotion=e.matches;if(simpleMotion){cancelLiquidTransition();modeFlow?.skipTransition();}root.classList.toggle('no-motion',simpleMotion);document.dispatchEvent(new CustomEvent('portfolio:motion',{detail:{reduced:simpleMotion}}));});
 root.classList.toggle('no-motion',simpleMotion);
 setMode(mode,{updateURL:false,animate:false});
 addEventListener('pagehide',()=>audio.dispose(),{once:true});
