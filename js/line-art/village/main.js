@@ -18,8 +18,8 @@ function palette(tau){
 }
 function run(draw){
  let id=0,last=0,t=0,visible=false;
- function frame(now){id=0;if(!visible||document.hidden||reduced.matches)return;const dt=last?Math.min((now-last)/1000,.033):1/60;last=now;t+=dt;draw(t,dt);id=requestAnimationFrame(frame);}
- function sync(){if(id)cancelAnimationFrame(id);id=0;last=0;if(visible&&!document.hidden&&!reduced.matches)id=requestAnimationFrame(frame);}
+ function frame(now){id=0;if(!visible||document.documentElement.dataset.mode==='intelligence'||document.hidden||reduced.matches)return;const dt=last?Math.min((now-last)/1000,.033):1/60;last=now;t+=dt;draw(t,dt);id=requestAnimationFrame(frame);}
+ function sync(){if(id)cancelAnimationFrame(id);id=0;last=0;if(visible&&document.documentElement.dataset.mode!=='intelligence'&&!document.hidden&&!reduced.matches)id=requestAnimationFrame(frame);}
  const observer=new IntersectionObserver(entries=>{visible=entries.some(e=>e.isIntersecting);sync();});observer.observe(section);
  const refresh=()=>{draw(t,0);sync();};
  document.addEventListener('portfolio:mode',refresh);document.addEventListener('visibilitychange',sync);reduced.addEventListener('change',refresh);
@@ -49,6 +49,7 @@ const LIFE=1,TRAFFIC=1;
 // ------------------------------------------------------------------ wind from the pointer
 let wind = 0.3, windTarget = 0.3, lastX = null, lastT = 0;
 section.addEventListener('pointermove', (e) => {
+  if(document.documentElement.dataset.mode==='intelligence')return;
   const now = performance.now();
   if (lastX !== null && !svg.classList.contains('scrubbing')) windTarget = clamp(windTarget + ((e.clientX - lastX) / Math.max(8, now - lastT)) * 0.8, -2.4, 2.4);
   lastX = e.clientX; lastT = now;

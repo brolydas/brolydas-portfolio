@@ -1,0 +1,12 @@
+/* Intelligence only — an architectural ink city on white paper. */
+.home-page #contact .contact-city-art{display:none}
+html[data-mode=intelligence] .home-page #contact [data-contact-art]{display:none}
+html[data-mode=intelligence] .home-page #contact .contact-city-art{display:block}
+html[data-mode=intelligence] .home-page #contact{--contact-paper:#fff;--contact-ink:#1a303a;--sign-ink:#142e39;--sign-edge:#35829a;--sign-bg:rgba(252,255,255,.96);--sign-glow:rgba(20,151,189,.28)}
+html[data-mode=intelligence] .home-page #contact .contact-billboard{top:5%;border:1px solid #5c9fb1;outline:1px solid #a5d9e3;box-shadow:0 0 18px #27b8dc45,0 0 52px #36b8d32b,inset 0 0 20px #43a8ca14;background:linear-gradient(140deg,#fffffffa,#f3fcfdf7);max-width:calc(100% - 64px)}
+html[data-mode=intelligence] .home-page #contact .contact-billboard::before,html[data-mode=intelligence] .home-page #contact .contact-billboard::after{background:#1387a0;box-shadow:0 0 12px #37c9e3}
+html[data-mode=intelligence] .home-page #contact .contact-billboard p{color:#376f80}
+html[data-mode=intelligence] .home-page #contact .contact-email{background:#f9feff;color:#174a5b;box-shadow:0 0 17px #20b8db35;letter-spacing:.01em}
+html[data-mode=intelligence] .home-page #contact .contact-email:hover,html[data-mode=intelligence] .home-page #contact .contact-email:focus-visible{box-shadow:0 0 24px #168ca877,inset 0 0 12px #22b5da22}
+.contact-city-art svg{display:block;width:100%;height:100%;overflow:hidden}
+@media(max-width:760px){html[data-mode=intelligence] .home-page #contact .contact-billboard{top:auto;max-width:calc(100% - 36px)}}
