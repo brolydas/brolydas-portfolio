@@ -3,104 +3,43 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>UI Zoo</title>
+<title>UI Zoo — Interfaces with instincts</title><meta name="description" content="An interactive collection of animal-inspired controls. Wake the cat, move the snake, test the loader and make a typographic poster."><meta name="theme-color" content="#f0f1e9">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=DM+Sans:wght@400;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
-<style>
-:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light dark;--bg:#fbf3df;--panel:#fff9ea;--ink:#1d2a22;--mut:#566a5d;--dots:rgba(47,111,78,.13)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#102019;--panel:#183226;--ink:#f6efd9;--mut:#a9bdb0;--dots:rgba(255,255,255,.05)}}
-:root[data-theme="dark"]{--bg:#102019;--panel:#183226;--ink:#f6efd9;--mut:#a9bdb0;--dots:rgba(255,255,255,.05)}
-html{scroll-padding-top:70px;scroll-behavior:smooth}
-body{margin:0;background:var(--bg) radial-gradient(var(--dots) 2px,transparent 2.5px) 0 0/26px 26px;color:var(--ink);font:400 16px/1.45 "DM Sans",system-ui,sans-serif;overflow-x:hidden}
-h1,h2,h3{font-family:"Bricolage Grotesque","DM Sans",sans-serif;margin:0}
-a{color:inherit}
-nav{position:sticky;top:0;z-index:10;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px 16px;padding:10px 20px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:3px solid var(--ink)}
-.logo{font:800 22px "Bricolage Grotesque",sans-serif;text-decoration:none}
-nav div{display:flex;gap:4px;flex-wrap:wrap}nav div a{padding:4px 12px;border-radius:99px;text-decoration:none;font-weight:600;font-size:14px;transition:background .2s,transform .2s}
-nav div a:hover{background:var(--ink);color:var(--bg);transform:rotate(-3deg)}
-.clouds i{position:absolute;top:var(--t);left:-140px;width:110px;height:34px;border-radius:99px;background:#fff;opacity:.85;animation:drift var(--s) linear infinite;animation-delay:var(--dl)}
-.clouds i::after{content:"";position:absolute;left:24px;top:-18px;width:56px;height:42px;border-radius:50%;background:inherit}
-@keyframes drift{to{transform:translateX(calc(100vw + 300px))}}
-.hero{position:relative;text-align:center;padding:48px 20px 30px;overflow:hidden}
-.sign{position:relative;display:inline-block;margin-top:44px;padding:18px 44px 22px;background:linear-gradient(#a8743f,#8a5a2e);color:#fff3d6;border:5px solid #1d2a22;border-radius:26px;box-shadow:0 10px 0 rgba(0,0,0,.25);transform-origin:50% -44px;animation:sway 5s ease-in-out infinite alternate}
-.sign::before,.sign::after{content:"";position:absolute;top:-46px;width:4px;height:46px;background:#1d2a22}.sign::before{left:22%}.sign::after{right:22%}
-@keyframes sway{from{transform:rotate(-1.6deg)}to{transform:rotate(1.6deg)}}
-.sign small{display:block;font-weight:700;letter-spacing:.2em;text-transform:uppercase;font-size:13px;opacity:.9}
-.sign h1{font-size:clamp(64px,15vw,150px);line-height:.95;letter-spacing:-.03em;text-shadow:0 5px 0 #1d2a22}
-.hero p{margin:26px auto 18px;max-width:34ch;font-size:clamp(18px,2.6vw,24px);color:var(--mut)}
-.cta{display:inline-block;background:#ffc247;color:#1d2a22;border:4px solid #1d2a22;border-radius:99px;padding:10px 26px;font:800 18px "Bricolage Grotesque",sans-serif;text-decoration:none;box-shadow:0 6px 0 #1d2a22;transition:transform .12s,box-shadow .12s}
-.cta:hover{transform:translateY(-3px) rotate(-2deg)}.cta:active{transform:translateY(6px);box-shadow:0 0 0 #1d2a22}
-.pens{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,430px),1fr));gap:36px;max-width:1100px;margin:34px auto;padding:0 20px}
-.pen{position:relative;background:var(--panel);border:4px solid var(--ink);border-radius:34px;overflow:hidden;box-shadow:8px 8px 0 var(--ink)}
-.tag{position:absolute;top:14px;left:14px;z-index:2;background:#fff9ea;color:#1d2a22;border:3px solid #1d2a22;border-radius:99px;padding:1px 12px;font-weight:700;font-size:13px}
-.scene{position:relative;min-height:290px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:44px 12px 20px;background:linear-gradient(var(--sk) 0 62%,var(--gr) 62%);border-bottom:4px solid #1d2a22}
-.plaque{padding:16px 20px 20px;background:linear-gradient(#9a6a3e,#835530);color:#fff3d6}
-.plaque h3{font-size:24px}.plaque p{margin:4px 0 0;font-size:15px}.plaque p b{color:#ffd98a}
-.chip{display:inline-block;margin:10px 6px 0 0;padding:2px 11px;border-radius:99px;background:rgba(0,0,0,.28);font-size:13px;font-weight:600}
-.btn{border:3px solid #1d2a22;background:#ffc247;color:#1d2a22;border-radius:99px;padding:8px 20px;font:700 16px "DM Sans",sans-serif;box-shadow:0 4px 0 #1d2a22;cursor:pointer;transition:transform .1s,box-shadow .1s}
-.btn:hover{transform:translateY(-2px)}.btn:active{transform:translateY(4px);box-shadow:0 0 0 #1d2a22}.btn:disabled{opacity:.6;cursor:default;transform:none}
-:is(.btn,.vb,.bed,.frogbtn,input):focus-visible{outline:4px solid #4d8bff;outline-offset:4px}
-.pu{transform:translate(calc(var(--px,0)*2.5px),calc(var(--py,0)*2.5px))}
-.say{background:#fff9ea;color:#1d2a22;border:3px solid #1d2a22;border-radius:99px;padding:2px 14px;font-weight:700;font-size:15px}
-/* cat */
-.bed{all:unset;position:relative;width:240px;height:110px;border-radius:55px;border:4px solid #1d2a22;background:repeating-linear-gradient(90deg,#c8955a 0 12px,#b78248 12px 24px);cursor:pointer;box-shadow:0 6px 0 rgba(0,0,0,.2);box-sizing:border-box}
+<style>*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:25px}body{margin:0;background:#f0f1e9;color:#203c31;font:400 17px/1.6 "DM Sans",sans-serif}button,input{font:inherit}a{color:inherit}button,a,input{touch-action:manipulation}button{cursor:pointer}h1,h2,h3{margin:0;font-family:"Bricolage Grotesque",sans-serif;letter-spacing:-.055em;line-height:1}p{margin:0}.skip{position:fixed;top:-80px;left:20px;padding:12px;background:#203c31;color:white;z-index:99}.skip:focus{top:12px}a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #a44020;outline-offset:5px}nav{display:flex;align-items:center;justify-content:space-between;gap:24px;margin:auto;width:min(1260px,calc(100% - 96px));padding:25px 0;border-bottom:1px solid #aebbad}.logo{font:600 27px/1 "Bricolage Grotesque",sans-serif;letter-spacing:-.05em;text-decoration:none}nav div{display:flex;gap:26px;align-items:center}nav a{font-size:15px;text-decoration:none;padding:9px 0}nav a:hover{text-decoration:underline;text-underline-offset:6px}.hero{width:min(1260px,calc(100% - 96px));margin:auto;padding:72px 0 60px;display:grid;grid-template-columns:1.45fr 1fr;gap:60px;align-items:end}.hero h1{font-size:clamp(64px,8.3vw,126px);line-height:.94;font-weight:600}.hero h1 em{font:italic 1.04em Georgia,serif}.intro p{font-size:19px;max-width:32ch;margin-bottom:24px}.actions{display:flex;gap:25px;align-items:center;flex-wrap:wrap}.cta,.btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;min-height:46px;background:#203c31;color:#f0f1e9;border:1px solid #203c31;border-radius:2px;text-decoration:none;font-size:16px;transition:background .2s}.cta:hover,.btn:hover{background:#3b5a4c}.text-link{font-size:16px;text-underline-offset:6px;padding:12px 0}.sound{background:transparent;color:#203c31;border:1px solid #aebbad;padding:10px 14px;min-height:44px}.pens{width:min(1260px,calc(100% - 96px));margin:auto}.pen{position:relative;display:grid;grid-template-columns:1.25fr 1fr;border-top:1px solid #aebbad;padding:50px 0;gap:64px}.tag{position:absolute;right:0;top:53px;font-size:15px}.scene{position:relative;min-height:320px;background:#dce4d3;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px;padding:30px;overflow:hidden}.plaque{display:flex;flex-direction:column;justify-content:center;padding:35px 0;max-width:40ch}.plaque h3{font-size:clamp(32px,4vw,54px);font-weight:600}.plaque p{margin-top:16px;color:#4c6556;font-size:17px}.plaque p b{color:#203c31}.chip{display:none}.say{font-size:16px;color:#203c31}.scene .btn{min-width:130px}.pg{width:230px;height:5px;background:#becbb4;border:0;border-radius:0;overflow:hidden}.pg i{display:block;height:100%;width:0;background:#203c31}.fact{margin:40px 0 0;background:#e5f15b;padding:70px max(48px,calc((100vw - 1260px)/2))}.fact>h2{font-size:clamp(42px,6vw,80px);font-weight:600}.fact>p{font-size:18px;max-width:55ch;margin:22px 0 38px}.box{display:grid;grid-template-columns:1.15fr 1fr;gap:64px;align-items:center}.mach{background:#203c31;padding:26px}.out{max-width:500px;margin:auto}.out canvas{width:100%;height:auto;display:block;aspect-ratio:4/5}.ctl{display:flex;flex-direction:column;gap:28px}.ctl label{display:block;font-size:17px;margin-bottom:10px}.ctl input{width:100%;background:transparent;border:0;border-bottom:1px solid #667332;padding:12px 0;font-size:32px;color:#203c31;min-width:0}.vibes{display:flex;flex-wrap:wrap;gap:10px}.vb{min-height:46px;padding:10px 18px;background:transparent;color:#203c31;border:1px solid #667332;border-radius:2px}.vb[aria-pressed=true]{background:#203c31;color:#e5f15b}.row{display:flex;flex-wrap:wrap;gap:12px}.row .btn{background:transparent;color:#203c31}.row #dl{background:#203c31;color:#e5f15b}.ctl small{font-size:15px}.fact #note{font-size:16px;min-height:25px}.lights,.slot{display:none}footer{width:min(1260px,calc(100% - 96px));margin:auto;padding:35px 0;display:flex;gap:20px;justify-content:space-between;font-size:15px;color:#4c6556}/* cat */
+.bed{all:unset;position:relative;width:240px;height:110px;border-radius:55px;border:4px solid #1d2a22;background:none;cursor:pointer;box-shadow:0 6px 0 rgba(0,0,0,.2);box-sizing:border-box}
 .bed::before{content:"";position:absolute;inset:9px;border-radius:46px;background:#ffd1df;box-shadow:inset 0 4px 0 rgba(255,255,255,.5)}
-.cat{position:absolute;left:12px;bottom:12px;width:100px;transition:left .55s cubic-bezier(.3,1.5,.5,1)}
+.cat{position:absolute;left:12px;bottom:12px;width:100px;transition:left .55s ease-out}
 .bed[aria-checked=true] .cat{left:calc(100% - 112px)}
-.cat.st{animation:str .5s}@keyframes str{40%{transform:scale(1.4,.8)}70%{transform:scale(.92,1.14)}}
+.cat.st{animation:none}
 .catsvg{width:100%;display:block;overflow:visible}.eo{display:none}.bed[aria-checked=true] .eo{display:inline}.bed[aria-checked=true] .ec{display:none}
-.tail{transform-box:fill-box;transform-origin:0 100%}.bed[aria-checked=true] .tail{animation:wag .45s ease-in-out infinite alternate}@keyframes wag{to{transform:rotate(22deg)}}
-.zz{position:absolute;right:34px;top:-4px;font:800 22px "Bricolage Grotesque";color:#7a6aa8;animation:zz 2.2s ease-in infinite}.bed[aria-checked=true] .zz{display:none}
-@keyframes zz{from{transform:translateY(22px);opacity:0}30%{opacity:1}to{transform:translateY(-26px);opacity:0}}
+.tail{transform-box:fill-box;transform-origin:0 100%}.bed[aria-checked=true] .tail{animation:none}
+.zz{position:absolute;right:34px;top:-4px;font:800 22px "Bricolage Grotesque";color:#526b4b;animation:none}.bed[aria-checked=true] .zz{display:none}
+
 /* snake */
 .snk{position:relative;width:min(340px,88%);height:100px}.snk input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;z-index:2}
 .snk svg{width:100%;height:100%;overflow:visible;border-radius:14px}.snk input:focus-visible~svg{outline:4px solid #4d8bff}
 /* hamster */
-.wheel{transform-box:view-box;transform-origin:100px 100px;animation:spin calc(2.4s / var(--sp,1)) linear infinite;animation-play-state:paused}
-.run .wheel,.run .leg,.run .ham{animation-play-state:running}@keyframes spin{to{transform:rotate(360deg)}}
-.leg{transform-box:fill-box;transform-origin:50% 0;animation:run .22s ease-in-out infinite alternate;animation-play-state:paused}.leg+.leg{animation-delay:-.11s}
-@keyframes run{from{transform:rotate(-35deg)}to{transform:rotate(35deg)}}
-.run .ham{animation:bob .22s ease-in-out infinite alternate}@keyframes bob{to{transform:translateY(-3px)}}
-.ok .ham{animation:jmp .55s ease-out 2}@keyframes jmp{50%{transform:translateY(-34px) rotate(-8deg)}}
+.wheel{transform-box:view-box;transform-origin:100px 100px;animation:none;animation-play-state:paused}
+.run .wheel,.run .leg,.run .ham{animation-play-state:running}
+.leg{transform-box:fill-box;transform-origin:50% 0;animation:none;animation-play-state:paused}.leg+.leg{animation-delay:-.11s}
+
+.run .ham{animation:none}
+.ok .ham{animation:none}
 .pg{width:230px;height:16px;border:3px solid #1d2a22;border-radius:99px;background:#fff9ea;overflow:hidden}.pg i{display:block;height:100%;width:0;background:#ff9f43;transition:width .15s}
 /* frog */
 .frogbtn{all:unset;cursor:pointer;display:block;text-align:center;border-radius:40px;padding:2px 8px}
 .fg{transform-box:view-box;transform-origin:80px 110px}.eye{transform-box:fill-box;transform-origin:center;transition:transform .2s}
-.frogbtn:hover .eye{transform:scale(1.14)}.frogbtn:active .fg{transform:scale(1.08,.8)}.frogbtn.hop .fg{animation:hop .7s cubic-bezier(.3,.1,.5,1)}
-@keyframes hop{0%{transform:scale(1.12,.78)}28%{transform:translateY(-62px) scale(.9,1.16)}62%{transform:translateY(0) scale(1.14,.86)}82%{transform:scale(.97,1.04)}100%{transform:none}}
+.frogbtn:hover .eye{transform:scale(1.14)}.frogbtn:active .fg{transform:scale(1.08,.8)}.frogbtn.hop .fg{animation:none}
+
 .fl{display:inline-block;margin-top:-6px;font:800 20px "Bricolage Grotesque";color:#1d2a22;background:#fff9ea;border:3px solid #1d2a22;border-radius:99px;padding:0 16px}
-.rp{position:absolute;left:50%;bottom:62px;width:24px;height:24px;margin-left:-12px;border:4px solid #fff;border-radius:50%;pointer-events:none;animation:rip 1s ease-out forwards}
-@keyframes rip{to{transform:scale(8,3);opacity:0}}
-/* poster machine */
-.fact{max-width:1100px;margin:64px auto 40px;padding:0 20px}
-.fact h2{font-size:clamp(34px,6vw,60px);letter-spacing:-.02em}.fact>p{color:var(--mut);margin:6px 0 20px;max-width:56ch}
-.box{background:var(--panel);border:4px solid var(--ink);border-radius:34px;box-shadow:8px 8px 0 var(--ink);padding:26px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:28px;align-items:start}
-@media (max-width:760px){.box{grid-template-columns:1fr;padding:18px}}
-.mach{background:#3b4a58;border:4px solid #1d2a22;border-radius:22px;padding:12px 14px 14px;color:#fff;max-width:420px;width:100%;margin:0 auto;box-sizing:border-box}
-.lights{display:flex;gap:8px;align-items:center;font-weight:700;font-size:13px;margin-bottom:8px}.lights i{width:12px;height:12px;border-radius:50%;background:#ff6b6b;animation:bl 1.2s steps(2) infinite}.lights i:nth-child(2){background:#ffd34d;animation-delay:-.4s}.lights i:nth-child(3){background:#7de3a2;animation-delay:-.8s}
-@keyframes bl{50%{opacity:.25}}
-.slot{height:16px;background:#10161c;border-radius:8px}
-.out{overflow:hidden;background:#222d36;border:3px solid #1d2a22;border-top:0;border-radius:0 0 12px 12px;padding:0 10px 10px;margin-top:-4px}
-#pc{display:block;width:100%;aspect-ratio:4/5;border:3px solid #1d2a22;border-radius:6px;background:#000}
-#pc.print{animation:print .8s cubic-bezier(.2,.9,.3,1)}@keyframes print{from{transform:translateY(-105%)}}
-.ctl label{display:block;font-weight:700;margin:0 0 6px}.ctl{display:grid;gap:18px}
-.ctl input{width:100%;box-sizing:border-box;font:800 26px "Bricolage Grotesque",sans-serif;padding:10px 16px;border:3px solid var(--ink);border-radius:18px;background:var(--bg);color:var(--ink);text-transform:uppercase}
-.vibes,.row{display:flex;flex-wrap:wrap;gap:8px}
-.vb{border:3px solid var(--ink);background:transparent;color:var(--ink);border-radius:99px;padding:6px 16px;font:700 15px "DM Sans";cursor:pointer;transition:transform .15s}
-.vb:hover{transform:rotate(-3deg) translateY(-2px)}.vb[aria-pressed=true]{background:var(--ink);color:var(--bg)}
-#note{min-height:1.4em;color:var(--mut);font-size:14px}
-footer{text-align:center;color:var(--mut);padding:30px 20px 44px;font-size:14px}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
-</style>
+.rp{position:absolute;left:50%;bottom:62px;width:24px;height:24px;margin-left:-12px;border:4px solid #fff;border-radius:50%;pointer-events:none;animation:none}
+
+.bed{background:#a9bb92;border-width:2px;box-shadow:none}.bed::before{background:#e7e7ce;box-shadow:none}.cat{transition:left .3s ease-out}.zz{animation:none;color:#425b49;top:-20px}.tail,.ham,.cat.st,.frogbtn.hop .fg{animation:none!important}.frogbtn{border-radius:3px}.fl{border:0;background:transparent;border-radius:0;margin:0}.rp{display:none}.snk svg{border-radius:0}.snk input{height:100px;min-height:44px}.pg{border:0;border-radius:0;height:5px}.pu{transform:none}.plaque h3{line-height:1.06}.scene #hlab{font-size:16px}.scene svg{max-width:100%}@media(max-width:900px){nav,.hero,.pens,footer{width:calc(100% - 48px)}.hero{gap:32px}.hero h1{font-size:80px}.pen{gap:34px}.box{gap:32px}.fact{padding:56px 24px}nav div{gap:18px}}@media(max-width:600px){nav,.hero,.pens,footer{width:calc(100% - 36px)}nav{flex-wrap:wrap;gap:14px;padding:18px 0}nav div{width:100%;justify-content:space-between;gap:10px;flex-wrap:wrap}nav div a{font-size:14px;min-height:44px;display:flex;align-items:center}.hero{grid-template-columns:1fr;gap:24px;padding:42px 0}.hero h1{font-size:clamp(59px,15vw,83px)}.intro p{font-size:17px}.pen{grid-template-columns:1fr;gap:22px;padding:30px 0}.tag{position:static;grid-row:1;font-size:15px}.scene{min-height:280px;grid-row:2}.plaque{padding:0;grid-row:3}.plaque h3{font-size:37px}.plaque p{margin-top:12px}.box{grid-template-columns:1fr;gap:30px}.fact{padding:44px 18px}.mach{padding:16px}.fact>h2{font-size:48px}.fact>p{font-size:17px}.vibes{gap:8px}.vb{padding:10px 16px}footer{flex-direction:column;padding:26px 0}.row{gap:10px}.row .btn{flex:1;font-size:15px;white-space:nowrap}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}@media(prefers-reduced-motion:no-preference){.run .wheel{animation:wheel-turn 1.2s linear infinite}@keyframes wheel-turn{to{transform:rotate(360deg)}}}</style>
 </head>
-<body>
+<body><a class="skip" href="#main">Skip to exhibits</a>
 <nav><a class="logo" href="#top">UI Zoo</a><div><a href="#cat">Cat</a><a href="#snake">Snake</a><a href="#hamster">Hamster</a><a href="#frog">Frog</a><a href="#poster-machine">Poster Machine</a></div></nav>
-<header class="hero" id="top">
-  <div class="clouds" aria-hidden="true"><i style="--t:20px;--s:38s;--dl:-6s"></i><i style="--t:90px;--s:52s;--dl:-30s"></i><i style="--t:150px;--s:44s;--dl:-18s"></i></div>
-  <div class="sign"><small>Welcome to the</small><h1>UI Zoo</h1></div>
-  <p>Where interface components live, play and occasionally nap. Please poke the exhibits.</p>
-  <a class="cta" href="#cat">Start the tour ↓</a>
-</header>
-<main>
+<section class="hero" id="top"><h1>Interfaces<br>with <em>instincts.</em></h1><div class="intro"><p>A toggle that naps. A slider that slithers. A small collection of familiar controls with an animal side.</p><div class="actions"><a class="cta" href="#cat">Try the exhibits</a><a class="text-link" href="#poster-machine">Make a poster</a></div></div></section>
+<main id="main">
 <section class="pens">
   <article class="pen" id="cat"><span class="tag">Exhibit A</span>
     <div class="scene" style="--sk:#ffe2c7;--gr:#e9b98a">
@@ -118,7 +57,7 @@ footer{text-align:center;color:var(--mut);padding:30px 20px 44px;font-size:14px}
       </button>
       <output class="say" id="say">Shh… the cat is asleep</output>
     </div>
-    <div class="plaque"><h3>Sleepy Cat</h3><p><b>Species:</b> Toggle switch</p><p>One tap, three signals: position, eyes and a snore. The spring overshoot makes a plain on/off feel alive.</p><span class="chip">role=switch</span><span class="chip">spring · 550ms</span><span class="chip">110px tap target</span></div>
+    <div class="plaque"><h3>The cat toggle</h3><p><b>Control:</b> Toggle switch</p><p>Wake the cat and switch it back to sleep. The position and expression show the state.</p><span class="chip">role=switch</span><span class="chip">spring · 550ms</span><span class="chip">110px tap target</span></div>
   </article>
 
   <article class="pen" id="snake"><span class="tag">Exhibit B</span>
@@ -126,7 +65,7 @@ footer{text-align:center;color:var(--mut);padding:30px 20px 44px;font-size:14px}
       <div class="snk"><input type="range" id="snr" min="0" max="100" value="45" aria-label="Snake length"><svg id="snk" viewBox="0 0 320 100" aria-hidden="true"></svg></div>
       <output class="say" id="snv">45%</output>
     </div>
-    <div class="plaque"><h3>Slithering Slider</h3><p><b>Species:</b> Range slider</p><p>The body is the track and the fill at once, so you read the value by length instead of hunting for a thumb.</p><span class="chip">native input</span><span class="chip">arrow keys work</span><span class="chip">live value</span></div>
+    <div class="plaque"><h3>The snake slider</h3><p><b>Control:</b> Range slider</p><p>The body is the track and the fill at once, so you read the value by length instead of hunting for a thumb.</p><span class="chip">native input</span><span class="chip">arrow keys work</span><span class="chip">live value</span></div>
   </article>
 
   <article class="pen" id="hamster"><span class="tag">Exhibit C</span>
@@ -139,9 +78,9 @@ footer{text-align:center;color:var(--mut);padding:30px 20px 44px;font-size:14px}
           <circle cx="130" cy="139" r="3" fill="#1d2a22" stroke="none"/><circle cx="138" cy="146" r="3" fill="#ff7a90" stroke="none"/>
           <rect class="leg" x="82" y="166" width="9" height="15" rx="4" fill="#d99b4e" stroke-width="3"/><rect class="leg" x="104" y="166" width="9" height="15" rx="4" fill="#d99b4e" stroke-width="3"/></g></g></svg>
       <div class="pg"><i id="hfill"></i></div>
-      <div class="row" style="align-items:center"><button class="btn" id="hbtn">Load stuff</button><output class="say" id="hlab" role="status">Idle</output></div>
+      <div class="row" style="align-items:center"><button class="btn" id="hbtn">Run loader</button><output class="say" id="hlab" role="status">Idle</output></div>
     </div>
-    <div class="plaque"><h3>Hamster on Wheel</h3><p><b>Species:</b> Progress spinner</p><p>Speed ramps with progress so waiting feels like momentum, and it ends on a clear done state instead of a silent stop.</p><span class="chip">role=status</span><span class="chip">honest progress</span><span class="chip">success state</span></div>
+    <div class="plaque"><h3>The hamster loader</h3><p><b>Control:</b> Progress spinner</p><p>Run a short loading simulation. Watch the progress reach a clear finished state, then try it again.</p><span class="chip">role=status</span><span class="chip">simulated progress</span><span class="chip">success state</span></div>
   </article>
 
   <article class="pen" id="frog"><span class="tag">Exhibit D</span>
@@ -155,98 +94,70 @@ footer{text-align:center;color:var(--mut);padding:30px 20px 44px;font-size:14px}
           <circle cx="72" cy="70" r="2" fill="#1d2a22"/><circle cx="88" cy="70" r="2" fill="#1d2a22"/></g></g></svg><span class="fl">Ribbit</span></button>
       <output class="say" id="fc" aria-live="polite">Ribbits: 0</output>
     </div>
-    <div class="plaque"><h3>Pond Frog</h3><p><b>Species:</b> Primary button</p><p>Five states in one animal: rest, hover (eyes bulge), press (squash), success (hop) and a clear focus ring.</p><span class="chip">squash and stretch</span><span class="chip">keyboard focusable</span><span class="chip">ripple feedback</span></div>
+    <div class="plaque"><h3>The frog button</h3><p><b>Control:</b> Push button</p><p>Press the frog to count a ribbit. Its expression changes on hover and the counter records each press.</p><span class="chip">squash and stretch</span><span class="chip">keyboard focusable</span><span class="chip">ripple feedback</span></div>
   </article>
 </section>
 
 <section class="fact" id="poster-machine">
-  <span class="tag" style="position:static;display:inline-block;margin-bottom:10px">Exhibit E · The Factory</span>
+  
   <h2>The Poster Machine</h2>
-  <p>Type a word, pick a vibe and the zoo prints you a moving typographic poster. Save the one you like.</p>
+  <p>Set your word, choose a composition and save a PNG. Turn on motion if you want the type to move.</p>
   <div class="box">
     <div class="mach"><div class="lights"><i></i><i></i><i></i><span>PRINTING</span></div><div class="slot"></div><div class="out"><canvas id="pc" width="1200" height="1500" role="img" aria-label="Animated typographic poster preview"></canvas></div></div>
-    <div class="ctl">
+    <div class="ctl"><p>One word. Your composition.</p>
       <div><label for="w">Your word</label><input id="w" value="Hello" maxlength="14" autocomplete="off" spellcheck="false"></div>
-      <div><label id="vl">Vibe</label><div class="vibes" role="group" aria-labelledby="vl"><button class="vb" data-v="loud" aria-pressed="true">Loud</button><button class="vb" data-v="calm" aria-pressed="false">Calm</button><button class="vb" data-v="retro" aria-pressed="false">Retro</button><button class="vb" data-v="chrome" aria-pressed="false">Chrome</button></div></div>
-      <div class="row"><button class="btn" id="rm">Remix colours</button><button class="btn" id="fz">Freeze frame</button><button class="btn" id="dl">Save poster</button></div>
+      <div><label id="vl">Vibe</label><div class="vibes" role="group" aria-labelledby="vl"><button class="vb" data-v="loud" aria-pressed="true">Loud</button><button class="vb" data-v="calm" aria-pressed="false">Calm</button><button class="vb" data-v="retro" aria-pressed="false">Retro</button><button class="vb" data-v="grid" aria-pressed="false">Grid</button></div></div>
+      <div class="row"><button class="btn" id="rm">Remix colours</button><button class="btn" id="fz">Play motion</button><button class="btn" id="dl">Save poster</button></div>
       <div id="note" role="status"></div>
     </div>
   </div>
 </section>
 </main>
-<footer>UI Zoo · more exhibits arriving soon: the Owl (notifications) and the Octopus (menus)</footer>
+<footer><span>UI Zoo · A collection of interaction experiments.</span><button class="sound" id="sound" aria-pressed="false">Sound: off</button><a href="#main">Back to the exhibits ↑</a></footer>
 <script>
 var $=function(s){return document.querySelector(s)},R=function(a,b){return a+Math.random()*(b-a)},INK='#1d2a22',rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
-addEventListener('pointermove',function(e){var s=document.documentElement.style;s.setProperty('--px',(e.clientX/innerWidth-.5)*2);s.setProperty('--py',(e.clientY/innerHeight-.5)*2)});
-var AC;function tone(f,d,ty){try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();var o=AC.createOscillator(),g=AC.createGain();o.type=ty||'square';o.frequency.value=f;g.gain.setValueAtTime(.05,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g);g.connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
+
+var sound=false;$("#sound").onclick=function(){sound=!sound;this.textContent="Sound: "+(sound?"on":"off");this.setAttribute("aria-pressed",sound)};var AC;function tone(f,d,ty){if(!sound)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();var o=AC.createOscillator(),g=AC.createGain();o.type=ty||'square';o.frequency.value=f;g.gain.setValueAtTime(.05,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g);g.connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
 // cat
-var bed=$('#bed'),cat=$('#catel');bed.addEventListener('click',function(){var on=bed.getAttribute('aria-checked')!=='true';bed.setAttribute('aria-checked',on);$('#say').textContent=on?'Meow! Good morning.':'Shh… the cat is asleep';cat.classList.remove('st');void cat.offsetWidth;cat.classList.add('st')});
+var bed=$('#bed'),cat=$('#catel');bed.addEventListener('click',function(){var on=bed.getAttribute('aria-checked')!=='true';bed.setAttribute('aria-checked',on);bed.setAttribute('aria-label',on?'Put the cat to sleep':'Wake the cat');$('#say').textContent=on?'Meow! Good morning.':'Shh… the cat is asleep';cat.classList.remove('st');void cat.offsetWidth;cat.classList.add('st')});
 // snake
 var snk=$('#snk'),snr=$('#snr'),val=45,disp=45;
 snr.addEventListener('input',function(){val=+snr.value;$('#snv').textContent=val+'%'});
-(function snake(now){var t=rm?0:now/1000;disp+=(val-disp)*.18;var len=14+disp/100*262,pts=[],x;
+function drawSnake(){var t=0;disp=val;var len=14+disp/100*262,pts=[],x;
  for(x=14;x<=len;x+=5)pts.push([x,50+Math.sin(x/16-t*4)*(6+(x-14)/270*7)]);if(pts.length<2)pts.push([len+1,50]);
  var d='M'+pts.map(function(p){return p[0].toFixed(1)+' '+p[1].toFixed(1)}).join(' L'),h=pts[pts.length-1],tg=Math.sin(t*9)>0;
  snk.innerHTML='<path d="'+d+'" fill="none" stroke="'+INK+'" stroke-width="23" stroke-linecap="round" stroke-linejoin="round"/><path d="'+d+'" fill="none" stroke="#5fb85a" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><path d="'+d+'" fill="none" stroke="#a6e08f" stroke-width="16" stroke-dasharray="3 15" stroke-linejoin="round"/>'+
  '<circle cx="'+h[0]+'" cy="'+h[1]+'" r="15" fill="#5fb85a" stroke="'+INK+'" stroke-width="4"/><circle cx="'+(h[0]+4)+'" cy="'+(h[1]-6)+'" r="4.5" fill="#fff"/><circle cx="'+(h[0]+4)+'" cy="'+(h[1]+6)+'" r="4.5" fill="#fff"/><circle cx="'+(h[0]+6)+'" cy="'+(h[1]-6)+'" r="2" fill="'+INK+'"/><circle cx="'+(h[0]+6)+'" cy="'+(h[1]+6)+'" r="2" fill="'+INK+'"/>'+
  (tg?'<path d="M'+(h[0]+14)+' '+h[1]+' h12 m0 0 l6 -4 m-6 4 l6 4" fill="none" stroke="#ff4d6d" stroke-width="3" stroke-linecap="round"/>':'');
- requestAnimationFrame(snake)})(0);
+ }drawSnake();snr.addEventListener("input",drawSnake);
 // hamster
 var hp=$('#hpen'),hb=$('#hbtn');hb.addEventListener('click',function(){if(hb.disabled)return;hb.disabled=true;hp.classList.remove('ok');hp.classList.add('run');var p=0;
- (function step(){p=Math.min(100,p+R(1,6));$('#hfill').style.width=p+'%';$('#hlab').textContent='Loading '+Math.round(p)+'%';hp.style.setProperty('--sp',1+p/35);
-  if(p<100)setTimeout(step,R(60,190));else{hp.classList.remove('run');hp.classList.add('ok');$('#hlab').textContent='Fully loaded!';hb.disabled=false;hb.textContent='Load again';setTimeout(function(){hp.classList.remove('ok')},1300)}})()});
+ (function step(){p=Math.min(100,p+R(1,6));$('#hfill').style.width=p+'%';$('#hlab').textContent='Simulating '+Math.round(p)+'%';hp.style.setProperty('--sp',1+p/35);
+  if(p<100)setTimeout(step,R(60,190));else{hp.classList.remove('run');hp.classList.add('ok');$('#hlab').textContent='Simulation complete';hb.disabled=false;hb.textContent='Load again';setTimeout(function(){hp.classList.remove('ok')},1300)}})()});
 // frog
 var fb=$('#fb'),fn=0;fb.addEventListener('click',function(){fn++;$('#fc').textContent='Ribbits: '+fn;fb.classList.remove('hop');void fb.offsetWidth;fb.classList.add('hop');
  var r=document.createElement('i');r.className='rp';$('#fpen').appendChild(r);setTimeout(function(){r.remove()},1000);tone(130,.09);setTimeout(function(){tone(170,.1)},110)});
-// poster machine
-var pc=$('#pc'),g=pc.getContext('2d'),V='loud',pi=0,paused=rm,T=0,vis=true,lastT=0;
-var PALS={loud:[['#ff3b3b','#ffd23f','#1d2a22','#fff'],['#2b59ff','#ff7ad9','#fff04a','#111'],['#00b37e','#fff3c4','#ff5a36','#111'],['#ff7a00','#111','#ffe14d','#fff']],
- calm:[['#cfe9ff','#ffe3f1','#7aa7ff','#2c3a5e'],['#ffe8d6','#d8f3dc','#ffb4a2','#4a3f35'],['#e2d9ff','#c9f1ff','#a58bff','#2d2a4a'],['#fff3cf','#ffd1dc','#ffa94d','#4a2f2f']],
- retro:[['#2a0a4a','#ff3e9a','#ffe14d','#ff3e9a'],['#0a1a3a','#00d4ff','#ffe14d','#ff3e9a'],['#1b0a2e','#ff7a00','#fff04a','#00f5d4'],['#05122b','#6a5cff','#ff9bd0','#00f5d4']],
- chrome:[['#06070f','#6aa6ff'],['#0a0614','#ff7ad9'],['#050d0a','#5fffc0'],['#0d0a05','#ffc247']]};
-function word(){return($('#w').value.trim()||'Hello')}
-function fit(t,f,w,mx){g.font=f.replace('{s}','100');return Math.min(mx,100*w/Math.max(1,g.measureText(t).width))}
-function star(x,y,r){g.beginPath();g.moveTo(x,y-r);g.quadraticCurveTo(x,y,x+r,y);g.quadraticCurveTo(x,y,x,y+r);g.quadraticCurveTo(x,y,x-r,y);g.quadraticCurveTo(x,y,x,y-r);g.fill()}
-function drawLoud(t,p,w){g.fillStyle=p[0];g.fillRect(0,0,600,750);var n=7,rh=750/n;w=w.toUpperCase();
- for(var i=0;i<n;i++){var s=rh*1.02,F='800 '+s+'px "Bricolage Grotesque",Impact,sans-serif';g.font=F;var tw=g.measureText(w+'  ').width,off=(t*70*(i%2?-1:1))%tw;g.textAlign='left';
-  for(var k=-2;k*tw<700;k++){var x=off+k*tw,y=rh*i+rh*.84;
-   if(i===3){g.fillStyle=p[2];g.fillText(w,x+5,y+5);g.fillStyle=p[3];g.fillText(w,x,y)}
-   else if(i%3===1){g.lineWidth=3;g.strokeStyle=p[3];g.strokeText(w,x,y)}else{g.fillStyle=i%3===0?p[1]:p[2];g.fillText(w,x,y)}}}}
-function drawCalm(t,p,w){var gr=g.createLinearGradient(0,0,0,750);gr.addColorStop(0,p[0]);gr.addColorStop(1,p[1]);g.fillStyle=gr;g.fillRect(0,0,600,750);
- for(var i=0;i<5;i++){var x=300+Math.sin(t*.3+i*1.7)*220,y=375+Math.cos(t*.25+i*2.3)*280,r=120+i*26,rg=g.createRadialGradient(x,y,0,x,y,r);rg.addColorStop(0,p[2]+'99');rg.addColorStop(1,p[2]+'00');g.fillStyle=rg;g.beginPath();g.arc(x,y,r,0,6.3);g.fill()}
- g.strokeStyle=p[3];g.globalAlpha=.16;g.lineWidth=2;for(i=0;i<3;i++){g.beginPath();g.arc(300,375,150+i*62+Math.sin(t*.8+i)*8,0,6.3);g.stroke()}g.globalAlpha=1;
- w=w.toLowerCase();var F='600 {s}px "Bricolage Grotesque",sans-serif',s=fit(w,F,460,170);g.save();g.translate(300,375);g.scale(1+.025*Math.sin(t*.8),1+.025*Math.sin(t*.8));g.font=F.replace('{s}',s);g.textAlign='center';g.fillStyle=p[3];g.fillText(w,0,s*.3);g.restore()}
-function drawRetro(t,p,w){var gr=g.createLinearGradient(0,0,0,450);gr.addColorStop(0,p[0]);gr.addColorStop(1,p[1]);g.fillStyle=gr;g.fillRect(0,0,600,750);
- g.save();g.beginPath();for(var y=190;y<450;y+=28){g.rect(0,y,600,28-Math.max(0,(y-300)/14))}g.clip();var sg=g.createLinearGradient(0,190,0,450);sg.addColorStop(0,p[2]);sg.addColorStop(1,p[3]);g.fillStyle=sg;g.beginPath();g.arc(300,330,140,0,6.3);g.fill();g.restore();
- g.fillStyle=p[0];g.fillRect(0,450,600,300);g.strokeStyle=p[3];g.lineWidth=2;g.globalAlpha=.8;
- for(var i=-12;i<=12;i++){g.beginPath();g.moveTo(300+i*30,450);g.lineTo(300+i*150,750);g.stroke()}
- for(var k=0;k<9;k++){var z=((k+t*.6)%9)/9,yy=450+z*z*300;g.beginPath();g.moveTo(0,yy);g.lineTo(600,yy);g.stroke()}g.globalAlpha=1;
- w=w.toUpperCase();var F='{s}px "Press Start 2P",monospace',s=fit(w,F,500,64);g.font=F.replace('{s}',s);g.textAlign='center';
- g.fillStyle=p[1];g.fillText(w,306,138);g.fillStyle=p[3];g.fillText(w,303,135);g.fillStyle='#fff';g.fillText(w,300,132);
- g.fillStyle='rgba(0,0,0,.2)';for(var y2=0;y2<750;y2+=4)g.fillRect(0,y2,600,2)}
-function drawChrome(t,p,w){var bg=g.createRadialGradient(300,300,20,300,375,520);bg.addColorStop(0,p[1]+'44');bg.addColorStop(1,p[0]);g.fillStyle=p[0];g.fillRect(0,0,600,750);g.fillStyle=bg;g.fillRect(0,0,600,750);
- w=w.toUpperCase();var F='800 {s}px "Bricolage Grotesque",sans-serif',s=fit(w,F,500,190),y=380;g.font=F.replace('{s}',s);g.textAlign='center';
- g.save();g.translate(0,y);g.scale(1,-1);g.translate(0,-y);g.globalAlpha=.25;g.fillStyle='#9fb2e0';g.fillText(w,300,y);g.restore();
- var fd=g.createLinearGradient(0,y,0,y+s*.8);fd.addColorStop(0,p[0]+'00');fd.addColorStop(1,p[0]);g.fillStyle=fd;g.fillRect(0,y+2,600,s);
- var mg=g.createLinearGradient(0,y-s*.75,0,y);[[0,'#fff'],[.38,'#aab8d8'],[.5,'#27304f'],[.53,'#7486b8'],[.82,'#e9f0ff'],[1,'#fff']].forEach(function(c){mg.addColorStop(c[0],c[1])});
- g.fillStyle=mg;g.fillText(w,300,y);g.lineWidth=2;g.strokeStyle=p[1];g.globalAlpha=.8;g.strokeText(w,300,y);g.globalAlpha=1;
- var sx=((t*160)%900)-150,lg=g.createLinearGradient(sx-90,0,sx+90,0);lg.addColorStop(0,'rgba(255,255,255,0)');lg.addColorStop(.5,'rgba(255,255,255,.95)');lg.addColorStop(1,'rgba(255,255,255,0)');g.fillStyle=lg;g.fillText(w,300,y);
- g.fillStyle='#fff';[[90,120],[510,170],[70,560],[540,600],[300,80]].forEach(function(q,i){star(q[0],q[1],4+10*Math.max(0,Math.sin(t*2+i*1.9)))})}
-function render(){g.setTransform(2,0,0,2,0,0);g.globalAlpha=1;var p=PALS[V][pi],w=word();
- ({loud:drawLoud,calm:drawCalm,retro:drawRetro,chrome:drawChrome})[V](T,p,w);
- g.textAlign='center';g.font='600 11px "DM Sans",sans-serif';g.fillStyle=(V==='calm'||V==='loud')?p[3]:'#fff';g.globalAlpha=.7;g.fillText('made at the UI Zoo',300,737);g.globalAlpha=1}
-(function loop(now){var dt=Math.min(.05,(now-lastT)/1000);lastT=now;if(vis&&!document.hidden){if(!paused)T+=dt;render()}requestAnimationFrame(loop)})(0);
-new IntersectionObserver(function(e){vis=e[0].isIntersecting}).observe(pc);
-function printIt(){pc.classList.remove('print');void pc.offsetWidth;pc.classList.add('print');tone(220,.12,'sawtooth')}
-document.querySelectorAll('.vb').forEach(function(b){b.addEventListener('click',function(){V=b.dataset.v;pi=0;document.querySelectorAll('.vb').forEach(function(x){x.setAttribute('aria-pressed',x===b)});printIt()})});
-$('#rm').addEventListener('click',function(){pi=(pi+1)%4;printIt()});
-$('#fz').addEventListener('click',function(e){paused=!paused;e.target.textContent=paused?'Resume motion':'Freeze frame'});
-$('#w').addEventListener('change',printIt);
-var dlc=null;
-$('#dl').addEventListener('click',async function(){var note=$('#note');
- if(!dlc){note.textContent='Saving is not available here. Try right-clicking the poster.';return}
- pc.toBlob(async function(b){try{await dlc.save({filename:'ui-zoo-poster-'+V+'.png',data:b});note.textContent='Poster saved. Show it off!'}catch(e){note.textContent=e&&e.code==='declined'?'No problem, nothing was saved.':'Could not save this time.'}},'image/png')});
-(async function(){try{dlc=await claude.use('downloads')}catch(e){}if(!dlc)$('#dl').style.display='none'})();
-</script>
-</body>
-</html>
+// Poster composer: static by default; animation is explicitly requested.
+var reduceQuery=matchMedia('(prefers-reduced-motion: reduce)');reduceQuery.addEventListener('change',function(e){rm=e.matches;if(rm){paused=true;cancelAnimationFrame(raf);raf=0;$('#fz').textContent='Play motion';$('#fz').setAttribute('aria-pressed','false');render()}});
+var pc=$('#pc'),g=pc.getContext('2d'),V='loud',pi=0,paused=true,T=0,vis=false,lastT=0,raf=0;
+var PALS=[['#ddeb4b','#203c31','#f0f1e9'],['#e56235','#2c3027','#f4eacb'],['#d4dfd0','#214b46','#f3eedf'],['#f1d9b2','#642d21','#f5f1e7']];
+function word(){return $('#w').value.trim()||'Hello'}
+function fit(w,size,weight='800',family='Bricolage Grotesque'){g.font=weight+' '+size+'px "'+family+'",Arial,sans-serif';return Math.min(size,size*500/Math.max(1,g.measureText(w).width))}
+function render(){var p=PALS[pi],w=word();g.setTransform(2,0,0,2,0,0);g.globalAlpha=1;g.fillStyle=p[0];g.fillRect(0,0,600,750);g.textAlign='left';g.textBaseline='alphabetic';
+ if(V==='loud'){g.font='800 '+fit(w.toUpperCase(),128)+'px "Bricolage Grotesque",sans-serif';for(var i=0;i<6;i++){g.fillStyle=i===3?p[2]:p[1];g.fillText(w.toUpperCase(),42+Math.sin(T+i)*8,125+i*113)}}
+ if(V==='calm'){g.strokeStyle=p[1];g.lineWidth=2;g.strokeRect(30,30,540,690);g.font='italic '+fit(w,100,'italic','Georgia')+'px Georgia,serif';g.fillStyle=p[1];g.textAlign='center';g.fillText(w,300,380);g.font='400 16px "DM Sans",sans-serif';g.fillText('A moment in type',300,650)}
+ if(V==='retro'){g.fillStyle=p[1];g.fillRect(30,30,540,690);g.textAlign='center';g.font='800 '+fit(w.toUpperCase(),100)+'px "Bricolage Grotesque",sans-serif';for(var k=0;k<4;k++){g.fillStyle=k%2?p[2]:p[0];g.fillText(w.toUpperCase(),300,220+k*115)}g.strokeStyle=p[0];g.lineWidth=2;g.strokeRect(50,50,500,650)}
+ if(V==='grid'){var chars=w.split('');g.strokeStyle=p[1];g.lineWidth=1;for(var y=0;y<3;y++)for(var x=0;x<2;x++){g.strokeRect(30+x*270,30+y*230,270,230);g.textAlign='center';g.fillStyle=p[1];g.font='600 160px "Bricolage Grotesque",sans-serif';g.fillText(chars[(y*2+x)%chars.length],165+x*270,205+y*230)}}
+ pc.setAttribute('aria-label',V+' typographic poster reading '+w);
+}
+function loop(now){raf=0;if(paused||!vis||document.hidden)return;T+=Math.min(.05,(now-lastT)/1000);lastT=now;render();raf=requestAnimationFrame(loop)}
+function schedule(){if(!paused&&vis&&!document.hidden&&!raf){lastT=performance.now();raf=requestAnimationFrame(loop)}}
+new IntersectionObserver(function(es){vis=es[0].isIntersecting;schedule()}).observe(pc);
+document.addEventListener('visibilitychange',schedule);
+function printIt(){render();tone(220,.08,'sine')}
+document.querySelectorAll('.vb').forEach(function(b){b.onclick=function(){V=b.dataset.v;document.querySelectorAll('.vb').forEach(function(x){x.setAttribute('aria-pressed',x===b)});printIt()}});
+$('#rm').onclick=function(){pi=(pi+1)%PALS.length;printIt()};
+$('#fz').setAttribute('aria-pressed','false');$('#fz').onclick=function(){if(rm){$('#note').textContent='Motion is disabled by your reduced-motion preference.';return}paused=!paused;this.textContent=paused?'Play motion':'Freeze frame';this.setAttribute('aria-pressed',!paused);schedule()};
+$('#w').addEventListener('input',render);render();document.fonts.ready.then(render);
+$('#dl').onclick=function(){var note=$('#note');render();pc.toBlob(function(blob){if(!blob){note.textContent='The poster could not be exported. Please try again.';return}var u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download='ui-zoo-'+V+'.png';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},15000);note.textContent='PNG prepared. Check your browser downloads.'},'image/png')};
+</script></body></html>
