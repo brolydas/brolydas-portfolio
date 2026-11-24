@@ -186,4 +186,4 @@ export function inkDefs(svg, id = 'ink') {
 }
 
 
-export { el, pen, shape, blot, limb, f, pt, PEN, PAPER, shoe, place };
+export { el, pen, shape, blot, limb, f, pt, PEN, PAPER, shoe, place, gait };

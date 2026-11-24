@@ -1,13 +1,14 @@
 // Ink village — a Japanese street from dawn to night, drawn in pen.
 // Drag the sun or moon to change the time; move the pointer to make wind;
 // click people, windows, lanterns, the fūrin, the cat, the birds, the water.
-import { el, inkDefs, f } from '../lib/ink.js';
+import { el, inkDefs, f } from '../lib/ink.js?v=2';
 import { W, H, LANE, WATER, rnd, pick, clamp, lerp, smooth, rgb, hex, mix } from './kit.js';
 import { createSky, palette as basePalette } from './sky.js';
-import { buildStreet } from './houses.js';
+import { buildStreet } from './houses.js?v=2';
 import { buildCanal } from './canal.js';
-import { createKimono, createCyclist, createKid, createBoat } from './people.js';
+import { createKimono, createCyclist, createKid, createBoat } from './people.js?v=2';
 import { createCat, createSparrows, createSwallows, createPetals, createSmoke } from './critters.js';
+import {createFutureVillage} from './future.js?v=2';
 
 const section=document.querySelector('#contact'),host=section.querySelector('[data-contact-art]'),card=section;
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
@@ -105,9 +106,10 @@ function addPerson(kind, x) {
   if (kind === 'bike') p = createCyclist(walkers, glow, { dir, x: sx, y: LANE.front + rnd(-1, 1) });
   if (kind === 'kid') p = createKid(walkers, glow, { dir, x: sx, y: LANE.mid + rnd(-1, 1) });
   on(p.g, () => { p.poke(); if (p.kind === 'bike') setTimeout(() => sparrows.flush(), 150); });
-  people.push(p);
+  p.futureKind=kind;people.push(p);
 }
 
+const future=createFutureVillage({svg,defs,scene,walkers,buildings:street.buildings,people,reduced});
 // ------------------------------------------------------------------ hud
 
 // ------------------------------------------------------------------ frame
@@ -165,8 +167,9 @@ run((t, dt) => {
       if (k === 'kid') { spawn[k] = rnd(14, 24); if (dayish) addPerson('kid'); }
     }
   }
-  for (let i = people.length - 1; i >= 0; i--) { const p = people[i]; p.draw(t, dt * LIFE, P, wind); if (p.done) { p.remove(); people.splice(i, 1); } else if (p.ringing && Math.random() < dt * 4) sparrows.flush(); }
-  people.slice().sort((a, b) => a.y - b.y).forEach((p) => walkers.appendChild(p.g));
+  for (let i = people.length - 1; i >= 0; i--) { const p = people[i]; if(!p.futureHeld)p.draw(t, dt * LIFE, P, wind); if (p.done) { p.remove(); people.splice(i, 1); } else if (p.ringing && Math.random() < dt * 4) sparrows.flush(); }
+  future.draw(t,dt);
+  [...people,...future.robots].sort((a,b)=>a.y-b.y).forEach(p=>walkers.appendChild(p.g));
 
 });
 

@@ -348,6 +348,50 @@ export function createBoat(parent, glow, { onRipple }) {
   const pole = pen(g, PEN * 1.4);
   const poleWet = el('path', { stroke: 'currentColor', 'stroke-width': PEN * 0.9, 'stroke-dasharray': '2 2.4', fill: 'none', opacity: 0.6 }, g);
   const notes = el('g', {}, g);
+  // Keep both designs on the exact same route. Only the selected mode is visible.
+  const classical=el('g',{},g);
+  [...g.children].filter(n=>n!==classical).forEach(n=>classical.appendChild(n));
+  const future=el('g',{style:'display:none'},g);
+  const futureMode=()=>document.documentElement.dataset.mode==='intelligence';
+  const line=(parent,d,stroke='currentColor',width=.85,fill='none')=>el('path',{d,stroke,'stroke-width':width,fill,'stroke-linecap':'round','stroke-linejoin':'round'},parent);
+  const box=(parent,x,y,width,height,attrs={})=>el('rect',{x,y,width,height,...attrs},parent);
+  const dot=(parent,cx,cy,r,attrs={})=>el('circle',{cx,cy,r,...attrs},parent);
+  const title=el('title',{},future);title.textContent='Electric cargo ferry · Tap to signal';
+  // Low, streamlined hull with an ivory composite shell and inset electric drive.
+  line(future,'M12 108 L24 102 H217 L250 110 Q245 122 225 125 H39 Q22 124 12 108Z','#4b5452',1.3,'#e3e7df');
+  line(future,'M21 113 H238 L225 121 H40 Q28 120 21 113Z','#5c6c68',.9,'#8da6a2');
+  line(future,'M35 116 H221','#2b9b9b',1.7);
+  line(future,'M24 104H226 M44 123H211','#646f69',.75);
+  // Electric stern thruster and restrained bow navigation lamp.
+  line(future,'M16 109 H5 L2 115 H22','#566863',1,'#b1bdb3');
+  line(future,'M5 112H15','#47b6b0',1.5);
+  dot(future,240,110,2.2,{fill:'#e2ad58',stroke:'#947044','stroke-width':.55});
+  // Three low, modular cargo pods replace the rice sacks.
+  [[109,84,31],[143,84,31],[177,84,31]].forEach(([x,y,w],i)=>{
+    line(future,'M'+x+' '+(y+18)+' V'+(y+3)+' L'+(x+5)+' '+y+' H'+(x+w-4)+' L'+(x+w)+' '+(y+4)+' V'+(y+18)+'Z','#68746f',.95,i===1?'#d7c9ad':'#d3dfd8');
+    line(future,'M'+(x+5)+' '+(y+1)+'V'+(y+17)+' M'+(x+w-5)+' '+(y+1)+'V'+(y+17),'#8c9a8d',.65);
+    box(future,x+9,y+6,w-18,5,{rx:1,fill:'#f6f5e9',stroke:'#6e9389','stroke-width':.55});
+    line(future,'M'+(x+11)+' '+(y+8)+'h'+(w-22),'#389c97',.8);
+  });
+  line(future,'M105 102H213 M115 103v4 M204 103v4','#677670',.8);
+  // Small seated robotic pilot at a physical helm, no pole or traditional hat.
+  line(future,'M36 102V90H52V104 M38 90V78H42V90','#667771',1.1,'#acbfb6');
+  line(future,'M46 82L56 86L62 97H69 M44 83L48 98H57','#405e5c',3.7);
+  line(future,'M40 62L45 57H53L58 62L56 83H41Z','#46635d',1.2,'#b7cec5');
+  box(future,43,66,11,7,{rx:1,fill:'#eaf3e9',stroke:'#65978a','stroke-width':.7});
+  const pilotHead=el('g',{},future);
+  line(pilotHead,'M40 42L45 38H54L59 43V53L54 57H45L40 53Z','#46635d',1.1,'#dce7dc');
+  box(pilotHead,44,45,12,5,{rx:2,fill:'#3a615e'});
+  dot(pilotHead,48,47.5,1.2,{fill:'#8ce7d4'});dot(pilotHead,53,47.5,1.2,{fill:'#8ce7d4'});
+  line(pilotHead,'M49 38V33','#587d70',.85);dot(pilotHead,49,32,1.6,{fill:'#d5a65b'});
+  const pilotArm=line(future,'M55 64L64 72L76 71','#45645f',3.1);
+  line(future,'M70 105V79L78 74H89L94 79V105','#596c66',1.05,'#b6c8bf');
+  line(future,'M72 78H90L86 71H76Z','#4f7971',.85,'#c1e4da');
+  // Subtle telemetry above the console appears only when the ferry is clicked.
+  const signal=el('g',{opacity:0,'pointer-events':'none'},future);
+  line(signal,'M81 72V59 M66 58V39H96V58Z','#278f8c',.85,'#e7f7ee');
+  line(signal,'M70 53L76 49L81 52L88 44L92 46','#2b9b9b',1);
+  let signalT=0,wakeT=0;
   let X = 140, anchor = null, ph = 0, songT = -1, lastTip = [40, 160];
   const noteN = [];
   const T = 3.6;
@@ -355,13 +399,26 @@ export function createBoat(parent, glow, { onRipple }) {
   return {
     g,
     get x() { return X; },
-    poke() { if (songT < 0) { songT = 0; for (let i = 0; i < 4; i++) noteN.push({ t: -i * 0.35, x0: rnd(-4, 4), n: el('text', { 'font-size': 11, fill: 'currentColor', 'font-family': 'serif' }, notes) }); noteN.slice(-4).forEach((n, i) => (n.n.textContent = i % 2 ? '♪' : '♫')); } },
+    poke() { if(futureMode()){signalT=2.4;return;} if (songT < 0) { songT = 0; for (let i = 0; i < 4; i++) noteN.push({ t: -i * 0.35, x0: rnd(-4, 4), n: el('text', { 'font-size': 11, fill: 'currentColor', 'font-family': 'serif' }, notes) }); noteN.slice(-4).forEach((n, i) => (n.n.textContent = i % 2 ? '♪' : '♫')); } },
     draw(t, dt, P, wind) {
       ph = (ph + dt / T) % 1;
       const push = ph > 0.1 && ph < 0.62 ? Math.sin(Math.PI * (ph - 0.1) / 0.52) : 0;
-      const v = 7 + 15 * push;
+      const futuristic=futureMode();
+      const v = futuristic?15:7 + 15 * push;
       X += v * dt; if (X > 1120) { X = -170; anchor = null; }
       g.setAttribute('transform', `translate(${f(X)} ${f(Y - 120 * FS + Math.sin(t * 1.4) * 0.6)}) scale(${FS}) translate(-40 0)`);
+      classical.style.display=futuristic?'none':'';
+      future.style.display=futuristic?'':'none';
+      if(futuristic){
+        lanGlow.setAttribute('opacity',0);
+        signalT=Math.max(0,signalT-dt);wakeT+=dt;
+        if(wakeT>.85){wakeT=0;onRipple(X-12,Y);}
+        signal.setAttribute('opacity',f(Math.min(1,signalT*2)));
+        pilotHead.setAttribute('transform','rotate('+f(Math.sin(t*.9)*3+Math.sin(signalT*3)*Math.min(signalT,1)*5)+' 50 55)');
+        pilotArm.setAttribute('d','M55 64L64 '+f(72+Math.sin(t*1.3)*.8)+'L76 71');
+        return;
+      }
+      wakeT=0;
       // hull with an upturned bow, cargo of rice bales
       hull.setAttribute('d', 'M14 112 L232 112 Q250 110 258 96 Q252 116 236 124 L30 124 Q18 122 14 112Z');
       hull.setAttribute('fill', fillOf('#8b6a48', P));
