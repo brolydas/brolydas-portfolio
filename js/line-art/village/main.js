@@ -6,7 +6,7 @@ import { W, H, LANE, WATER, rnd, pick, clamp, lerp, smooth, rgb, hex, mix } from
 import { createSky, palette as basePalette } from './sky.js';
 import { buildStreet } from './houses.js?v=2';
 import { buildCanal } from './canal.js';
-import { createKimono, createCyclist, createKid, createBoat } from './people.js';
+import { createKimono, createCyclist, createKid, createBoat } from './people.js?v=2';
 import { createCat, createSparrows, createSwallows, createPetals, createSmoke } from './critters.js';
 import {createFutureVillage} from './future.js?v=2';
 
