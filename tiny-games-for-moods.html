@@ -290,7 +290,7 @@ function frame(now){if(!openGame)return;var dt=Math.min(.05,(now-last)/1000);las
  if(st==='ready'&&now>=startAt)st='play';
  if(st==='play'){if(!G.endless)time-=dt;G.g.update(dt,S);if((!G.endless&&time<=0)||S.over){time=Math.max(0,time);endG()}}
  stepParts(dt);shake=Math.max(0,shake-dt*40);
- var gr=ctx.createLinearGradient(0,0,0,H);gr.addColorStop(0,G.bg[0]);gr.addColorStop(1,G.bg[1]);ctx.fillStyle=gr;ctx.fillRect(0,0,W,H);
+ ctx.fillStyle=G.bg[0];ctx.fillRect(0,0,W,H);
  ctx.save();if(shake)ctx.translate(R(-shake,shake),R(-shake,shake));if(st!=='idle')G.g.draw(S);drawParts();ctx.restore();
  $('#sc').textContent=G.g.lab?G.g.lab(S):score;$('#tf').style.transform='scaleX('+Math.max(0,time/G.dur)+')';requestAnimationFrame(frame)}
 function pos(e){var r=cv.getBoundingClientRect();ptr.x=e.clientX-r.left;ptr.y=e.clientY-r.top}

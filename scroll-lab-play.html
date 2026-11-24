@@ -125,11 +125,7 @@ footer{text-align:left;padding-inline:clamp(18px,5vw,64px);font-weight:500}
 <header><button class="lg" id="sw" aria-label="Switch to Motion Lab" title="Switch to Motion Lab"><span class="mn">Scroll Lab</span><span class="sb">Motion Lab</span></button><div class="tray" id="tray" aria-label="Effects found"></div></header>
 <main>
 <div class="hero" id="hero">
-  <div class="sh" data-z="30" style="width:120px;height:120px;border-radius:50%;background:var(--pink);right:12%;top:10%"></div>
-  <div class="sh" data-z="-24" style="width:100px;height:100px;border-radius:26px;background:var(--mint);right:30%;bottom:12%;transform:rotate(14deg)"></div>
-  <div class="sh" data-z="18" style="width:130px;height:130px;background:var(--sun);right:6%;bottom:18%;clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);border:0;box-shadow:none"></div>
-  <div class="sh" data-z="-40" style="width:90px;height:90px;border-radius:60% 40% 55% 45%;background:var(--grape);right:38%;top:8%"></div>
-  <h1 id="h1" aria-label="Scroll it. Poke it. Steal the code."></h1>
+  <h1 id="h1" aria-label="Scroll effects, explained."></h1>
   <p id="hp"></p>
   <div class="hero-instrument" aria-hidden="true"><svg viewBox="0 0 440 400" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M40 48H400M40 124H400M40 200H400M40 276H400M40 352H400M40 48V352M130 48V352M220 48V352M310 48V352M400 48V352" stroke="#20251f" opacity=".22"/><path d="M40 318C130 318 106 75 220 75S310 226 400 72" stroke="#20251f" stroke-width="3"/><path d="M40 318L400 72" stroke="#20251f" stroke-dasharray="5 7" opacity=".6"/><circle cx="40" cy="318" r="7" fill="#20251f"/><circle cx="220" cy="75" r="7" fill="#20251f"/><rect x="394" y="66" width="12" height="12" fill="#20251f"/><path d="M40 337H400" stroke="#20251f" stroke-width="2"/><text x="42" y="366" fill="#20251f" font-family="monospace" font-size="13">0</text><text x="374" y="366" fill="#20251f" font-family="monospace" font-size="13">1.0</text></svg><p>Position over time</p></div>
   <nav class="idx" id="idx" aria-label="Effects"></nav>
@@ -137,9 +133,9 @@ footer{text-align:left;padding-inline:clamp(18px,5vw,64px);font-weight:500}
 <div id="chs"></div>
 <div id="chm" style="display:none"></div>
 </main>
-<footer>Built with anime.js 3. Every demo is yours to copy.</footer>
+<footer>Built with anime.js 3. Each experiment includes editable source code.</footer>
 <div id="wp"></div>
-<div id="win" role="status">You found all ten! Go steal some code.</div>
+<div id="win" role="status">All experiments explored.</div>
 <div class="ov" id="ov"></div>
 <aside class="dr" id="dr" role="dialog" aria-modal="true" aria-label="Code for this effect" aria-hidden="true">
   <div class="dh"><h3 id="dt">Code</h3><button class="bt" id="dx" style="box-shadow:3px 3px 0 var(--sun)">Close</button></div>
@@ -231,7 +227,7 @@ function nfd(m){return fdd[m].filter(Boolean).length}
 function paint(i,anim){var s=stk[i],x=LS[mode][i];s.textContent=String(i+1);s.style.background=x.a;s.style.borderStyle='solid';if(anim)anime({targets:s,scale:[0,1.6,1],rotate:[-40,0],duration:D(900),easing:'easeOutCubic'})}
 function drawTray(){tray.innerHTML='';stk=[];LS[mode].forEach(function(x,i){var s=document.createElement('span');s.className='st';s.title=x.t;tray.appendChild(s);stk.push(s);if(fdd[mode][i])paint(i,false)});tray.appendChild(cnt);cnt.textContent=nfd(mode)+'/'+LS[mode].length+' found'}
 function found(m,i){if(fdd[m][i])return;fdd[m][i]=1;if(m!==mode)return;paint(i,true);cnt.textContent=nfd(m)+'/'+LS[m].length+' found';var r=stk[i].getBoundingClientRect();burst(r.left+14,r.top+14,16);
-  if(nfd(m)===LS[m].length){var w=$('win');w.textContent='You found all '+LS[m].length+'! Go steal some code.';anime({targets:w,translateY:['200%','0%'],duration:D(900),easing:'easeOutCubic'});setTimeout(function(){anime({targets:w,translateY:'200%',duration:D(500),easing:'easeInQuad'})},4500)}}
+  if(nfd(m)===LS[m].length){var w=$('win');w.textContent='You explored all '+LS[m].length+' experiments.';anime({targets:w,translateY:['200%','0%'],duration:D(900),easing:'easeOutCubic'});setTimeout(function(){anime({targets:w,translateY:'200%',duration:D(500),easing:'easeInQuad'})},4500)}}
 
 /* code drawer */
 function e(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
@@ -275,10 +271,10 @@ var M=[
  html:'<div class="mz"><div class="gd"></div></div>',
  init:function(b,x){var g=b.querySelector('.gd'),h='';for(var i=0;i<40;i++)h+='<button class="gp" aria-label="Ripple"></button>';g.innerHTML=h;var d=g.children;[].forEach.call(d,function(p,i){p.addEventListener('click',function(){anime({targets:d,scale:[{value:1.9,duration:180},{value:1,duration:420}],backgroundColor:[{value:'#FF5FA2',duration:180},{value:'#1B1140',duration:420}],delay:anime.stagger(D(x.kv),{grid:[8,5],from:i}),easing:'easeOutQuad'});x.fd()})})},
  code:function(v){return{h:'<div class="grid"></div>',c:'.grid {\n  display: grid; gap: 12px; padding: 24px;\n  grid-template-columns: repeat(8, 1fr);\n}\n.grid button {\n  aspect-ratio: 1; border: 0; padding: 0;\n  border-radius: 50%; background: #1B1140;\n}',j:"var grid = document.querySelector('.grid');\nfor (var i = 0; i < 40; i++) grid.innerHTML += '<button></button>';\nvar dots = grid.children;\n[].forEach.call(dots, function (dot, i) {\n  dot.addEventListener('click', function () {\n    anime({\n      targets: dots,\n      scale: [{ value: 1.9, duration: 180 }, { value: 1, duration: 420 }],\n      backgroundColor: [{ value: '#FF5FA2', duration: 180 }, { value: '#1B1140', duration: 420 }],\n      delay: anime.stagger("+v+", { grid: [8, 5], from: i }),\n      easing: 'easeOutQuad'\n    });\n  });\n});"}}},
-{id:'drag',e:'🏀',a:'#FFE66D',t:'Spring drag',k:'Drag',q:'Drag the ball, let go and feel it snap back.',w:'You can fling an element around and it springs back home when released. Elastic easing makes it feel physical.',tip:'Set touch-action to none on the draggable so phones don’t scroll instead.',kn:{l:'Bounciness',u:'',min:1,max:10,v:6},
+{id:'drag',e:'🏀',a:'#FFE66D',t:'Return on drag',k:'Drag',q:'Drag the ball and release it to its starting point.',w:'A controlled ease-out returns the element to its starting position after release, without overshoot.',tip:'Set touch-action to none on the draggable so phones don’t scroll instead.',kn:{l:'Return time',u:'ms',min:200,max:1000,v:500},
  html:'<div class="mz"><div class="bl" tabindex="0">Drag me</div></div>',
- init:function(b,x){var e=b.querySelector('.bl'),sx,sy,dx=0,dy=0,dn=false;e.addEventListener('pointerdown',function(ev){dn=true;anime.remove(e);sx=ev.clientX-dx;sy=ev.clientY-dy;e.setPointerCapture(ev.pointerId);e.style.cursor='grabbing'});e.addEventListener('pointermove',function(ev){if(!dn)return;dx=ev.clientX-sx;dy=ev.clientY-sy;e.style.transform='translate('+dx+'px,'+dy+'px)'});e.addEventListener('pointerup',function(){if(!dn)return;dn=false;e.style.cursor='';var o={x:dx,y:dy};anime({targets:o,x:0,y:0,duration:D(1500),easing:'easeOutElastic(1,'+(0.9-x.kv*.07).toFixed(2)+')',update:function(){dx=o.x;dy=o.y;e.style.transform='translate('+dx+'px,'+dy+'px)'}});x.fd()})},
- code:function(v){return{ctr:1,h:'<div class="ball">Drag me</div>',c:'.ball {\n  width: 120px; height: 120px; border-radius: 50%;\n  display: grid; place-items: center; background: #FFD400;\n  font: 800 1.3rem sans-serif; touch-action: none; cursor: grab;\n}',j:"var el = document.querySelector('.ball');\nvar sx, sy, dx = 0, dy = 0, down = false;\nel.addEventListener('pointerdown', function (e) {\n  down = true; anime.remove(el);\n  sx = e.clientX - dx; sy = e.clientY - dy;\n  el.setPointerCapture(e.pointerId);\n});\nel.addEventListener('pointermove', function (e) {\n  if (!down) return;\n  dx = e.clientX - sx; dy = e.clientY - sy;\n  el.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';\n});\nel.addEventListener('pointerup', function () {\n  down = false;\n  var o = { x: dx, y: dy };\n  anime({\n    targets: o, x: 0, y: 0, duration: 1500,\n    easing: 'easeOutElastic(1,"+(0.9-v*.07).toFixed(2)+")',\n    update: function () {\n      dx = o.x; dy = o.y;\n      el.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';\n    }\n  });\n});"}}},
+ init:function(b,x){var e=b.querySelector('.bl'),sx,sy,dx=0,dy=0,dn=false;e.addEventListener('pointerdown',function(ev){dn=true;anime.remove(e);sx=ev.clientX-dx;sy=ev.clientY-dy;e.setPointerCapture(ev.pointerId);e.style.cursor='grabbing'});e.addEventListener('pointermove',function(ev){if(!dn)return;dx=ev.clientX-sx;dy=ev.clientY-sy;e.style.transform='translate('+dx+'px,'+dy+'px)'});e.addEventListener('pointerup',function(){if(!dn)return;dn=false;e.style.cursor='';var o={x:dx,y:dy};anime({targets:o,x:0,y:0,duration:D(x.kv),easing:'easeOutCubic',update:function(){dx=o.x;dy=o.y;e.style.transform='translate('+dx+'px,'+dy+'px)'}});x.fd()})},
+ code:function(v){return{ctr:1,h:'<div class="ball">Drag me</div>',c:'.ball {\n  width: 120px; height: 120px; border-radius: 50%;\n  display: grid; place-items: center; background: #FFD400;\n  font: 800 1.3rem sans-serif; touch-action: none; cursor: grab;\n}',j:"var el = document.querySelector('.ball');\nvar sx, sy, dx = 0, dy = 0, down = false;\nel.addEventListener('pointerdown', function (e) {\n  down = true; anime.remove(el);\n  sx = e.clientX - dx; sy = e.clientY - dy;\n  el.setPointerCapture(e.pointerId);\n});\nel.addEventListener('pointermove', function (e) {\n  if (!down) return;\n  dx = e.clientX - sx; dy = e.clientY - sy;\n  el.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';\n});\nel.addEventListener('pointerup', function () {\n  down = false;\n  var o = { x: dx, y: dy };\n  anime({\n    targets: o, x: 0, y: 0, duration: "+v+",\n    easing: 'easeOutCubic',\n    update: function () {\n      dx = o.x; dy = o.y;\n      el.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';\n    }\n  });\n});"}}},
 {id:'morph',e:'🫧',a:'#FF7F9F',t:'Blob morph',k:'Click',q:'Click the blob and slow the morph down.',w:'A shape melts into another one. Paths morph smoothly when they have the same number of points.',tip:'Draw every shape with the same commands, or the morph will jump.',kn:{l:'Morph time',u:'ms',min:300,max:2000,v:900},
  html:'<div class="mz"><button class="mb" aria-label="Morph the blob"><svg viewBox="0 0 200 200"><path d="M100 20C150 20 180 55 180 100C180 150 145 180 100 180C55 180 20 150 20 100C20 55 50 20 100 20Z" fill="#FF5FA2" stroke="#1B1140" stroke-width="4"/></svg></button></div>',
  init:function(b,x){var p=b.querySelector('path'),i=0,B=['M100 20C150 20 180 55 180 100C180 150 145 180 100 180C55 180 20 150 20 100C20 55 50 20 100 20Z','M110 15C165 30 190 70 175 115C160 160 130 190 85 175C40 160 10 125 25 80C40 35 65 0 110 15Z','M100 30C130 10 185 45 170 95C160 130 190 165 140 180C95 195 60 170 35 140C10 110 40 60 60 45C75 35 85 40 100 30Z'],K=['#FF5FA2','#7CF2C8','#FFD400'];b.querySelector('.mb').addEventListener('click',function(){i=(i+1)%3;anime({targets:p,d:B[i],fill:K[i],duration:D(x.kv),easing:'easeOutCubic'});x.fd()})},
@@ -290,7 +286,7 @@ var M=[
 {id:'spot',e:'🔦',a:'#FFB4A2',t:'Spotlight card',k:'Hover',q:'Sweep the light across the card.',w:'A soft glow follows the pointer inside a card. Two CSS variables and one listener are all it needs.',tip:'Set the light with CSS variables so you only update two numbers per move.',kn:{l:'Light size',u:'px',min:60,max:300,v:140},
  html:'<div class="mz"><div class="sp">Move over me</div></div>',
  init:function(b,x){var s=b.querySelector('.sp');x.rs=function(){s.style.setProperty('--r',x.kv+'px')};x.rs();s.addEventListener('pointermove',function(e){var r=s.getBoundingClientRect();s.style.setProperty('--x',e.clientX-r.left+'px');s.style.setProperty('--y',e.clientY-r.top+'px');x.fd()})},
- code:function(v){return{ctr:1,h:'<div class="card">Move over me</div>',c:'.card {\n  width: 320px; height: 220px; border-radius: 26px;\n  display: grid; place-items: center;\n  color: #fff; font: 800 2rem sans-serif;\n  background: radial-gradient(circle '+v+'px at var(--x, 50%) var(--y, 50%),\n    rgba(255, 95, 162, .95), #1B1140 75%);\n}',j:"var card = document.querySelector('.card');\ncard.addEventListener('pointermove', function (e) {\n  var r = card.getBoundingClientRect();\n  card.style.setProperty('--x', e.clientX - r.left + 'px');\n  card.style.setProperty('--y', e.clientY - r.top + 'px');\n});"}}}
+ code:function(v){return{ctr:1,h:'<div class="card">Move over me</div>',c:'.card {\n  width: 320px; height: 220px; border-radius: 26px;\n  display: grid; place-items: center;\n  color: #fff; font: 800 2rem sans-serif;\n  background: #285a50;\n  position: relative; overflow: hidden;\n}\n.card::before {\n  content: ""; position: absolute;\n  width: '+v*2+'px; height: '+v*2+'px;\n  border: 2px solid #e7ef46; border-radius: 50%;\n  left: var(--x, 50%); top: var(--y, 50%);\n  transform: translate(-50%, -50%); pointer-events: none;\n}',j:"var card = document.querySelector('.card');\ncard.addEventListener('pointermove', function (e) {\n  var r = card.getBoundingClientRect();\n  card.style.setProperty('--x', e.clientX - r.left + 'px');\n  card.style.setProperty('--y', e.clientY - r.top + 'px');\n});"}}}
 ];
 
 /* chapters */
@@ -310,16 +306,14 @@ function build(list,host,m){list.forEach(function(x,i){
   s.querySelector('.rs').onclick=function(){b.scrollTo({top:0,behavior:R?'auto':'smooth'});x.reset&&setTimeout(function(){x.reset(b)},R?0:500)};
   s.querySelector('.key').onclick=function(){open(x,this)}})}
 function setHero(m){
-  var t=m==='s'?'Scroll it. Poke it. Steal the code.':'Hover it. Drag it. Steal the code.';
+  var t=m==='s'?'Scroll it. Poke it. Steal the code.':'Motion you can inspect.';
   h1.setAttribute('aria-label',t);
   h1.innerHTML=t.split(' ').map(function(w,wi){return'<span class="wd" aria-hidden="true" style="color:'+['var(--fg)','var(--grape)','var(--pink)','var(--fg)','var(--grape)','var(--pink)'][wi%6]+'">'+w.split('').map(function(c){return'<span class="lt">'+c+'</span>'}).join('')+'</span> '}).join('');
-  hp.textContent=m==='s'?LS.s.length+' scroll effects to play with. Scroll the boxes, twist the knobs, collect a sticker for each one, then grab the code.':LS.m.length+' motion tricks to play with. Move, drag and click, twist the knobs, collect a sticker for each one, then grab the code.';
+  hp.textContent=m==='s'?LS.s.length+' interactive scroll experiments. Try each effect, adjust its parameters, and copy the HTML, CSS or JavaScript.':LS.m.length+' interactive motion experiments. Hover, drag or click to see the effect, adjust its parameters, and copy the code.';
   idx.innerHTML='';LS[m].forEach(function(x){var a=document.createElement('a');a.href='#'+x.id;a.style.setProperty('--a',x.a);a.textContent=x.t;idx.appendChild(a)});
   anime({targets:'#h1 .lt',opacity:[0,1],translateY:[12,0],duration:D(500),delay:anime.stagger(D(12)),easing:'easeOutCubic'})}
 // Headline stays still on pointer interaction.
-var hero=$('hero'),shp=hero.querySelectorAll('.sh');
-hero.addEventListener('pointermove',function(ev){if(R)return;var r=hero.getBoundingClientRect(),x=(ev.clientX-r.left)/r.width-.5,y=(ev.clientY-r.top)/r.height-.5;shp.forEach(function(s){var z=+s.dataset.z;s.style.translate=(x*z*3)+'px '+(y*z*3)+'px'})});
-shp.forEach(function(s){s.addEventListener('click',function(ev){anime.remove(s);anime({targets:s,scale:[1,1.35,.9,1],rotate:'+='+anime.random(-90,90),duration:D(900),easing:'easeOutCubic'});burst(ev.clientX,ev.clientY,12)})});
+var hero=$('hero');
 build(C,hostS,'s');built.s=1;drawTray();setHero('s');
 
 /* switch between Scroll Lab and Motion Lab */
@@ -327,7 +321,7 @@ var sw=$('sw'),mn=sw.querySelector('.mn'),sb=sw.querySelector('.sb'),wp=$('wp'),
 function swap(m){mode=m;hostS.style.display=m==='s'?'':'none';hostM.style.display=m==='m'?'':'none';
   if(m==='m'&&!built.m){build(M,hostM,'m');built.m=1}
   mn.textContent=m==='s'?'Scroll Lab':'Motion Lab';sb.textContent=m==='s'?'Motion Lab':'Scroll Lab';
-  sw.setAttribute('aria-label','Switch to '+sb.textContent);sw.title='Switch to '+sb.textContent;document.title=mn.textContent+' – poke it, then steal the code';
+  sw.setAttribute('aria-label','Switch to '+sb.textContent);sw.title='Switch to '+sb.textContent;document.title=mn.textContent+' – interactive motion experiments';
   document.documentElement.style.setProperty('--brand',m==='s'?'var(--fg)':'var(--fg)');
   scrollTo(0,0);drawTray();setHero(m)}
 sw.onclick=function(){if(busy)return;busy=true;var m=mode==='s'?'m':'s',r=sw.getBoundingClientRect(),cx=Math.round(r.left+40),cy=Math.round(r.top+20),c1='circle(0px at '+cx+'px '+cy+'px)',c2='circle(150% at '+cx+'px '+cy+'px)';

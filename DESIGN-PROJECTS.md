@@ -21,9 +21,9 @@ These rules apply to the five standalone portfolio demos, not the Design / Intel
 ## Installing locally in Codex
 Review the upstream scripts and their licenses before running them. From a local checkout with Node and Python available:
 ```sh
-npx skills add https://github.com/Leonxlnx/taste-skill
-npx skills add https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
+npx skills add https://github.com/Leonxlnx/taste-skill --skill design-taste-frontend
+npx ui-ux-pro-max-cli init --ai codex
 npx skills add https://github.com/SandroHub013/awwwards-skill
-npx skills add https://github.com/motiondivision/ai-kit
+npx motion-ai
 ```
 These are local agent installation commands, not application runtime dependencies. Existing anime.js demos are retained rather than requiring a framework migration. Consult each upstream repository for exact current install options. This document records design rules; it does not claim the local skills have been installed or their automated validators run.
