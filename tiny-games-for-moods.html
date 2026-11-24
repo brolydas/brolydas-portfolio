@@ -78,21 +78,53 @@ transform:rotate(var(--rot));transition:transform .2s cubic-bezier(.3,1.6,.5,1),
 .tx{max-width:min(92vw,680px);text-align:left;font:500 22px/1.5 "Courier New",monospace;background:#fff5e1;border:4px solid #1b1530;border-radius:22px;padding:16px;box-shadow:6px 6px 0 #1b1530}.tx span{color:#8a8296}.tx .c{color:#1b1530}.tx .x{color:#fff;background:#ff6b6b}.tx .cur{border-left:3px solid #1b1530}
 .rs{background:#fff5e1;border:4px solid #1b1530;border-radius:22px;padding:6px 22px;font-size:20px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
+
+/* Portfolio redesign — stable controls, readable type, native scrolling. */
+:focus-visible{outline:3px solid #1676ce!important;outline-offset:4px!important}
+button,a,input{ -webkit-tap-highlight-color:transparent }
+button:disabled{cursor:not-allowed}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
+:root{--bg:#f3efe4;--ink:#222a26;--mut:#505c54;--sh:#222a26}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#202722;--ink:#f3efe4;--mut:#b9c4b8;--sh:#f3efe4}}
+:root[data-theme="dark"]{--bg:#202722;--ink:#f3efe4;--mut:#b9c4b8;--sh:#f3efe4}
+body{font-family:"DM Sans",sans-serif}#dood{display:none}.wrap{max-width:1300px;padding:25px clamp(18px,5vw,64px) 65px}
+.top{border-bottom:1px solid currentColor;padding-bottom:18px;align-items:center;justify-content:flex-end;flex-wrap:wrap}.top .wordmark{margin-right:auto;font-family:"Space Grotesk",sans-serif;font-size:1.15rem;font-weight:700}
+.pill{border:1px solid currentColor;border-radius:3px;min-height:44px;padding:8px 15px;box-shadow:none;font-weight:600;transition:background .18s,color .18s}
+.pill:hover,.pill:active{transform:none;box-shadow:none;background:var(--ink);color:var(--bg)}
+h1{font:700 clamp(3.5rem,10vw,8.8rem)/.94 "Space Grotesk",sans-serif;text-align:left;letter-spacing:-.085em;max-width:11ch;margin:clamp(38px,7vw,86px) 0 20px}
+h1 span{animation:none!important;color:inherit!important}h1 span:hover{transform:none}
+.sub{text-align:left;font:500 clamp(1.06rem,2vw,1.3rem)/1.5 "DM Sans",sans-serif;color:var(--mut);margin:0 0 34px;max-width:48ch}
+#grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px}.card{grid-column:span 2;min-height:188px;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;gap:3px;padding:20px;border:1px solid #222a26;border-radius:2px;box-shadow:none;transform:none;animation:none;transition:transform .18s ease,background .18s;color:#222a26;background:#e7e4d6;position:relative;overflow:hidden}
+#grid .card:first-child{grid-column:span 4;min-height:265px;background:#d5ed44;padding:28px}
+#grid .card:first-child svg{width:155px;height:150px;position:absolute;right:7%;top:14%}
+#grid .card:nth-child(2){background:#dfd7c8;grid-column:span 2}
+#grid .card:nth-child(3),#grid .card:nth-child(6){background:#d9e4d7}
+.card b{font:700 clamp(1.25rem,2.4vw,1.7rem)/1.1 "Space Grotesk",sans-serif;letter-spacing:-.045em}.card em{font:500 1rem/1.35 "DM Sans",sans-serif;opacity:1}
+.card svg{width:84px;height:84px;margin:0 0 8px}.card:hover svg{animation:none}.card:hover{transform:translateY(-2px);box-shadow:none}.card:active{transform:none;box-shadow:none}
+.card u{background:transparent;border:0;border-radius:0;font-size:14px;padding:0;right:12px;top:12px;color:#222a26}
+.sec{font:700 clamp(2.25rem,5vw,4.2rem)/1 "Space Grotesk",sans-serif;text-align:left;letter-spacing:-.06em;margin:80px 0 12px}
+.bgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:0 24px}.bgrid .card{grid-column:auto;min-height:118px;padding:17px 12px 17px 75px;background:transparent;color:var(--ink);border:0;border-top:1px solid currentColor;overflow:visible;justify-content:center}.bgrid .card .ic{position:absolute;left:8px;top:22px}.bgrid .card .ic svg{width:48px;height:48px}.bgrid .card u{color:var(--mut);position:static;order:3;margin-top:4px}
+.foot{text-align:left;border-top:1px solid currentColor;padding-top:22px}
+#play,#play.open{clip-path:none;transition:opacity .2s,visibility .2s;opacity:0}#play.open{opacity:1}#sc,#hp,#end div,#nb,.tb,#tf,.bar .pill,#end .pill{border-radius:3px;box-shadow:none}#sc.bump,#end div{animation:none}#end div{text-align:left}#gt,#sc,#hp,#end h2,.big2,#panel .hd{font-family:"Space Grotesk",sans-serif}
+@media(max-width:750px){#grid{grid-template-columns:repeat(2,minmax(0,1fr))}.card,#grid .card:nth-child(2){grid-column:span 1}#grid .card:first-child{grid-column:span 2;min-height:230px}#grid .card:first-child svg{width:125px;height:125px}.bgrid{grid-template-columns:1fr}.card{min-height:160px;padding:15px}.top{gap:8px}.top .wordmark{font-size:1rem}}
+@media(max-width:375px){#grid .card:first-child svg{width:90px;height:90px;right:5%}.top .wordmark{flex-basis:100%}}
+
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap" rel="stylesheet">
 </head>
 <body>
 <div id="dood" aria-hidden="true"></div>
 <div class="wrap">
-  <div class="top"><button class="pill" id="sndb">Sound: on</button><button class="pill" id="sur">Surprise me</button></div>
+  <div class="top"><span class="wordmark">Tiny Games / Arcade</span><button class="pill" id="sndb">Sound: on</button><button class="pill" id="sur">Surprise me</button></div>
   <h1 id="ttl" aria-label="Tiny Games for Moods"></h1>
   <p class="sub">How are you feeling right now? Pick a mood and get a 30-second game.</p>
   <div class="grid" id="grid"></div>
   <h2 class="sec">Human Benchmark</h2>
   <p class="sub">Feeling sharp? Eight quick tests for your reflexes and memory.</p>
   <div class="grid bgrid" id="bgrid"></div>
-  <p class="foot">Six tiny games. Zero ads. Made with feelings.</p>
+  <p class="foot">Six mood games and eight benchmark tests. Your best scores stay in this browser.</p>
 </div>
-<div id="play" role="dialog" aria-label="Game">
+<div id="play" role="dialog" aria-modal="true" aria-label="Game">
   <canvas id="cv"></canvas>
   <div class="bar"><button class="pill" id="back">← Moods</button><div id="gt"></div><div id="sc">0</div></div>
   <div class="tb"><i id="tf"></i></div>
@@ -247,10 +279,10 @@ $('#sndb').addEventListener('click',function(e){snd=!snd;e.target.textContent='S
 
 // ---- play ----
 function size(){var r=cv.getBoundingClientRect(),dpr=Math.min(2,devicePixelRatio||1);W=r.width;H=r.height;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)}
-function openG(i,x,y){lastIdx=i;G=GAMES[i];var p=$('#play');p.style.setProperty('--cx',x+'px');p.style.setProperty('--cy',y+'px');p.classList.add('open');openGame=true;cv.style.display=G.dom?'none':'block';var pa=$('#panel');pa.style.display=G.dom?'flex':'none';if(G.dom)pa.style.background='linear-gradient('+G.bg[0]+','+G.bg[1]+')';size();begin()}
+function openG(i,x,y){lastIdx=i;G=GAMES[i];var p=$('#play');p.style.setProperty('--cx',x+'px');p.style.setProperty('--cy',y+'px');p.classList.add('open');openGame=true;document.querySelector('.wrap').inert=true;$('#back').focus();cv.style.display=G.dom?'none':'block';var pa=$('#panel');pa.style.display=G.dom?'flex':'none';if(G.dom)pa.style.background=G.bg[0];size();begin()}
 function begin(){runId++;$('.tb').style.display=(G.endless||G.dom)?'none':'';S=G.dom?{}:G.g.init();score=0;time=G.dur||0;parts=[];shake=0;st='ready';startAt=performance.now()+800;$('#gt').textContent=G.name;$('#sc').textContent='0';$('#end').classList.remove('show');
  var h=$('#hp');h.textContent=G.hint;h.style.opacity=1;setTimeout(function(){h.style.opacity=0},3200);last=performance.now();if(G.dom){st='play';$('#panel').innerHTML='';G.dom()}else requestAnimationFrame(frame)}
-function closeG(){runId++;$('#panel').innerHTML='';$('#play').classList.remove('open');openGame=false;st='idle';cards()}
+function closeG(){runId++;$('#panel').innerHTML='';$('#play').classList.remove('open');openGame=false;st='idle';document.querySelector('.wrap').inert=false;cards();var target=document.querySelector('.card[data-i="'+lastIdx+'"]');if(target)target.focus()}
 function endG(m,dn){st='over';var n=dn!=null?dn:(G.g.final?G.g.final(S):score),nb=best[lastIdx]==null||(G.low?n<best[lastIdx]:n>best[lastIdx]);if(nb){best[lastIdx]=n;try{localStorage.setItem('tgm',JSON.stringify(best))}catch(e){}}
  $('#es').textContent=n+(G.unit||(G.g&&G.g.final?'%':''));$('#em').textContent=G.msg(n);$('#nb').style.display=nb&&n>0?'inline-block':'none';$('#end').classList.add('show');
  burst(W/2,H/2,40,CONF,{sh:'r',v0:150,v1:600,g:500,up:300});tone(660,.2,'triangle');setTimeout(function(){tone(880,.25,'triangle')},140)}
@@ -353,5 +385,6 @@ function typing(){var words=[],i;for(i=0;i<70;i++)words.push(TW[Math.floor(R(0,T
   var el=(performance.now()-t0)/1000;$('#tf').style.transform='scaleX('+Math.max(0,1-el/30)+')';$('#tm').textContent=Math.max(0,Math.ceil(30-el))+'s left';hud(Math.round(paint()/5/(Math.max(el,3)/60)));
   if(el>=30){clearInterval(iv);ti.disabled=true;endG(0,Math.round(paint()/5/.5))}},100)}paint()}}
 </script>
+<script>document.addEventListener("keydown",function(e){if(e.key==="Escape"&&document.getElementById("play").classList.contains("open"))document.getElementById("back").click()});</script>
 </body>
 </html>
