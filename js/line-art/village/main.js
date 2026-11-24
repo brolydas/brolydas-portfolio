@@ -1,7 +1,7 @@
 // Ink village — a Japanese street from dawn to night, drawn in pen.
 // Drag the sun or moon to change the time; move the pointer to make wind;
 // click people, windows, lanterns, the fūrin, the cat, the birds, the water.
-import { el, inkDefs, f } from '../../lib/ink.js';
+import { el, inkDefs, f } from '../lib/ink.js';
 import { W, H, LANE, WATER, rnd, pick, clamp, lerp, smooth, rgb, hex, mix } from './kit.js';
 import { createSky, palette as basePalette } from './sky.js';
 import { buildStreet } from './houses.js';

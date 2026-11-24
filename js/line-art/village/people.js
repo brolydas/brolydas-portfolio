@@ -1,6 +1,6 @@
 // Villagers. Each is drawn in its own space (~95 px tall, ground y 120, facing +x,
 // feet centred on x 40) and placed with translate/scale, so line weight matches.
-import { el, pen, shape, blot, f, pt, limb, joint, curve, PEN, PAPER } from '../../lib/ink.js';
+import { el, pen, shape, blot, f, pt, limb, joint, curve, PEN, PAPER } from '../lib/ink.js';
 import { FS, WATER, rnd, pick, clamp, lerp, smooth, ease, oval, rgb, hex, mix } from './kit.js';
 
 const RAD = Math.PI / 180;

@@ -1,6 +1,6 @@
 // Sky, sun, moon, stars and the day/night palette.
 // Time of day τ ∈ [0,1): 0 midnight, 0.25 dawn, 0.5 noon, 0.75 dusk.
-import { el, pen, shape, blot, f, pt, PAPER } from '../../lib/ink.js';
+import { el, pen, shape, blot, f, pt, PAPER } from '../lib/ink.js';
 import { W, SP, rnd, srnd, clamp, lerp, smooth, ramp, rgb, hex, mix, lum, oval } from './kit.js';
 
 const SKY_TOP = [[0, '#0d1222'], [0.19, '#131a30'], [0.235, '#3d4066'], [0.27, '#cfd8e2'], [0.33, '#f3f2ee'], [0.5, '#f6f5f1'], [0.68, '#f3eee4'], [0.735, '#e3c6a6'], [0.762, '#5a5279'], [0.80, '#1b2140'], [0.86, '#0d1222']];

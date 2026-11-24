@@ -1,5 +1,5 @@
 // Street surface, canal wall, water, reflections, willow, koi, fireflies.
-import { el, pen, shape, blot, f, pt, PAPER } from '../../lib/ink.js';
+import { el, pen, shape, blot, f, pt, PAPER } from '../lib/ink.js';
 import { W, H, BASE, EDGE, WATER, SP, rnd, srnd, clamp, lerp, smooth, ease, oval, rgb, hex, mix, wobble } from './kit.js';
 
 const WARM = hex('#ffcf7e');

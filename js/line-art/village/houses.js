@@ -1,7 +1,7 @@
 // The street: four machiya-style buildings and an alley, drawn once, plus the
 // parts that live (windows that light, noren and lanterns in the wind, the
 // fūrin, a sliding shoji someone opens).
-import { el, pen, shape, blot, f, pt, limb, PAPER } from '../../lib/ink.js';
+import { el, pen, shape, blot, f, pt, limb, PAPER } from '../lib/ink.js';
 import { BASE, SP, srnd, lerp, clamp, smooth, ease, oval, rgb, hex, mix, wobble } from './kit.js';
 
 const JP = '"Hiragino Mincho ProN","Yu Mincho","YuMincho","Noto Serif JP","Songti SC",serif';
