@@ -1,52 +1,19 @@
-/* One full-bleed monochrome contact section for both portfolio modes. */
-.home-page #contact {
-  --contact-paper: #000;
-  --contact-ink: #fff;
-  --contact-muted: #b7b7b7;
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  margin-inline: 0;
-  padding-inline: var(--space);
-  background: var(--contact-paper);
-  color: var(--contact-ink);
-}
-html[data-mode="intelligence"] .home-page #contact {
-  --contact-paper: #fff;
-  --contact-ink: #111;
-  --contact-muted: #555;
-}
-.home-page #contact > p,
-.home-page #contact > h2,
-.home-page #contact > .contact-bottom { position: relative; z-index: 1; }
-.home-page #contact > p { color: var(--contact-muted); }
-.home-page #contact > h2 { max-width: 72%; pointer-events: none; }
-.home-page #contact .contact-email { border-color: var(--contact-muted); }
-.home-page #contact .contact-bottom { background: var(--contact-paper); }
-.home-page #contact a:focus-visible { outline: 2px solid var(--contact-ink); outline-offset: 5px; }
-.contact-line-art {
-  position: absolute;
-  z-index: 0;
-  right: 0;
-  top: 0;
-  bottom: 105px;
-  width: 61%;
-  color: var(--contact-ink);
-  pointer-events: none;
-  user-select: none;
-  opacity: .9;
-  mask-image: linear-gradient(to right,transparent 0%,#000 20%);
-}
-.contact-line-art svg { display: block; width: 100%; height: 100%; overflow: hidden; }
-@media (max-width: 900px) {
-  .home-page #contact > h2 { max-width: none; }
-  .contact-line-art { width: 65%; opacity: .64; bottom: 150px; }
-}
-@media (max-width: 760px) {
-  .home-page #contact { padding-top: 65px; }
-  .home-page #contact > h2 { font-size: clamp(3.6rem, 13vw, 6.5rem); margin-bottom: clamp(170px, 50vw, 330px); }
-  .contact-line-art { width: 100%; top: auto; bottom: 125px; height: clamp(185px, 54vw, 340px); opacity: .86; mask-image: none; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .contact-line-art { transition: none; }
-}
+/* Full-width living street and illuminated HTML billboard. */
+.home-page #contact{--contact-paper:#000;--contact-ink:#f8f2e7;--sign-ink:#fff1d2;--sign-edge:#d8aa62;--sign-bg:rgba(8,7,5,.94);--sign-glow:rgba(255,190,92,.28);position:relative;isolation:isolate;overflow:hidden;margin:0;padding:0;background:var(--contact-paper);color:var(--contact-ink);border-top:1px solid var(--line)}
+html[data-mode="intelligence"] .home-page #contact{--contact-paper:#fff;--contact-ink:#181818;--sign-ink:#241b10;--sign-edge:#a77537;--sign-bg:rgba(255,252,243,.98);--sign-glow:rgba(205,146,57,.35)}
+.contact-village-stage{position:relative;aspect-ratio:2/1;width:100%}
+.contact-line-art{position:absolute;inset:0;user-select:none;touch-action:pan-y}
+.contact-line-art svg{display:block;width:100%;height:100%;overflow:hidden}
+.contact-line-art .pp{fill:var(--paper,#fdfdfc)}
+.contact-billboard{position:absolute;z-index:2;top:4%;left:50%;transform:translateX(-50%);width:max-content;max-width:calc(100% - 48px);padding:clamp(12px,1.4vw,25px) clamp(22px,4vw,75px);text-align:center;color:var(--sign-ink);background:var(--sign-bg);border:1px solid var(--sign-edge);outline:1px solid var(--sign-edge);outline-offset:5px;box-shadow:0 0 12px var(--sign-glow),0 0 48px var(--sign-glow),inset 0 0 20px var(--sign-glow)}
+.contact-billboard::before,.contact-billboard::after{content:"";position:absolute;top:50%;width:8px;height:8px;border-radius:50%;background:var(--sign-edge);box-shadow:0 0 10px var(--sign-edge);transform:translateY(-50%)}
+.contact-billboard::before{left:8px}.contact-billboard::after{right:8px}
+.contact-billboard p{margin:0 0 3px;font-size:clamp(.65rem,.8vw,.95rem);letter-spacing:.14em;text-transform:uppercase;color:var(--sign-ink)}
+.home-page #contact .contact-billboard h2{font-size:clamp(2.35rem,4.7vw,6.2rem);line-height:1.01;margin:0 0 10px;letter-spacing:-.045em;font-weight:400;text-shadow:0 0 18px var(--sign-glow)}
+.home-page #contact .contact-email{display:inline-block;font-size:clamp(.85rem,1.4vw,1.65rem);font-weight:500;line-height:1.2;padding:7px 16px;border:1px solid var(--sign-edge);color:var(--sign-ink);background:var(--sign-bg);box-shadow:0 0 16px var(--sign-glow);text-shadow:0 0 12px var(--sign-glow);overflow-wrap:anywhere;transition:box-shadow .2s}
+.home-page #contact .contact-email:hover,.home-page #contact .contact-email:focus-visible{box-shadow:0 0 25px var(--sign-edge),inset 0 0 13px var(--sign-glow)}
+.home-page #contact .contact-bottom{position:relative;z-index:2;margin:0;padding:18px var(--space);background:var(--contact-paper);border-top:1px solid var(--line);justify-content:space-between;color:var(--contact-ink)}
+.home-page #contact a:focus-visible{outline:2px solid var(--sign-edge);outline-offset:5px}
+.contact-art-hint{font-size:.75rem;color:var(--contact-ink);opacity:.7}
+@media(max-width:760px){.contact-village-stage{aspect-ratio:auto;padding-top:1px}.contact-billboard{position:relative;top:auto;left:auto;transform:none;margin:30px auto 12px;padding:15px 20px;max-width:calc(100% - 36px)}.home-page #contact .contact-billboard h2{font-size:clamp(2rem,7vw,4rem)}.contact-line-art{position:relative;aspect-ratio:2/1;width:100%}.home-page #contact .contact-bottom{gap:12px;font-size:.85rem}.contact-art-hint{display:none}}
+@media(prefers-reduced-motion:reduce){.home-page #contact .contact-email{transition:none}.contact-art-hint{display:none}}
