@@ -22,7 +22,7 @@ function mount(section,host){
  const violet=gradient('future-violet',[[0,'#9154cf',.32],[1,'#9154cf',0]],true);
  const g=(parent=svg,attrs={})=>el('g',attrs,parent);
  const p=(parent,d,w=.9,attrs={})=>{const n=pen(parent,w);n.setAttribute('d',d);for(const [k,v]of Object.entries(attrs))n.setAttribute(k,v);return n;};
- const closed=(parent,d,w=.9,attrs={})=>{const n=shape(parent,w);n.setAttribute('d',d);for(const [k,v]of Object.entries(attrs))n.setAttribute(k,v);return n;};
+ const closed=(parent,d,w=.9,attrs={})=>{const n=shape(parent,w);n.setAttribute('d',d);if('fill' in attrs)n.classList.remove('pp');for(const [k,v]of Object.entries(attrs))n.setAttribute(k,v);return n;};
  const rect=(parent,x,y,width,height,attrs={})=>el('rect',{x,y,width,height,...attrs},parent);
  const circle=(parent,cx,cy,r,attrs={})=>el('circle',{cx,cy,r,...attrs},parent);
  const ellipse=(parent,cx,cy,rx,ry,attrs={})=>el('ellipse',{cx,cy,rx,ry,...attrs},parent);
@@ -67,58 +67,111 @@ function mount(section,host){
   }
   return q;
  }
+ // A small, legible district: seven quiet silhouettes, four midground buildings,
+ // and three signature facilities. No wall of repeated skyscrapers.
  const colors=['#167c96','#6752a7','#32677c'];
- for(let x=-15,i=0;x<W;x+=43,i++)tower(far,x,between(25,43),between(180,337),448,0,i%3,colors[i%3]);
- const towers=[
-  [-12,90,157,1], [77,80,221,2], [169,92,119,1], [263,67,229,0],
-  [334,60,302,1],[412,67,260,2],[484,78,286,0],[564,83,250,2],[652,72,302,1],
-  [732,78,234,1],[813,67,184,2],[887,91,136,1],[988,90,203,2],[1080,105,113,1],[1187,50,187,0]
- ];
- towers.forEach(([x,w,y,s],i)=>tower(mid,x,w,y,474,1,s,colors[i%3]));
- const foreground=[[-35,105,215,1],[72,107,279,0],[204,106,248,2],[898,108,238,2],[1022,115,193,1],[1150,90,265,0]];
- foreground.forEach(([x,w,y,s],i)=>tower(near,x,w,y,GROUND,2,s,colors[i%3]));
- // Layered rooftop structures, exterior ducts, ladders, industrial bridges.
- for(const [x,y,w] of [[100,318,88],[221,288,71],[915,286,76],[1043,234,85]]){
-   const k=g(near);closed(k,'M'+x+' '+y+' h'+w+' v20 h-'+w+'Z',.9,{fill:'#f9fbfb'});
-   for(let dx=5;dx<w-4;dx+=9)p(k,'M'+(x+dx)+' '+(y+4)+'v12',.6);
-   p(k,'M'+(x+w-12)+' '+(y+20)+'v33h-15v44',1.6);
+ [[-22,95,286,0],[225,68,257,1],[354,70,320,0],[436,65,246,2],[740,73,277,1],[833,63,320,0],[1155,90,260,1]].forEach(([x,w,y,k],i)=>tower(far,x,w,y,448,0,k,colors[i%3]));
+ [[-18,76,270,0],[315,93,300,1],[740,105,270,2],[1150,88,292,1]].forEach(([x,w,y,k],i)=>tower(mid,x,w,y,474,1,k,colors[i%3]));
+ const lab=tower(near,86,168,224,GROUND,2,colors[0]);
+ const station=tower(near,475,250,300,GROUND,0,colors[2]);
+ const ai=tower(near,947,176,210,GROUND,1,colors[1]);
+ // Every wall sign, conduit, roof bracket and emitter belongs to its building group.
+ function sign(parent,x,y,w,h,label,sub,accent){
+   const panel=g(parent);
+   closed(panel,'M'+(x-4)+' '+(y+4)+'h4v'+(h-8)+'h-4Z M'+(x+w)+' '+(y+4)+'h4v'+(h-8)+'h-4Z',.9,{fill:'#dbe5e8'});
+   rect(panel,x,y,w,h,{rx:2,fill:'#fff',stroke:accent,'stroke-width':1.1});
+   rect(panel,x+3,y+3,w-6,h-6,{rx:1,fill:'#f3fafb',stroke:accent,'stroke-width':.35});
+   text(panel,x+w/2,y+12,label,8.5,{'text-anchor':'middle',fill:'#173b4a','letter-spacing':1});
+   text(panel,x+w/2,y+23,sub,5.8,{'text-anchor':'middle',fill:accent,'letter-spacing':.7});
+   p(panel,'M'+(x+w-10)+' '+(y+h)+'v9h6v9',.8,{stroke:accent});
+   return panel;
  }
- const transit=g(svg);
- closed(transit,'M-20 420 C180 406 310 389 481 399 S802 457 1220 375 L1220 394 C802 476 670 433 481 419 S180 426 -20 441Z',1.2,{fill:'#e5edf0'});
- p(transit,'M-20 425 C180 411 310 394 481 404 S802 462 1220 380',1.1,{stroke:'#16839a'});
- p(transit,'M-20 434 C180 420 310 403 481 413 S802 471 1220 389',.7);
- for(const [x,y]of [[138,427],[356,419],[560,428],[766,448],[1038,424]]){closed(transit,'M'+x+' '+y+' l13 0 l-4 78 h-8Z',.9,{fill:'#f5f8f9'});p(transit,'M'+(x+4)+' '+(y+5)+'v65',.6);}
- const train=g(transit);
- closed(train,'M-87 0 Q-99 10 -88 16 H78 Q96 10 80 0Z',1,{fill:'#f4f9fa'});
- p(train,'M-74 4H76 M-74 11H76',.8,{stroke:'#16839a'});for(let x=-65;x<72;x+=14)rect(train,x,5,9,5,{fill:'#577c8b',rx:1});
- // Holographic science displays: transparent projection volumes, orbit rings, nodes and scanlines.
- const holo=g(svg);
- function hologram(x,y,r,kind){
-   const root=g(holo,{transform:'translate('+x+' '+y+')',style:'cursor:pointer'});
-   const hit=circle(root,0,0,r+12,{fill:'transparent'});
-   ellipse(root,0,r+15,r*.72,7,{fill:glow});
-   p(root,'M'+(-r*.64)+' '+(r+12)+' L'+(-r)+' '+(-r*.8)+' M'+(r*.64)+' '+(r+12)+' L'+r+' '+(-r*.8),.6,{stroke:'#1088a6',opacity:.55});
-   circle(root,0,0,r*1.15,{fill:kind==='globe'?glow:violet});
-   const field=g(root,{opacity:.9});
-   circle(field,0,0,r,{...stroke('#167c96',.9),'stroke-dasharray':'3 5'});
+ sign(lab,103,260,133,31,'SYNTH / LAB','ROBOTICS & FLIGHT','#167c96');
+ sign(ai,965,246,139,31,'AI SYSTEMS','INFERENCE RESEARCH','#7852b2');
+ sign(station,525,325,150,31,'CENTRAL TRANSIT','MAGLEV PLATFORM 01','#32677c');
+ function facadeDetail(parent,x,y,w){
+   closed(parent,'M'+x+' '+y+'h'+w+'v24h-'+w+'Z',.9,{fill:'#f3f7f8'});
+   for(let j=6;j<w-5;j+=9)p(parent,'M'+(x+j)+' '+(y+4)+'v16',.6);
+   p(parent,'M'+(x+w-12)+' '+(y+24)+'v32h-14v27',1.3);
+ }
+ facadeDetail(lab,113,324,111);facadeDetail(ai,976,315,112);
+ // Fixed roof-mounted projectors: the hologram is a functional display, not a floating ornament.
+ const holograms=[];
+ function rooftopDisplay(parent,x,roof,r,kind){
+   const accent=kind==='air'?'#16849c':'#7852b2';
+   const base=g(parent,{transform:'translate('+x+' '+roof+')'});
+   const centerY=-r-24;
+   closed(base,'M-'+(r*.8)+' 0 L-'+(r*.62)+' -11 H'+(r*.62)+' L'+(r*.8)+' 0Z',1,{fill:'#dce7eb'});
+   closed(base,'M-'+(r*.46)+' -11 v-8 h'+(r*.92)+' v8Z',.9,{fill:'#f7fbfc'});
+   ellipse(base,0,-20,r*.47,4,{fill:glow,stroke:accent,'stroke-width':.85});
+   p(base,'M-'+(r*.42)+' -20 L-'+(r*.95)+' '+(centerY-r*.72)+' M'+(r*.42)+' -20 L'+(r*.95)+' '+(centerY-r*.72),.65,{stroke:accent,opacity:.6});
+   const root=g(base,{transform:'translate(0 '+centerY+')',style:'cursor:pointer'});
+   circle(root,0,0,r+4,{fill:'transparent'});
+   circle(root,0,0,r*1.25,{fill:kind==='air'?glow:violet});
+   const field=g(root,{opacity:.88});
+   circle(field,0,0,r,{...stroke(accent,.85),'stroke-dasharray':'2 4'});
    const orbit=g(field);
-   if(kind==='globe'){
-    circle(orbit,0,0,r*.83,stroke('#168ca8',.9));
-    for(const a of [-60,-30,0,30,60])ellipse(orbit,0,0,r*.82,r*.82*Math.max(.13,Math.abs(Math.cos(a*Math.PI/180))),{...stroke('#168ca8',.6),transform:'rotate('+a+' 0 0)'});
-    for(const a of [-.55,-.25,.25,.55])p(orbit,'M'+f(-r*Math.sqrt(1-a*a)*.82)+' '+f(a*r*.82)+'H'+f(r*Math.sqrt(1-a*a)*.82),.5,{stroke:'#168ca8'});
+   const scan=p(field,'M'+(-r*.75)+' 0H'+(r*.75),.9,{stroke:accent,opacity:.6});
+   const dots=[];
+   if(kind==='air'){
+     // Airspace radar: three designated flight corridors and aircraft tracks.
+     for(const k of [.33,.66,.92])circle(orbit,0,0,r*k,stroke(accent,.55));
+     p(orbit,'M'+(-r)+' 0H'+r+' M0 '+(-r)+'V'+r,.55,{stroke:accent,opacity:.7});
+     p(orbit,'M0 0L'+r*.88+' '+(-r*.26),1.1,{stroke:accent});
+     for(let i=0;i<3;i++)dots.push(circle(field,0,0,1.8,{fill:accent}));
    }else{
-    const pts=[[-.55,-.4],[-.65,.15],[-.25,.65],[.1,-.65],[.65,-.3],[.6,.3],[.22,.63],[0,0]].map(([a,b])=>[a*r,b*r]);
-    for(const [a,b] of [[0,3],[0,1],[0,7],[1,2],[1,7],[2,6],[2,7],[3,4],[3,7],[4,5],[4,7],[5,6],[5,7],[6,7]])p(orbit,'M'+pts[a].join(' ')+'L'+pts[b].join(' '),.85,{stroke:'#7852b2'});
-    pts.forEach(([a,b],i)=>circle(orbit,a,b,i===7?4:2.3,{fill:'#fff',stroke:'#7852b2','stroke-width':1}));
+     // Inference monitor: input layer, hidden layer and output layer with signal pulses.
+     const nodes=[[-.67,-.40],[-.67,0],[-.67,.40],[0,-.60],[0,-.2],[0,.2],[0,.60],[.67,-.25],[.67,.25]].map(([a,b])=>[a*r,b*r]);
+     for(let a=0;a<3;a++)for(let b=3;b<7;b++)p(orbit,'M'+nodes[a].join(' ')+'L'+nodes[b].join(' '),.55,{stroke:accent,opacity:.6});
+     for(let a=3;a<7;a++)for(let b=7;b<9;b++)p(orbit,'M'+nodes[a].join(' ')+'L'+nodes[b].join(' '),.55,{stroke:accent,opacity:.6});
+     nodes.forEach(([a,b])=>circle(orbit,a,b,2.7,{fill:'#fff',stroke:accent,'stroke-width':.9}));
+     for(let i=0;i<3;i++)dots.push(circle(field,0,0,1.8,{fill:accent}));
    }
-   const scan=p(field,'M'+(-r*.76)+' 0H'+(r*.76),1.2,{stroke:'#02a9c8',opacity:.8});
-   ellipse(root,0,r+13,r*.74,5,stroke('#167c96',.8));text(root,0,r+31,kind==='globe'?'MODEL // 03':'NEURAL CORE',6.5,{'text-anchor':'middle',fill:'#216b81'});
-   const title=el('title',{},root);title.textContent='Tap to activate hologram';
-   return {root,field,orbit,scan,r,pulse:0,hit};
+   const status=text(base,0,11,kind==='air'?'AIRSPACE RADAR':'NEURAL CORE',6.8,{'text-anchor':'middle',fill:accent,'letter-spacing':.7});
+   const title=el('title',{},root);title.textContent=kind==='air'?'Activate air-traffic radar':'Trace the inference signal';
+   holograms.push({root,field,orbit,scan,r,kind,dots,status,pulse:0,accent});
  }
- const holograms=[hologram(303,215,48,'globe'),hologram(965,173,51,'network')];
- const sign=(x,y,w,h,label,accent)=>{const n=g(holo);rect(n,x-9,y-9,w+18,h+18,{rx:8,fill:accent==='blue'?glow:violet});rect(n,x,y,w,h,{rx:2,fill:'#ffffff','fill-opacity':.84,stroke:accent==='blue'?'#16849c':'#7952b0','stroke-width':1});text(n,x+w/2,y+h*.65,label,9,{'text-anchor':'middle',fill:accent==='blue'?'#136d83':'#67429c'});p(n,'M'+(x+4)+' '+(y+h-4)+'H'+(x+w-4),.8,{stroke:accent==='blue'?'#25a9c0':'#9b64cf'});};
- sign(73,304,94,27,'SYNTH / LAB','blue');sign(1028,300,99,28,'AI // SYSTEMS','violet');sign(907,371,81,20,'ROBOTICS','blue');
+ rooftopDisplay(lab,169,224,32,'air');
+ rooftopDisplay(ai,1035,210,34,'neural');
+ // One shared guideway path controls the deck, rails, supports AND each articulated train car.
+ const transit=g(svg);
+ const trackD='M-180 408 C60 408 170 388 325 399 S560 449 715 419 S960 370 1380 395';
+ const track=p(transit,trackD,20,{stroke:'#d9e5e9','stroke-linecap':'butt'});
+ const trackLength=track.getTotalLength();
+ const at=d=>track.getPointAtLength(clamp(d,0,trackLength));
+ for(let d=140;d<trackLength-120;d+=172){
+   const a=at(d);
+   if(a.x<0||a.x>W)continue;
+   closed(transit,'M'+f(a.x-6)+' '+f(a.y+6)+'h12L'+f(a.x+4)+' 503H'+f(a.x-4)+'Z',.85,{fill:'#eff4f6'});
+   p(transit,'M'+f(a.x)+' '+f(a.y+14)+'V498',.5);
+ }
+ p(transit,trackD,20,{stroke:'#20313a','stroke-opacity':.58,'stroke-linecap':'butt'});
+ p(transit,trackD,18,{stroke:'#e6eef0','stroke-linecap':'butt'});
+ const lower=g(transit,{transform:'translate(0 6)'});
+ p(lower,trackD,.7,{stroke:'#6a8d99','stroke-linecap':'butt'});
+ p(transit,trackD,1.35,{stroke:'#16839a','stroke-linecap':'butt'});
+ const train=g(transit),trainCars=[];
+ for(let i=0;i<3;i++){
+   const car=g(train);
+   const body=i===0?'M-25 -4V-17Q-22 -23 -12 -23H12Q20 -22 27 -11L25 -4Z':'M-24 -4V-19Q-22 -23 -16 -23H18Q24 -23 24 -18V-4Z';
+   closed(car,body,1.05,{fill:'#fbfdfe'});
+   p(car,'M-23 -6H23 M-23 -20H19',.7,{stroke:'#16839a'});
+   for(let x=-18;x<13;x+=9)rect(car,x,-17,6,6,{rx:1,fill:'#7fa1ae'});
+   if(i===0)closed(car,'M14 -21Q21 -18 24 -12H14Z',.6,{fill:'#b1d1de'});
+   rect(car,-16,-4,10,3,{rx:1,fill:'#355565'});rect(car,9,-4,10,3,{rx:1,fill:'#355565'});
+   trainCars.push(car);
+ }
+ function positionTrain(t){
+   const lead=((t*52+610)%(trackLength-8))+4;
+   trainCars.forEach((car,i)=>{
+     const d=lead-i*51;
+     if(d<2||d>trackLength-2){car.setAttribute('visibility','hidden');return;}
+     const a=at(d),before=at(d-2),after=at(d+2);
+     const angle=Math.atan2(after.y-before.y,after.x-before.x)*180/Math.PI;
+     car.setAttribute('visibility','visible');
+     car.setAttribute('transform','translate('+f(a.x)+' '+f(a.y)+') rotate('+f(angle)+')');
+   });
+ }
  const vehicles=g(svg);
  function craft(y,s,dir,offset,speed,kind){
    const root=g(vehicles,{style:'cursor:pointer'}),body=g(root);
@@ -132,7 +185,7 @@ function mount(section,host){
    p(body,'M-20 10H-7 M12 10H22',2,{stroke:c});circle(body,24,4,1.7,{fill:'#fff',stroke:c,'stroke-width':.7});
    return {root,body,y,s,dir,offset,speed,pulse:0};
  }
- const cars=[craft(96,.9,1,220,82,0),craft(174,1.2,-1,800,62,1),craft(265,1.5,1,100,92,0),craft(337,.8,-1,650,55,0),craft(399,1.08,1,420,74,1)];
+ const cars=[craft(104,.9,1,220,82,0),craft(177,1.15,-1,800,62,1),craft(263,1.35,1,100,92,0),craft(350,.85,-1,650,55,0)];
  // Wide foreground deck, rail and tiled perspective. Robots are part of the street, not UI icons.
  const deck=g(svg);
  closed(deck,'M0 502 Q600 498 1200 502 V600 H0Z',1.3,{fill:'#f5f8f9'});
@@ -171,10 +224,21 @@ function mount(section,host){
  function draw(dt){
    time+=dt;
    if(gsap){px=pointerState.x;py=pointerState.y;}else{px=smooth(px,pointerX,Math.min(1,dt*5));py=smooth(py,pointerY,Math.min(1,dt*5));}
-   far.setAttribute('transform','translate('+f(px*3)+' '+f(py*2)+')');mid.setAttribute('transform','translate('+f(px*7)+' '+f(py*3)+')');near.setAttribute('transform','translate('+f(px*10)+' '+f(py*4)+')');
-   const tx=((time*44+530)%1450)-125;const ty=407+18*Math.sin((tx-480)/260);train.setAttribute('transform','translate('+f(tx)+' '+f(ty)+')');
+   far.setAttribute('transform','translate('+f(px*2)+' 0)');mid.setAttribute('transform','translate('+f(px*5)+' 0)');near.setAttribute('transform','translate('+f(px*7)+' 0)');
+   positionTrain(time);
    for(const o of cars){o.pulse=Math.max(0,o.pulse-dt*.9);const x=((o.offset+time*o.speed)%(W+160)+W+160)%(W+160)-80;const X=o.dir>0?x:W-x;const Y=o.y+Math.sin(time*1.5+o.offset)*2+py*4-o.pulse*14;o.root.setAttribute('transform','translate('+f(X)+' '+f(Y)+') scale('+f(o.s*o.dir)+' '+f(o.s)+')');o.body.setAttribute('transform','rotate('+f(-o.pulse*8)+')');}
-   for(const [i,o]of holograms.entries()){o.pulse=Math.max(0,o.pulse-dt*.55);o.field.setAttribute('opacity',f(.77+.13*Math.sin(time*1.7+i)+o.pulse*.1));o.orbit.setAttribute('transform','rotate('+f(time*(i?7:10)+px*8)+')');o.scan.setAttribute('transform','translate(0 '+f(Math.sin(time*2+i)*o.r*.7)+')');}
+   for(const o of holograms){
+     o.pulse=Math.max(0,o.pulse-dt*.55);
+     o.field.setAttribute('opacity',f(.86+o.pulse*.14));
+     if(o.kind==='air'){
+       o.orbit.setAttribute('transform','rotate('+f(time*25+o.pulse*15)+')');
+       o.dots.forEach((dot,i)=>{const angle=time*(.18+i*.04)+i*2.1;const r=o.r*(.36+i*.22);dot.setAttribute('cx',f(Math.cos(angle)*r));dot.setAttribute('cy',f(Math.sin(angle)*r));});
+     }else{
+       // Neural connections remain stable; packets travel from input to output.
+       o.dots.forEach((dot,i)=>{const u=(time*(.45+o.pulse*.5)+i*.33)%1;dot.setAttribute('cx',f((u*1.34-.67)*o.r));dot.setAttribute('cy',f(Math.sin(u*Math.PI*2+i*2.1)*o.r*.23));});
+     }
+     o.scan.setAttribute('transform','translate(0 '+f(Math.sin(time*1.5)*o.r*.65)+')');
+   }
    for(const o of pedestrians){
     o.pulse=Math.max(0,o.pulse-dt*.65);
     const wave=o.pulse>0?Math.sin(Math.PI*Math.min(1,o.pulse*1.4)):.0;
