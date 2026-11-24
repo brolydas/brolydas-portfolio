@@ -10,16 +10,16 @@ if(host)mount(section,host);
 function mount(section,host){
  const W=1200,H=600,GROUND=504;
  const svg=el('svg',{viewBox:'0 0 1200 600','aria-hidden':'true',focusable:'false'},host);
- svg.style.color='#b3c6d6';svg.style.setProperty('--paper','#182334');
+ svg.style.color='#45413a';svg.style.setProperty('--paper','#e8dfcf');
  const defs=el('defs',{},svg);
  const gradient=(id,stops,radial=false)=>{
    const n=el(radial?'radialGradient':'linearGradient',radial?{id}:{id,x1:0,y1:0,x2:0,y2:1},defs);
    stops.forEach(([offset,color,opacity])=>el('stop',{offset,'stop-color':color,'stop-opacity':opacity},n));return 'url(#'+id+')';
  };
- const mist=gradient('future-atmosphere',[[0,'#090c1b',1],[.47,'#16172d',1],[.78,'#252139',1],[1,'#101827',1]]);
- const light=gradient('future-beam',[[0,'#48dfff',.30],[1,'#48dfff',0]]);
- const glow=gradient('future-glow',[[0,'#8eeaff',.6],[.45,'#30c8ff',.24],[1,'#30c8ff',0]],true);
- const violet=gradient('future-violet',[[0,'#ef91ff',.48],[.5,'#a851f6',.22],[1,'#a851f6',0]],true);
+ const mist=gradient('future-atmosphere',[[0,'#faf7ee',1],[.47,'#f3edde',1],[.78,'#e9dac1',1],[1,'#e7ddca',1]]);
+ const light=gradient('future-beam',[[0,'#298d88',.30],[1,'#298d88',0]]);
+ const glow=gradient('future-glow',[[0,'#79c8bb',.6],[.45,'#54b1a5',.24],[1,'#54b1a5',0]],true);
+ const violet=gradient('future-violet',[[0,'#dcad91',.48],[.5,'#b77b64',.22],[1,'#b77b64',0]],true);
  const g=(parent=svg,attrs={})=>el('g',attrs,parent);
  const p=(parent,d,w=.9,attrs={})=>{const n=pen(parent,w);n.setAttribute('d',d);for(const [k,v]of Object.entries(attrs))n.setAttribute(k,v);return n;};
  const closed=(parent,d,w=.9,attrs={})=>{const n=shape(parent,w);n.setAttribute('d',d);if('fill' in attrs)n.classList.remove('pp');for(const [k,v]of Object.entries(attrs))n.setAttribute(k,v);return n;};
@@ -32,18 +32,18 @@ function mount(section,host){
  const between=(a,b)=>a+(b-a)*rand();
  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
  rect(svg,0,0,W,H,{fill:mist});
- const amber=gradient('future-amber',[[0,'#ffd89a',.65],[.45,'#ff9e51',.2],[1,'#ff9e51',0]],true);
- const horizon=g(svg);ellipse(horizon,580,345,620,194,{fill:violet,opacity:.38});ellipse(horizon,190,382,260,120,{fill:amber,opacity:.22});
+ const amber=gradient('future-amber',[[0,'#ffe8ac',.65],[.45,'#d89a46',.2],[1,'#d89a46',0]],true);
+ const horizon=g(svg);ellipse(horizon,580,345,620,194,{fill:amber,opacity:.45});ellipse(horizon,190,382,260,120,{fill:violet,opacity:.26});
  // Layered skyline in a pen-etched architectural elevation, with generous sky for the contact sign.
- const sky=g(svg,{opacity:.7});
- for(let i=0;i<44;i++){const x=between(0,W),y=between(15,265);if(x>330&&x<870&&y<150)continue;circle(sky,x,y,between(.35,1.1),{fill:'#b6dcff'});}
- p(sky,'M0 103 Q160 84 300 102 M917 100 Q1070 80 1200 102 M18 135 Q116 125 200 137 M1000 146 Q1110 135 1200 150',.6,{stroke:'#8193c3'});
+ const sky=g(svg,{opacity:.48});
+ for(let i=0;i<44;i++){const x=between(0,W),y=between(15,265);if(x>330&&x<870&&y<150)continue;circle(sky,x,y,between(.35,1.1),{fill:'#a78d68'});}
+ p(sky,'M0 103 Q160 84 300 102 M917 100 Q1070 80 1200 102 M18 135 Q116 125 200 137 M1000 146 Q1110 135 1200 150',.6,{stroke:'#b9a88f'});
  const far=g(svg,{opacity:.28});
  const mid=g(svg,{opacity:.64});
  const near=g(svg,{opacity:.96});
  function tower(parent,x,w,top,base,depth,style,accent){
   const q=g(parent), X=u=>f(x+w*u), Y=v=>f(top+(base-top)*v);
-  const fill=depth===0?'#191b32':depth===1?'#202941':'#151e30';
+  const fill=depth===0?'#d7cdb9':depth===1?'#c9baa1':'#e5dac6';
   const silhouette=style===0
     ?'M'+X(0)+' '+base+'V'+Y(.32)+'L'+X(.12)+' '+Y(.32)+'V'+Y(.14)+'L'+X(.32)+' '+top+'H'+X(.72)+'L'+X(.92)+' '+Y(.14)+'V'+Y(.32)+'H'+X(1)+'V'+base+'Z'
     :style===1
@@ -51,40 +51,40 @@ function mount(section,host){
     :'M'+X(0)+' '+base+'V'+Y(.30)+'L'+X(.13)+' '+Y(.22)+'V'+Y(.06)+'L'+X(.29)+' '+top+'H'+X(.71)+'L'+X(.87)+' '+Y(.06)+'V'+Y(.22)+'L'+X(1)+' '+Y(.30)+'V'+base+'Z';
   const id='future-tower-'+Math.round(x+100)+'-'+depth;
   const clip=el('clipPath',{id},defs);el('path',{d:silhouette},clip);
-  closed(q,silhouette,depth===2?1.2:.8,{fill,stroke:depth===2?'#9bafc4':'#60738f'});
+  closed(q,silhouette,depth===2?1.2:.8,{fill,stroke:depth===2?'#62564a':'#867662'});
   const inside=g(q,{'clip-path':'url(#'+id+')'});
-  rect(inside,x+w*.72,top,w*.28,base-top,{fill:'#0b1426',opacity:.7});
-  const grid=g(inside,{opacity:depth===0?.46:.84});
+  rect(inside,x+w*.72,top,w*.28,base-top,{fill:'#9c8d78',opacity:.42});
+  const grid=g(inside,{opacity:depth===0?.40:.86});
   const step=depth===2?17:13;
   for(let yy=top+16;yy<base-15;yy+=step){
-    p(grid,'M'+x+' '+yy+'H'+(x+w),.55,{stroke:'#586a86'});
+    p(grid,'M'+x+' '+yy+'H'+(x+w),.55,{stroke:'#a0947e'});
     for(let xx=x+10;xx<x+w-8;xx+=depth===2?13:10){
       if(rand()<.31){
-       const c=rand()<.55?'#e7ad76':accent;
+       const c=rand()<.55?'#edbc64':accent;
        rect(grid,xx,yy+3,depth===2?7:4,depth===2?6:4,{fill:c,opacity:between(.45,.92)});
-      }else rect(grid,xx,yy+3,depth===2?7:4,depth===2?6:4,{fill:'#29364c',stroke:'#53617a','stroke-width':.35});
+      }else rect(grid,xx,yy+3,depth===2?7:4,depth===2?6:4,{fill:'#b0a28b',stroke:'#786d5e','stroke-width':.35});
     }
   }
-  for(const a of [.13,.26,.49,.72,.87])p(inside,'M'+X(a)+' '+top+'V'+base,depth===2?.8:.45,{stroke:'#62758b',opacity:.7});
+  for(const a of [.13,.26,.49,.72,.87])p(inside,'M'+X(a)+' '+top+'V'+base,depth===2?.8:.45,{stroke:'#877b68',opacity:.7});
   if(depth===2){
     for(const a of [.25,.58,.82]){
       const yy=top+(base-top)*a;
-      closed(inside,'M'+x+' '+yy+'h'+w+'v10h-'+w+'Z',.8,{fill:'#28394d',stroke:'#7790a7'});
+      closed(inside,'M'+x+' '+yy+'h'+w+'v10h-'+w+'Z',.8,{fill:'#b8a78d',stroke:'#746757'});
       p(inside,'M'+x+' '+(yy+2)+'H'+(x+w),1.8,{stroke:accent});
       p(inside,'M'+x+' '+(yy+2)+'H'+(x+w),5,{stroke:accent,opacity:.10});
     }
     for(const a of [.15,.84])p(inside,'M'+X(a)+' '+Y(.11)+'V'+Y(.96),1.5,{stroke:accent,opacity:.9});
     // Mechanical service pipes and louvered recesses.
-    p(inside,'M'+X(.91)+' '+Y(.42)+'v24h-8v46h8v30',2,{stroke:'#95b0c2'});
-    for(let i=0;i<5;i++)p(inside,'M'+X(.08)+' '+Y(.65+i*.025)+'H'+X(.24),1.4,{stroke:'#627e98'});
-    ellipse(q,x+w*.47,top+(base-top)*.6,w*.70,(base-top)*.30,{fill:accent==='#f08ccf'?violet:glow,opacity:.13,'pointer-events':'none'});
+    p(inside,'M'+X(.91)+' '+Y(.42)+'v24h-8v46h8v30',2,{stroke:'#766855'});
+    for(let i=0;i<5;i++)p(inside,'M'+X(.08)+' '+Y(.65+i*.025)+'H'+X(.24),1.4,{stroke:'#8c7961'});
+    ellipse(q,x+w*.47,top+(base-top)*.6,w*.70,(base-top)*.30,{fill:accent==='#ab604a'?violet:glow,opacity:.13,'pointer-events':'none'});
   }
-  p(q,'M'+X(.48)+' '+top+'v-23 M'+X(.48)+' '+(top-14)+'h13',.85,{stroke:'#91a3bb'});
+  p(q,'M'+X(.48)+' '+top+'v-23 M'+X(.48)+' '+(top-14)+'h13',.85,{stroke:'#77634b'});
   circle(q,x+w*.48,top-24,1.6,{fill:accent});
   return q;
  }
  // Three strongly differentiated landmark silhouettes; background towers remain quiet.
- const colors=['#66dfff','#f08ccf','#eab27b'];
+ const colors=['#237e77','#ab604a','#b17b37'];
  [[-36,104,243,1],[310,89,245,2],[438,68,211,1],[715,86,253,0],[840,94,205,2],[1153,90,238,1]].forEach(([x,w,y,k],i)=>tower(far,x,w,y,448,0,k,colors[i%3]));
  [[-25,86,265,0],[299,104,282,1],[800,103,266,2],[1150,88,290,0]].forEach(([x,w,y,k],i)=>tower(mid,x,w,y,474,1,k,colors[i%3]));
  const lab=tower(near,84,174,224,GROUND,2,colors[0]);
@@ -93,20 +93,20 @@ function mount(section,host){
  // Every wall sign, conduit, roof bracket and emitter belongs to its building group.
  function sign(parent,x,y,w,h,label,sub,accent){
    const panel=g(parent);
-   ellipse(panel,x+w/2,y+h/2,w*.75,h*1.8,{fill:accent==='#f08ccf'?violet:glow,opacity:.75,'pointer-events':'none'});
-   closed(panel,'M'+(x-4)+' '+(y+4)+'h4v'+(h-8)+'h-4Z M'+(x+w)+' '+(y+4)+'h4v'+(h-8)+'h-4Z',.9,{fill:'#23394e'});
-   rect(panel,x,y,w,h,{rx:2,fill:'#141e31',stroke:accent,'stroke-width':1.1});
-   rect(panel,x+3,y+3,w-6,h-6,{rx:1,fill:'#1b2940',stroke:accent,'stroke-width':.35});
-   text(panel,x+w/2,y+12,label,8.5,{'text-anchor':'middle',fill:'#e7f5ff','letter-spacing':1});
+   ellipse(panel,x+w/2,y+h/2,w*.75,h*1.8,{fill:accent==='#ab604a'?violet:glow,opacity:.75,'pointer-events':'none'});
+   closed(panel,'M'+(x-4)+' '+(y+4)+'h4v'+(h-8)+'h-4Z M'+(x+w)+' '+(y+4)+'h4v'+(h-8)+'h-4Z',.9,{fill:'#ad9a7d'});
+   rect(panel,x,y,w,h,{rx:2,fill:'#35352e',stroke:accent,'stroke-width':1.1});
+   rect(panel,x+3,y+3,w-6,h-6,{rx:1,fill:'#454039',stroke:accent,'stroke-width':.35});
+   text(panel,x+w/2,y+12,label,8.5,{'text-anchor':'middle',fill:'#fff3d7','letter-spacing':1});
    text(panel,x+w/2,y+23,sub,5.8,{'text-anchor':'middle',fill:accent,'letter-spacing':.7});
    p(panel,'M'+(x+w-10)+' '+(y+h)+'v9h6v9',.8,{stroke:accent});
    return panel;
  }
- sign(lab,103,285,133,31,'SYNTH / LAB','ROBOTICS & FLIGHT','#66dfff');
- sign(ai,965,285,139,31,'AI SYSTEMS','INFERENCE RESEARCH','#f08ccf');
- sign(station,525,345,150,31,'CENTRAL TRANSIT','MAGLEV PLATFORM 01','#eab27b');
+ sign(lab,103,285,133,31,'SYNTH / LAB','ROBOTICS & FLIGHT','#237e77');
+ sign(ai,965,285,139,31,'AI SYSTEMS','INFERENCE RESEARCH','#ab604a');
+ sign(station,525,345,150,31,'CENTRAL TRANSIT','MAGLEV PLATFORM 01','#b17b37');
  function facadeDetail(parent,x,y,w){
-   closed(parent,'M'+x+' '+y+'h'+w+'v24h-'+w+'Z',.9,{fill:'#283a51'});
+   closed(parent,'M'+x+' '+y+'h'+w+'v24h-'+w+'Z',.9,{fill:'#b4a388'});
    for(let j=6;j<w-5;j+=9)p(parent,'M'+(x+j)+' '+(y+4)+'v16',.6);
    p(parent,'M'+(x+w-12)+' '+(y+24)+'v32h-14v27',1.3);
  }
@@ -114,11 +114,11 @@ function mount(section,host){
  // Fixed roof-mounted projectors: the hologram is a functional display, not a floating ornament.
  const holograms=[];
  function rooftopDisplay(parent,x,roof,r,kind){
-   const accent=kind==='air'?'#66dfff':'#f08ccf';
+   const accent=kind==='air'?'#237e77':'#ab604a';
    const base=g(parent,{transform:'translate('+x+' '+roof+')'});
    const centerY=-r-24;
-   closed(base,'M-'+(r*.8)+' 0 L-'+(r*.62)+' -11 H'+(r*.62)+' L'+(r*.8)+' 0Z',1,{fill:'#dce7eb'});
-   closed(base,'M-'+(r*.46)+' -11 v-8 h'+(r*.92)+' v8Z',.9,{fill:'#283b55'});
+   closed(base,'M-'+(r*.8)+' 0 L-'+(r*.62)+' -11 H'+(r*.62)+' L'+(r*.8)+' 0Z',1,{fill:'#b6a58d'});
+   closed(base,'M-'+(r*.46)+' -11 v-8 h'+(r*.92)+' v8Z',.9,{fill:'#8b7c68'});
    ellipse(base,0,-20,r*.47,4,{fill:glow,stroke:accent,'stroke-width':.85});
    p(base,'M-'+(r*.42)+' -20 L-'+(r*.95)+' '+(centerY-r*.72)+' M'+(r*.42)+' -20 L'+(r*.95)+' '+(centerY-r*.72),.65,{stroke:accent,opacity:.6});
    const root=g(base,{transform:'translate(0 '+centerY+')',style:'cursor:pointer'});
@@ -140,7 +140,7 @@ function mount(section,host){
      const nodes=[[-.67,-.40],[-.67,0],[-.67,.40],[0,-.60],[0,-.2],[0,.2],[0,.60],[.67,-.25],[.67,.25]].map(([a,b])=>[a*r,b*r]);
      for(let a=0;a<3;a++)for(let b=3;b<7;b++)p(orbit,'M'+nodes[a].join(' ')+'L'+nodes[b].join(' '),.55,{stroke:accent,opacity:.6});
      for(let a=3;a<7;a++)for(let b=7;b<9;b++)p(orbit,'M'+nodes[a].join(' ')+'L'+nodes[b].join(' '),.55,{stroke:accent,opacity:.6});
-     nodes.forEach(([a,b])=>circle(orbit,a,b,2.7,{fill:'#152438',stroke:accent,'stroke-width':.9}));
+     nodes.forEach(([a,b])=>circle(orbit,a,b,2.7,{fill:'#f3e7d2',stroke:accent,'stroke-width':.9}));
      for(let i=0;i<3;i++)dots.push(circle(field,0,0,1.8,{fill:accent}));
    }
    const status=text(base,0,11,kind==='air'?'AIRSPACE RADAR':'NEURAL CORE',6.8,{'text-anchor':'middle',fill:accent,'letter-spacing':.7});
@@ -152,29 +152,29 @@ function mount(section,host){
  // One shared guideway path controls the deck, rails, supports AND each articulated train car.
  const transit=g(svg);
  const trackD='M-180 408 C60 408 170 388 325 399 S560 449 715 419 S960 370 1380 395';
- const track=p(transit,trackD,20,{stroke:'#27384b','stroke-linecap':'butt'});
+ const track=p(transit,trackD,20,{stroke:'#b5a78f','stroke-linecap':'butt'});
  const trackLength=track.getTotalLength();
  const at=d=>track.getPointAtLength(clamp(d,0,trackLength));
  for(let d=140;d<trackLength-120;d+=172){
    const a=at(d);
    if(a.x<0||a.x>W)continue;
-   closed(transit,'M'+f(a.x-6)+' '+f(a.y+6)+'h12L'+f(a.x+4)+' 503H'+f(a.x-4)+'Z',.85,{fill:'#1d2a3d'});
+   closed(transit,'M'+f(a.x-6)+' '+f(a.y+6)+'h12L'+f(a.x+4)+' 503H'+f(a.x-4)+'Z',.85,{fill:'#c6b79e'});
    p(transit,'M'+f(a.x)+' '+f(a.y+14)+'V498',.5);
  }
- p(transit,trackD,20,{stroke:'#a2afc6','stroke-opacity':.72,'stroke-linecap':'butt'});
- p(transit,trackD,18,{stroke:'#293a50','stroke-linecap':'butt'});
+ p(transit,trackD,20,{stroke:'#675a4b','stroke-opacity':.72,'stroke-linecap':'butt'});
+ p(transit,trackD,18,{stroke:'#d3c3a9','stroke-linecap':'butt'});
  const lower=g(transit,{transform:'translate(0 6)'});
- p(lower,trackD,.7,{stroke:'#6a8d99','stroke-linecap':'butt'});
- p(transit,trackD,1.35,{stroke:'#61d5f5','stroke-linecap':'butt'});
+ p(lower,trackD,.7,{stroke:'#887a65','stroke-linecap':'butt'});
+ p(transit,trackD,1.35,{stroke:'#2e847b','stroke-linecap':'butt'});
  const train=g(transit),trainCars=[];
  for(let i=0;i<3;i++){
    const car=g(train);
    const body=i===0?'M-25 -4V-17Q-22 -23 -12 -23H12Q20 -22 27 -11L25 -4Z':'M-24 -4V-19Q-22 -23 -16 -23H18Q24 -23 24 -18V-4Z';
-   closed(car,body,1.05,{fill:'#25354c'});
-   p(car,'M-23 -6H23 M-23 -20H19',.7,{stroke:'#16839a'});
-   for(let x=-18;x<13;x+=9)rect(car,x,-17,6,6,{rx:1,fill:'#c9ebff'});
-   if(i===0)closed(car,'M14 -21Q21 -18 24 -12H14Z',.6,{fill:'#649dbb'});
-   rect(car,-16,-4,10,3,{rx:1,fill:'#355565'});rect(car,9,-4,10,3,{rx:1,fill:'#355565'});
+   closed(car,body,1.05,{fill:'#f5ebd8'});
+   p(car,'M-23 -6H23 M-23 -20H19',.7,{stroke:'#397c73'});
+   for(let x=-18;x<13;x+=9)rect(car,x,-17,6,6,{rx:1,fill:'#56948c'});
+   if(i===0)closed(car,'M14 -21Q21 -18 24 -12H14Z',.6,{fill:'#a1c3b6'});
+   rect(car,-16,-4,10,3,{rx:1,fill:'#655c4b'});rect(car,9,-4,10,3,{rx:1,fill:'#655c4b'});
    trainCars.push(car);
  }
  function positionTrain(t){
@@ -190,13 +190,13 @@ function mount(section,host){
  }
  const vehicles=g(svg);
  function craft(y,s,dir,offset,speed,kind){
-   const root=g(vehicles,{style:'cursor:pointer'}),body=g(root),c=kind?'#f5a2ed':'#75e5ff';
+   const root=g(vehicles,{style:'cursor:pointer'}),body=g(root),c=kind?'#b86950':'#368b81';
    // Saucer-shaped craft with a glass canopy, luminous perimeter and scanning underside.
    ellipse(body,0,5,42,13,{fill:kind?violet:glow,opacity:.92});
-   closed(body,'M-31 1 Q-25 -6 0 -8 Q25 -6 31 1 Q29 10 0 12 Q-29 10 -31 1Z',1.1,{fill:'#273a53',stroke:'#bbd5e6'});
-   closed(body,'M-14 -6 Q-11 -22 0 -22 Q11 -22 14 -6Z',.9,{fill:'#39567a',stroke:c});
-   p(body,'M-10 -10 Q-5 -20 0 -19',.8,{stroke:'#c4f2ff'});
-   ellipse(body,0,1,31,7,stroke('#a4b7cd',.75));
+   closed(body,'M-31 1 Q-25 -6 0 -8 Q25 -6 31 1 Q29 10 0 12 Q-29 10 -31 1Z',1.1,{fill:'#c5b49a',stroke:'#514d43'});
+   closed(body,'M-14 -6 Q-11 -22 0 -22 Q11 -22 14 -6Z',.9,{fill:'#b4cdc0',stroke:c});
+   p(body,'M-10 -10 Q-5 -20 0 -19',.8,{stroke:'#f6faf0'});
+   ellipse(body,0,1,31,7,stroke('#6e6659',.75));
    p(body,'M-25 5 Q0 15 25 5',1.1,{stroke:c});
    for(let i=-24;i<=24;i+=8)circle(body,i,6+2*(1-Math.abs(i)/24),1.5,{fill:c});
    const beam=closed(body,'M-9 10 L-35 57 H35 L9 10Z',.4,{fill:light,stroke:c,'stroke-opacity':.19,opacity:0});
@@ -207,14 +207,14 @@ function mount(section,host){
  const cars=[craft(106,.70,1,160,37,0),craft(188,.95,-1,710,32,1),craft(271,1.05,1,325,42,0)];
  // Wide foreground deck, rail and tiled perspective. Robots are part of the street, not UI icons.
  const deck=g(svg);
- closed(deck,'M0 502 Q600 498 1200 502 V600 H0Z',1.3,{fill:'#142135'});
- p(deck,'M0 512H1200 M0 534H1200 M0 565H1200 M0 594H1200',.8,{stroke:'#51657f'});
- for(let x=-200;x<1400;x+=55)p(deck,'M'+f(600+(x-600)*.76)+' 502L'+x+' 600',.55,{stroke:'#455976'});
+ closed(deck,'M0 502 Q600 498 1200 502 V600 H0Z',1.3,{fill:'#e1d4bd'});
+ p(deck,'M0 512H1200 M0 534H1200 M0 565H1200 M0 594H1200',.8,{stroke:'#a4957b'});
+ for(let x=-200;x<1400;x+=55)p(deck,'M'+f(600+(x-600)*.76)+' 502L'+x+' 600',.55,{stroke:'#b1a187'});
  p(deck,'M0 511H1200 M0 519H1200',1.3);for(let x=12;x<W;x+=62)p(deck,'M'+x+' 490V527',1);
  p(deck,'M0 490Q600 487 1200 490 M0 496H1200',1.05);
  // Reflected light from the city spills across the foreground paving.
  const reflections=g(deck,{'pointer-events':'none'});
- for(const [x,c]of [[170,'#66dfff'],[600,'#ffbc77'],[1040,'#f08ccf']]){
+ for(const [x,c]of [[170,'#237e77'],[600,'#c68b40'],[1040,'#ab604a']]){
   for(let i=0;i<13;i++){
    const yy=519+i*6,xx=x+between(-31,31),w=between(8,54)*(1+i*.04);
    p(reflections,'M'+f(xx-w/2)+' '+yy+'h'+f(w),between(.6,2.0),{stroke:c,opacity:between(.10,.36)});
@@ -222,18 +222,18 @@ function mount(section,host){
  }
  const lamps=g(svg);
  for(const x of [42,391,775,1172]){
-   p(lamps,'M'+x+' 510V450q0 -7 9 -7h11',1.3,{stroke:'#a2b5c9'});
-   rect(lamps,x+9,442,13,4,{rx:1,fill:'#ffe5b2'});
+   p(lamps,'M'+x+' 510V450q0 -7 9 -7h11',1.3,{stroke:'#6d6454'});
+   rect(lamps,x+9,442,13,4,{rx:1,fill:'#fff4c7'});
    ellipse(lamps,x+15,457,29,36,{fill:amber,opacity:.72});
  }
  const robots=g(svg);
  function robot(x,y,s,dir,phase){
-   const root=g(robots,{style:'cursor:pointer'}),fig=g(root),legA=limb(fig,5.3,1.1),legB=limb(fig,5.3,1.1),armA=limb(fig,4,1),body=closed(fig,'M29 43 L35 37 H46 L52 43 49 72 32 72Z',1.2,{fill:'#324963'}),armB=limb(fig,4,1);
-   const neck=rect(fig,38,30,5,8,{...stroke(),fill:'#fff'}),head=g(fig);
-   closed(head,'M31 17 L35 12 H46 L51 18 V29 L46 33 H35 L31 28Z',1.15,{fill:'#3b5470'});
-   rect(head,34,20,14,5,{rx:2,fill:'#0e192b'});circle(head,38,22.5,1.1,{fill:'#61e0f5'});circle(head,44,22.5,1.1,{fill:'#61e0f5'});
-   p(head,'M40 12V6 M37 6H43',.85);circle(head,40,5,1.4,{fill:'#168ca8'});
-   rect(fig,36,46,11,10,{rx:2,fill:'#263a50',stroke:'#16849c','stroke-width':.8});p(fig,'M38 51H45 M41 48V54',.8,{stroke:'#16849c'});
+   const root=g(robots,{style:'cursor:pointer'}),fig=g(root),legA=limb(fig,5.3,1.1),legB=limb(fig,5.3,1.1),armA=limb(fig,4,1),body=closed(fig,'M29 43 L35 37 H46 L52 43 49 72 32 72Z',1.2,{fill:'#cdbb9d'}),armB=limb(fig,4,1);
+   const neck=rect(fig,38,30,5,8,{...stroke(),fill:'#fffaf0'}),head=g(fig);
+   closed(head,'M31 17 L35 12 H46 L51 18 V29 L46 33 H35 L31 28Z',1.15,{fill:'#b4a084'});
+   rect(head,34,20,14,5,{rx:2,fill:'#383c32'});circle(head,38,22.5,1.1,{fill:'#8edbc2'});circle(head,44,22.5,1.1,{fill:'#8edbc2'});
+   p(head,'M40 12V6 M37 6H43',.85);circle(head,40,5,1.4,{fill:'#24796f'});
+   rect(fig,36,46,11,10,{rx:2,fill:'#a99a83',stroke:'#296f67','stroke-width':.8});p(fig,'M38 51H45 M41 48V54',.8,{stroke:'#296f67'});
    p(fig,'M34 65H47 M33 69H48',.7);
    const boots=[p(fig,'M0 0',2.2),p(fig,'M0 0',2.2)];
    const title=el('title',{},root);title.textContent='Tap robot to wave';
@@ -244,16 +244,16 @@ function mount(section,host){
  const dog=g(robots,{style:'cursor:pointer'}),dogBody=g(dog),dogLegs=[];
  ellipse(dogBody,0,0,16,5,{fill:glow,opacity:.45});
  for(const x of [-12,-7,7,12]){
-  const leg=g(dogBody);closed(leg,'M-2 0H2L3 7 1 15H-2L-1 7Z',.9,{fill:'#30445e'});
-  circle(leg,0,6,1.6,{fill:'#83dcf5'});dogLegs.push({leg,x});
+  const leg=g(dogBody);closed(leg,'M-2 0H2L3 7 1 15H-2L-1 7Z',.9,{fill:'#8b7f69'});
+  circle(leg,0,6,1.6,{fill:'#3b9785'});dogLegs.push({leg,x});
  }
- closed(dogBody,'M-16 -13 L-10 -17 H10 L16 -12 13 0H-13Z',1,{fill:'#425a74'});
- closed(dogBody,'M12 -13 L18 -21 25 -19 28 -11 19 -7 14 -9Z',.9,{fill:'#425a74'});
- closed(dogBody,'M18 -20L17 -27 23 -22Z',.8,{fill:'#6d84a0'});
- circle(dogBody,24,-16,1.5,{fill:'#8ceeff'});
- p(dogBody,'M-15 -11L-24 -19L-28 -18',1.7,{stroke:'#93b5d0'});
- p(dogBody,'M-9 -12H8 M-10 -6H11',.8,{stroke:'#a7c4dc'});
- rect(dogBody,-3,-14,7,4,{rx:1,fill:'#f1b677'});
+ closed(dogBody,'M-16 -13 L-10 -17 H10 L16 -12 13 0H-13Z',1,{fill:'#c2af91'});
+ closed(dogBody,'M12 -13 L18 -21 25 -19 28 -11 19 -7 14 -9Z',.9,{fill:'#c2af91'});
+ closed(dogBody,'M18 -20L17 -27 23 -22Z',.8,{fill:'#aa9779'});
+ circle(dogBody,24,-16,1.5,{fill:'#388d7e'});
+ p(dogBody,'M-15 -11L-24 -19L-28 -18',1.7,{stroke:'#726653'});
+ p(dogBody,'M-9 -12H8 M-10 -6H11',.8,{stroke:'#7d6b54'});
+ rect(dogBody,-3,-14,7,4,{rx:1,fill:'#bd8a40'});
  const dogTitle=el('title',{},dog);dogTitle.textContent='Tap the robot dog';
  let dogPulse=0;
  dog.addEventListener('pointerdown',()=>{dogPulse=1;});
@@ -261,26 +261,26 @@ function mount(section,host){
  const mech=g(robots,{style:'cursor:pointer'});let mx=530,morph=0,target=0,mechDirection=1;
  const mechParts=[];
  function piece(d,color,a,b){
-   const group=g(mech);closed(group,d,1.1,{fill:color,stroke:'#bdcce0'});
+   const group=g(mech);closed(group,d,1.1,{fill:color,stroke:'#534a3d'});
    mechParts.push({group,a,b});return group;
  }
- const metal='#39536e',panel='#6b85a0',dark='#23374e';
+ const metal='#c7b79a',panel='#e5d7ba',dark='#9b8b72';
  const chassis=piece('M-18 -12L-12 -18H12L18 -12 15 13H-15Z',metal,[0,-49,0,1,1],[0,-13,0,1.65,.64]);
- p(chassis,'M-11 -9H11 M-9 -2H9 M-10 7H10',.9,{stroke:'#79e6fc'});
+ p(chassis,'M-11 -9H11 M-9 -2H9 M-10 7H10',.9,{stroke:'#328779'});
  const helmet=piece('M-9 -9H9L11 0 7 9H-7L-11 0Z',panel,[0,-77,0,1,1],[4,-24,0,1.2,.65]);
- rect(helmet,-7,-3,14,4,{rx:1,fill:'#75e5ff'});
+ rect(helmet,-7,-3,14,4,{rx:1,fill:'#368b81'});
  for(const side of [-1,1]){
    const shoulder=piece('M-7 -9H7L9 5 5 10H-6Z',panel,[side*23,-53,side*12,1,1],[side*24,-12,side*85,1,.85]);
-   p(shoulder,'M-4 -5H4',1.5,{stroke:'#f0b87c'});
+   p(shoulder,'M-4 -5H4',1.5,{stroke:'#b77c35'});
    const arm=piece('M-5 -8H5L6 9H-6Z',metal,[side*27,-32,side*9,1,1],[side*32,-10,90,1,1]);
-   p(arm,'M0 -4V5',1,{stroke:'#71d8f6'});
+   p(arm,'M0 -4V5',1,{stroke:'#34897c'});
    const leg=piece('M-8 -13H8L6 12H-6Z',dark,[side*10,-20,side*4,1,1],[side*14,-7,90,.8,1]);
-   p(leg,'M-4 -8H4 M-4 4H4',.8,{stroke:'#a0bcd3'});
-   const wheel=g(mech);circle(wheel,0,0,7,{fill:'#0a1322',stroke:'#a4b9d3','stroke-width':1});circle(wheel,0,0,3,{fill:'#6f8dab',stroke:'#6de3fc','stroke-width':.8});
+   p(leg,'M-4 -8H4 M-4 4H4',.8,{stroke:'#6e614c'});
+   const wheel=g(mech);circle(wheel,0,0,7,{fill:'#3e3a32',stroke:'#776953','stroke-width':1});circle(wheel,0,0,3,{fill:'#b9aa90',stroke:'#438e80','stroke-width':.8});
    mechParts.push({group:wheel,a:[side*24,-46,0,.8,.8],b:[side*25,-4,0,1,1]});
  }
  const mechTitle=el('title',{},mech);mechTitle.textContent='Tap to transform mech into rover; tap again to unfold';
- const mechLabel=text(mech,0,13,'TAP TO TRANSFORM',6.5,{'text-anchor':'middle',fill:'#e6c491','letter-spacing':.6});
+ const mechLabel=text(mech,0,13,'TAP TO TRANSFORM',6.5,{'text-anchor':'middle',fill:'#795c35','letter-spacing':.6});
  mech.addEventListener('pointerdown',()=>{target=target?0:1;});
 
  // Re-use the original planted-foot solver, exported from the first contact implementation below.
