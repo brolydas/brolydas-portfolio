@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>UI Zoo</title>
+<title>UI Zoo | A field guide to playful controls</title><meta name="description" content="Try four illustrated interface controls, then make and save your own typographic poster.">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=DM+Sans:wght@400;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light dark;--bg:#fbf3df;--panel:#fff9ea;--ink:#1d2a22;--mut:#566a5d;--dots:rgba(47,111,78,.13)}
@@ -49,7 +49,7 @@ nav div a:hover{background:var(--ink);color:var(--bg);transform:rotate(-3deg)}
 .cat.st{animation:str .5s}@keyframes str{40%{transform:scale(1.4,.8)}70%{transform:scale(.92,1.14)}}
 .catsvg{width:100%;display:block;overflow:visible}.eo{display:none}.bed[aria-checked=true] .eo{display:inline}.bed[aria-checked=true] .ec{display:none}
 .tail{transform-box:fill-box;transform-origin:0 100%}.bed[aria-checked=true] .tail{animation:wag .45s ease-in-out infinite alternate}@keyframes wag{to{transform:rotate(22deg)}}
-.zz{position:absolute;right:34px;top:-4px;font:800 22px "Bricolage Grotesque";color:#7a6aa8;animation:zz 2.2s ease-in infinite}.bed[aria-checked=true] .zz{display:none}
+.zz{position:absolute;right:34px;top:-4px;font:800 22px "Bricolage Grotesque";color:#456151;animation:zz 2.2s ease-in infinite}.bed[aria-checked=true] .zz{display:none}
 @keyframes zz{from{transform:translateY(22px);opacity:0}30%{opacity:1}to{transform:translateY(-26px);opacity:0}}
 /* snake */
 .snk{position:relative;width:min(340px,88%);height:100px}.snk input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;z-index:2}
@@ -90,18 +90,22 @@ nav div a:hover{background:var(--ink);color:var(--bg);transform:rotate(-3deg)}
 #note{min-height:1.4em;color:var(--mut);font-size:14px}
 footer{text-align:center;color:var(--mut);padding:30px 20px 44px;font-size:14px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+*{box-sizing:border-box}html{scroll-behavior:smooth}a,button,input{touch-action:manipulation}button,a{ -webkit-tap-highlight-color:transparent }button{cursor:pointer}button:disabled{cursor:wait}a{color:inherit}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #1664dd;outline-offset:5px}button,a,input{scroll-margin:100px}.skip{position:fixed;left:16px;top:-100px;z-index:100;background:#fff;color:#111;padding:14px 20px}.skip:focus{top:12px}.folio-link{font-size:15px;text-decoration:none;min-height:44px;display:inline-flex;align-items:center}.folio-link:hover{text-decoration:underline}button{min-height:44px}h1,h2,h3{text-wrap:balance}p{text-wrap:pretty}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+
+:root,:root[data-theme="dark"]{--bg:#f7f8f2;--panel:#fff;--ink:#183a2b;--mut:#456151;--dots:transparent;color-scheme:light}body{background:var(--bg);font:400 17px/1.55 'DM Sans',sans-serif}.clouds,.sign::before,.sign::after,.sign small{display:none}nav{position:relative;background:transparent;backdrop-filter:none;border-bottom:1px solid #a5b4a8;padding:18px 5vw}nav div{gap:8px}nav div a{border-radius:0;min-height:44px;padding:10px;font-size:15px}nav div a:hover{transform:none;background:#183a2b;color:#f7f8f2}.hero{text-align:left;display:grid;grid-template-columns:1.3fr 1fr;gap:0 48px;padding:80px 5vw 70px;max-width:1440px;margin:auto}.sign{background:none;border:0;padding:0;margin:0;box-shadow:none;animation:none;color:var(--ink);grid-row:span 2}.sign h1{font-size:clamp(90px,15vw,210px);letter-spacing:-.08em;line-height:.86;text-shadow:none}.hero p{margin:0;max-width:31ch;font-size:clamp(19px,2vw,25px);align-self:end}.cta{justify-self:start;align-self:start;background:transparent;box-shadow:none;border:0;border-bottom:2px solid var(--ink);border-radius:0;padding:16px 0 8px;font-size:17px;margin-top:10px;min-height:44px}.cta:hover,.cta:active{transform:none;box-shadow:none}.pens{display:block;max-width:1440px;margin:0 auto;padding:0 5vw}.pen{border:0;border-top:1px solid #a5b4a8;border-radius:0;box-shadow:none;display:grid;grid-template-columns:1fr 1fr;gap:48px;background:transparent;padding:48px 0;overflow:visible}.pen:nth-child(even) .scene{order:2}.pen .tag{position:static;grid-column:1/-1;margin-bottom:-28px;padding:0;border:0;background:none;font-size:15px;color:var(--mut)}.scene{border:0;min-height:310px;padding:30px 16px;background:#e8eee5!important;border-radius:0;overflow:hidden}.plaque{padding:26px 0;background:none;color:var(--ink);align-self:center}.plaque h3{font-size:clamp(30px,3vw,44px);letter-spacing:-.04em;line-height:1.1}.plaque p{font-size:17px;line-height:1.6;margin-top:12px;max-width:46ch}.plaque p b{color:var(--ink)}.chip{background:none;border-radius:0;border-bottom:1px solid #b7c4ba;padding:6px 0;margin-right:18px;font-size:14px}.btn,.vb{border:1px solid var(--ink);border-radius:2px;box-shadow:none;min-height:44px;padding:10px 16px;font-size:16px;background:#fff;color:var(--ink)}.btn:hover,.btn:active{transform:none;box-shadow:none;background:#e6ecde}.say,.fl{border:0;border-radius:0;background:none;font-size:16px}.bed{box-shadow:none;background:#b5c9ad}.bed::before{background:#e4e9c7;box-shadow:none}.cat{transition:transform .25s ease,left .25s ease}.cat.st,.tail,.zz,.ham,.leg{animation:none!important}.frogbtn.hop .fg{animation:none}.rp{display:none}.frogbtn:active .fg{transform:none}.pu{transform:none}.pg{border:1px solid var(--ink);border-radius:0;box-shadow:none}.pg i{background:#183a2b}.fact{max-width:none;margin:70px 0 0;padding:70px 5vw 80px;background:#f1cb43;color:#183a2b}.fact>h2,.fact>p,.fact>.box{max-width:1296px;margin-left:auto;margin-right:auto}.fact>.tag{display:none!important}.fact h2{font-size:clamp(48px,7vw,100px);line-height:1;letter-spacing:-.06em}.fact>p{margin-top:24px;margin-bottom:40px;color:#29442c;font-size:19px}.box{border:0;border-radius:0;box-shadow:none;background:transparent;padding:0;gap:7vw;align-items:center;grid-template-columns:1fr 1fr}.mach{background:none;border:0;border-radius:0;padding:0;box-shadow:none;max-width:440px}.lights,.slot{display:none}.out{padding:0;background:none;overflow:hidden}.out canvas{width:100%;height:auto;border:0;box-shadow:none;animation:none!important}.ctl{padding:0}.ctl label{font-size:18px;margin-bottom:12px}.ctl input{border-radius:0!important;background:#f7f8f2;font-size:28px;border:1px solid #183a2b;width:100%;min-height:60px}.vibes{display:flex;gap:8px;flex-wrap:wrap}.vb[aria-pressed=true]{background:#183a2b;color:#fff}.row{gap:12px}#dl{background:#183a2b;color:#fff}.ctl #note{font-size:16px;min-height:48px}footer{text-align:left;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;padding:30px 5vw;font-size:15px;line-height:1.6}footer a{min-height:44px;display:inline-flex;align-items:center}.scene .wheel{animation-play-state:running}.scene:not(.run) .wheel{animation-play-state:paused}@media(max-width:760px){.hero{display:block;padding:55px 6vw 40px}.sign h1{font-size:clamp(90px,23vw,160px)}.hero p{margin-top:30px;max-width:32ch}.pen{grid-template-columns:1fr;gap:24px;padding:30px 0}.pen .tag{margin:0}.pen:nth-child(even) .scene{order:0}.plaque{padding:0}.pens{padding:0 6vw}.scene{min-height:280px}.box{grid-template-columns:1fr;gap:32px}.fact{padding:50px 6vw}.fact h2{font-size:52px}.logo{width:100%;font-size:20px}nav{padding:16px 6vw}nav div a{font-size:14px;padding:8px}nav div{gap:4px}.mach{max-width:350px}.ctl .row{display:flex;flex-wrap:wrap}}
 </style>
 </head>
-<body>
-<nav><a class="logo" href="#top">UI Zoo</a><div><a href="#cat">Cat</a><a href="#snake">Snake</a><a href="#hamster">Hamster</a><a href="#frog">Frog</a><a href="#poster-machine">Poster Machine</a></div></nav>
+<body><a class="skip" href="#exhibits">Skip to exhibits</a>
+<nav aria-label="Exhibits"><a class="logo" href="#top">UI Zoo</a><div><a href="#cat">Cat</a><a href="#snake">Snake</a><a href="#hamster">Hamster</a><a href="#frog">Frog</a><a href="#poster-machine">Poster Machine</a></div></nav>
 <header class="hero" id="top">
   <div class="clouds" aria-hidden="true"><i style="--t:20px;--s:38s;--dl:-6s"></i><i style="--t:90px;--s:52s;--dl:-30s"></i><i style="--t:150px;--s:44s;--dl:-18s"></i></div>
-  <div class="sign"><small>Welcome to the</small><h1>UI Zoo</h1></div>
-  <p>Where interface components live, play and occasionally nap. Please poke the exhibits.</p>
-  <a class="cta" href="#cat">Start the tour ↓</a>
+  <div class="sign"><h1>UI Zoo</h1></div>
+  <p>A field guide to interfaces with a little animal instinct. Try the controls. See what changes.</p>
+  <a class="cta" href="#cat">Meet the exhibits →</a>
 </header>
 <main>
-<section class="pens">
+<section id="exhibits" class="pens">
   <article class="pen" id="cat"><span class="tag">Exhibit A</span>
     <div class="scene" style="--sk:#ffe2c7;--gr:#e9b98a">
       <button class="bed" id="bed" role="switch" aria-checked="false" aria-label="Wake the cat">
@@ -118,7 +122,7 @@ footer{text-align:center;color:var(--mut);padding:30px 20px 44px;font-size:14px}
       </button>
       <output class="say" id="say">Shh… the cat is asleep</output>
     </div>
-    <div class="plaque"><h3>Sleepy Cat</h3><p><b>Species:</b> Toggle switch</p><p>One tap, three signals: position, eyes and a snore. The spring overshoot makes a plain on/off feel alive.</p><span class="chip">role=switch</span><span class="chip">spring · 550ms</span><span class="chip">110px tap target</span></div>
+    <div class="plaque"><h3>Sleepy Cat</h3><p><b>Species:</b> Toggle switch</p><p>One tap, three signals: position, eyes and a status message. The state is clear before the animation begins.</p><span class="chip">role=switch</span><span class="chip">state transition</span><span class="chip">110px tap target</span></div>
   </article>
 
   <article class="pen" id="snake"><span class="tag">Exhibit B</span>
@@ -141,7 +145,7 @@ footer{text-align:center;color:var(--mut);padding:30px 20px 44px;font-size:14px}
       <div class="pg"><i id="hfill"></i></div>
       <div class="row" style="align-items:center"><button class="btn" id="hbtn">Load stuff</button><output class="say" id="hlab" role="status">Idle</output></div>
     </div>
-    <div class="plaque"><h3>Hamster on Wheel</h3><p><b>Species:</b> Progress spinner</p><p>Speed ramps with progress so waiting feels like momentum, and it ends on a clear done state instead of a silent stop.</p><span class="chip">role=status</span><span class="chip">honest progress</span><span class="chip">success state</span></div>
+    <div class="plaque"><h3>Hamster on Wheel</h3><p><b>Species:</b> Progress spinner</p><p>Run a simulated load. Progress is visible throughout, and the control announces when the demonstration finishes.</p><span class="chip">role=status</span><span class="chip">simulated progress</span><span class="chip">success state</span></div>
   </article>
 
   <article class="pen" id="frog"><span class="tag">Exhibit D</span>
@@ -155,7 +159,7 @@ footer{text-align:center;color:var(--mut);padding:30px 20px 44px;font-size:14px}
           <circle cx="72" cy="70" r="2" fill="#1d2a22"/><circle cx="88" cy="70" r="2" fill="#1d2a22"/></g></g></svg><span class="fl">Ribbit</span></button>
       <output class="say" id="fc" aria-live="polite">Ribbits: 0</output>
     </div>
-    <div class="plaque"><h3>Pond Frog</h3><p><b>Species:</b> Primary button</p><p>Five states in one animal: rest, hover (eyes bulge), press (squash), success (hop) and a clear focus ring.</p><span class="chip">squash and stretch</span><span class="chip">keyboard focusable</span><span class="chip">ripple feedback</span></div>
+    <div class="plaque"><h3>Pond Frog</h3><p><b>Species:</b> Primary button</p><p>A familiar action with a clear result. Press the frog to increase the count; keyboard focus is always visible.</p><span class="chip">clear press feedback</span><span class="chip">keyboard focusable</span><span class="chip">count feedback</span></div>
   </article>
 </section>
 
@@ -164,27 +168,27 @@ footer{text-align:center;color:var(--mut);padding:30px 20px 44px;font-size:14px}
   <h2>The Poster Machine</h2>
   <p>Type a word, pick a vibe and the zoo prints you a moving typographic poster. Save the one you like.</p>
   <div class="box">
-    <div class="mach"><div class="lights"><i></i><i></i><i></i><span>PRINTING</span></div><div class="slot"></div><div class="out"><canvas id="pc" width="1200" height="1500" role="img" aria-label="Animated typographic poster preview"></canvas></div></div>
+    <div class="mach"><div class="lights"><i></i><i></i><i></i><span>Poster preview</span></div><div class="slot"></div><div class="out"><canvas id="pc" width="1200" height="1500" role="img" aria-label="Animated typographic poster preview"></canvas></div></div>
     <div class="ctl">
       <div><label for="w">Your word</label><input id="w" value="Hello" maxlength="14" autocomplete="off" spellcheck="false"></div>
-      <div><label id="vl">Vibe</label><div class="vibes" role="group" aria-labelledby="vl"><button class="vb" data-v="loud" aria-pressed="true">Loud</button><button class="vb" data-v="calm" aria-pressed="false">Calm</button><button class="vb" data-v="retro" aria-pressed="false">Retro</button><button class="vb" data-v="chrome" aria-pressed="false">Chrome</button></div></div>
-      <div class="row"><button class="btn" id="rm">Remix colours</button><button class="btn" id="fz">Freeze frame</button><button class="btn" id="dl">Save poster</button></div>
+      <div><label id="vl">Vibe</label><div class="vibes" role="group" aria-labelledby="vl"><button class="vb" data-v="loud" aria-pressed="true">Loud</button><button class="vb" data-v="calm" aria-pressed="false">Calm</button><button class="vb" data-v="retro" aria-pressed="false">Retro</button><button class="vb" data-v="chrome" aria-pressed="false">Ink</button></div></div>
+      <div class="row"><button class="btn" id="rm">Remix colours</button><button class="btn" id="fz">Play poster</button><button class="btn" id="dl">Save poster</button></div>
       <div id="note" role="status"></div>
     </div>
   </div>
 </section>
 </main>
-<footer>UI Zoo · more exhibits arriving soon: the Owl (notifications) and the Octopus (menus)</footer>
+<footer>UI Zoo · An interaction study by Broly Das. <a href="/work?mode=design">Back to portfolio →</a></footer>
 <script>
 var $=function(s){return document.querySelector(s)},R=function(a,b){return a+Math.random()*(b-a)},INK='#1d2a22',rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
 addEventListener('pointermove',function(e){var s=document.documentElement.style;s.setProperty('--px',(e.clientX/innerWidth-.5)*2);s.setProperty('--py',(e.clientY/innerHeight-.5)*2)});
-var AC;function tone(f,d,ty){try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();var o=AC.createOscillator(),g=AC.createGain();o.type=ty||'square';o.frequency.value=f;g.gain.setValueAtTime(.05,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g);g.connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
+var AC;function tone(f,d,ty){return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();var o=AC.createOscillator(),g=AC.createGain();o.type=ty||'square';o.frequency.value=f;g.gain.setValueAtTime(.05,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g);g.connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
 // cat
 var bed=$('#bed'),cat=$('#catel');bed.addEventListener('click',function(){var on=bed.getAttribute('aria-checked')!=='true';bed.setAttribute('aria-checked',on);$('#say').textContent=on?'Meow! Good morning.':'Shh… the cat is asleep';cat.classList.remove('st');void cat.offsetWidth;cat.classList.add('st')});
 // snake
 var snk=$('#snk'),snr=$('#snr'),val=45,disp=45;
 snr.addEventListener('input',function(){val=+snr.value;$('#snv').textContent=val+'%'});
-(function snake(now){var t=rm?0:now/1000;disp+=(val-disp)*.18;var len=14+disp/100*262,pts=[],x;
+(function snake(now){var t=0;disp+=(val-disp)*.18;var len=14+disp/100*262,pts=[],x;
  for(x=14;x<=len;x+=5)pts.push([x,50+Math.sin(x/16-t*4)*(6+(x-14)/270*7)]);if(pts.length<2)pts.push([len+1,50]);
  var d='M'+pts.map(function(p){return p[0].toFixed(1)+' '+p[1].toFixed(1)}).join(' L'),h=pts[pts.length-1],tg=Math.sin(t*9)>0;
  snk.innerHTML='<path d="'+d+'" fill="none" stroke="'+INK+'" stroke-width="23" stroke-linecap="round" stroke-linejoin="round"/><path d="'+d+'" fill="none" stroke="#5fb85a" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><path d="'+d+'" fill="none" stroke="#a6e08f" stroke-width="16" stroke-dasharray="3 15" stroke-linejoin="round"/>'+
@@ -199,12 +203,12 @@ var hp=$('#hpen'),hb=$('#hbtn');hb.addEventListener('click',function(){if(hb.dis
 var fb=$('#fb'),fn=0;fb.addEventListener('click',function(){fn++;$('#fc').textContent='Ribbits: '+fn;fb.classList.remove('hop');void fb.offsetWidth;fb.classList.add('hop');
  var r=document.createElement('i');r.className='rp';$('#fpen').appendChild(r);setTimeout(function(){r.remove()},1000);tone(130,.09);setTimeout(function(){tone(170,.1)},110)});
 // poster machine
-var pc=$('#pc'),g=pc.getContext('2d'),V='loud',pi=0,paused=rm,T=0,vis=true,lastT=0;
+var pc=$('#pc'),g=pc.getContext('2d'),V='loud',pi=0,paused=true,T=0,vis=true,lastT=0;
 var PALS={loud:[['#ff3b3b','#ffd23f','#1d2a22','#fff'],['#2b59ff','#ff7ad9','#fff04a','#111'],['#00b37e','#fff3c4','#ff5a36','#111'],['#ff7a00','#111','#ffe14d','#fff']],
- calm:[['#cfe9ff','#ffe3f1','#7aa7ff','#2c3a5e'],['#ffe8d6','#d8f3dc','#ffb4a2','#4a3f35'],['#e2d9ff','#c9f1ff','#a58bff','#2d2a4a'],['#fff3cf','#ffd1dc','#ffa94d','#4a2f2f']],
- retro:[['#2a0a4a','#ff3e9a','#ffe14d','#ff3e9a'],['#0a1a3a','#00d4ff','#ffe14d','#ff3e9a'],['#1b0a2e','#ff7a00','#fff04a','#00f5d4'],['#05122b','#6a5cff','#ff9bd0','#00f5d4']],
+ calm:[['#cfe9ff','#ffe3f1','#7aa7ff','#2c3a5e'],['#ffe8d6','#d8f3dc','#ffb4a2','#4a3f35'],['#dce9d3','#c9f1ff','#658e68','#2d2a4a'],['#fff3cf','#ffd1dc','#ffa94d','#4a2f2f']],
+ retro:[['#183a2b','#ff3e9a','#ffe14d','#ff3e9a'],['#0a1a3a','#00d4ff','#ffe14d','#ff3e9a'],['#183a2b','#ff7a00','#fff04a','#00f5d4'],['#05122b','#d4a130','#ff9bd0','#00f5d4']],
  chrome:[['#06070f','#6aa6ff'],['#0a0614','#ff7ad9'],['#050d0a','#5fffc0'],['#0d0a05','#ffc247']]};
-function word(){return($('#w').value.trim()||'Hello')}
+PALS.calm=[['#e9eee7','#fff','#abc2ad','#214536'],['#f3e7db','#fff','#c2aa94','#4a3f35'],['#e2ebf3','#fff','#9db5c9','#173e5b'],['#fff3cf','#fff','#d1bb7a','#4a2f2f']];PALS.retro=[['#f3c747','#182f26'],['#e8e9dd','#284f79'],['#e6b59c','#492b20'],['#bed0b8','#1d3d30']];PALS.chrome=[['#162e24','#f4f6ef'],['#172f49','#e8edf1'],['#3b271e','#f0dfcc'],['#242424','#e8d952']];function word(){return($('#w').value.trim()||'Hello')}
 function fit(t,f,w,mx){g.font=f.replace('{s}','100');return Math.min(mx,100*w/Math.max(1,g.measureText(t).width))}
 function star(x,y,r){g.beginPath();g.moveTo(x,y-r);g.quadraticCurveTo(x,y,x+r,y);g.quadraticCurveTo(x,y,x,y+r);g.quadraticCurveTo(x,y,x-r,y);g.quadraticCurveTo(x,y,x,y-r);g.fill()}
 function drawLoud(t,p,w){g.fillStyle=p[0];g.fillRect(0,0,600,750);var n=7,rh=750/n;w=w.toUpperCase();
@@ -212,41 +216,21 @@ function drawLoud(t,p,w){g.fillStyle=p[0];g.fillRect(0,0,600,750);var n=7,rh=750
   for(var k=-2;k*tw<700;k++){var x=off+k*tw,y=rh*i+rh*.84;
    if(i===3){g.fillStyle=p[2];g.fillText(w,x+5,y+5);g.fillStyle=p[3];g.fillText(w,x,y)}
    else if(i%3===1){g.lineWidth=3;g.strokeStyle=p[3];g.strokeText(w,x,y)}else{g.fillStyle=i%3===0?p[1]:p[2];g.fillText(w,x,y)}}}}
-function drawCalm(t,p,w){var gr=g.createLinearGradient(0,0,0,750);gr.addColorStop(0,p[0]);gr.addColorStop(1,p[1]);g.fillStyle=gr;g.fillRect(0,0,600,750);
- for(var i=0;i<5;i++){var x=300+Math.sin(t*.3+i*1.7)*220,y=375+Math.cos(t*.25+i*2.3)*280,r=120+i*26,rg=g.createRadialGradient(x,y,0,x,y,r);rg.addColorStop(0,p[2]+'99');rg.addColorStop(1,p[2]+'00');g.fillStyle=rg;g.beginPath();g.arc(x,y,r,0,6.3);g.fill()}
- g.strokeStyle=p[3];g.globalAlpha=.16;g.lineWidth=2;for(i=0;i<3;i++){g.beginPath();g.arc(300,375,150+i*62+Math.sin(t*.8+i)*8,0,6.3);g.stroke()}g.globalAlpha=1;
- w=w.toLowerCase();var F='600 {s}px "Bricolage Grotesque",sans-serif',s=fit(w,F,460,170);g.save();g.translate(300,375);g.scale(1+.025*Math.sin(t*.8),1+.025*Math.sin(t*.8));g.font=F.replace('{s}',s);g.textAlign='center';g.fillStyle=p[3];g.fillText(w,0,s*.3);g.restore()}
-function drawRetro(t,p,w){var gr=g.createLinearGradient(0,0,0,450);gr.addColorStop(0,p[0]);gr.addColorStop(1,p[1]);g.fillStyle=gr;g.fillRect(0,0,600,750);
- g.save();g.beginPath();for(var y=190;y<450;y+=28){g.rect(0,y,600,28-Math.max(0,(y-300)/14))}g.clip();var sg=g.createLinearGradient(0,190,0,450);sg.addColorStop(0,p[2]);sg.addColorStop(1,p[3]);g.fillStyle=sg;g.beginPath();g.arc(300,330,140,0,6.3);g.fill();g.restore();
- g.fillStyle=p[0];g.fillRect(0,450,600,300);g.strokeStyle=p[3];g.lineWidth=2;g.globalAlpha=.8;
- for(var i=-12;i<=12;i++){g.beginPath();g.moveTo(300+i*30,450);g.lineTo(300+i*150,750);g.stroke()}
- for(var k=0;k<9;k++){var z=((k+t*.6)%9)/9,yy=450+z*z*300;g.beginPath();g.moveTo(0,yy);g.lineTo(600,yy);g.stroke()}g.globalAlpha=1;
- w=w.toUpperCase();var F='{s}px "Press Start 2P",monospace',s=fit(w,F,500,64);g.font=F.replace('{s}',s);g.textAlign='center';
- g.fillStyle=p[1];g.fillText(w,306,138);g.fillStyle=p[3];g.fillText(w,303,135);g.fillStyle='#fff';g.fillText(w,300,132);
- g.fillStyle='rgba(0,0,0,.2)';for(var y2=0;y2<750;y2+=4)g.fillRect(0,y2,600,2)}
-function drawChrome(t,p,w){var bg=g.createRadialGradient(300,300,20,300,375,520);bg.addColorStop(0,p[1]+'44');bg.addColorStop(1,p[0]);g.fillStyle=p[0];g.fillRect(0,0,600,750);g.fillStyle=bg;g.fillRect(0,0,600,750);
- w=w.toUpperCase();var F='800 {s}px "Bricolage Grotesque",sans-serif',s=fit(w,F,500,190),y=380;g.font=F.replace('{s}',s);g.textAlign='center';
- g.save();g.translate(0,y);g.scale(1,-1);g.translate(0,-y);g.globalAlpha=.25;g.fillStyle='#9fb2e0';g.fillText(w,300,y);g.restore();
- var fd=g.createLinearGradient(0,y,0,y+s*.8);fd.addColorStop(0,p[0]+'00');fd.addColorStop(1,p[0]);g.fillStyle=fd;g.fillRect(0,y+2,600,s);
- var mg=g.createLinearGradient(0,y-s*.75,0,y);[[0,'#fff'],[.38,'#aab8d8'],[.5,'#27304f'],[.53,'#7486b8'],[.82,'#e9f0ff'],[1,'#fff']].forEach(function(c){mg.addColorStop(c[0],c[1])});
- g.fillStyle=mg;g.fillText(w,300,y);g.lineWidth=2;g.strokeStyle=p[1];g.globalAlpha=.8;g.strokeText(w,300,y);g.globalAlpha=1;
- var sx=((t*160)%900)-150,lg=g.createLinearGradient(sx-90,0,sx+90,0);lg.addColorStop(0,'rgba(255,255,255,0)');lg.addColorStop(.5,'rgba(255,255,255,.95)');lg.addColorStop(1,'rgba(255,255,255,0)');g.fillStyle=lg;g.fillText(w,300,y);
- g.fillStyle='#fff';[[90,120],[510,170],[70,560],[540,600],[300,80]].forEach(function(q,i){star(q[0],q[1],4+10*Math.max(0,Math.sin(t*2+i*1.9)))})}
+function drawCalm(t,p,w){g.fillStyle=p[0];g.fillRect(0,0,600,750);g.strokeStyle=p[3];g.lineWidth=2;for(var i=0;i<6;i++){g.beginPath();g.arc(300,375,70+i*42,0,Math.PI*2);g.stroke()}g.fillStyle=p[0];g.fillRect(40,310,520,130);g.fillStyle=p[3];g.textAlign='center';g.font=fit(w,'500 {s}px Georgia',500,100)+'px Georgia';g.fillText(w,300,400)}
+function drawRetro(t,p,w){g.fillStyle=p[0];g.fillRect(0,0,600,750);g.fillStyle=p[1];for(var i=0;i<8;i++){g.fillRect(40,60+i*82,520,2)}g.textAlign='center';g.font=fit(w,'800 {s}px Bricolage Grotesque',480,130)+'px Bricolage Grotesque';for(var j=0;j<3;j++){g.fillText(w.toUpperCase(),300,290+j*120)}}
+function drawChrome(t,p,w){g.fillStyle=p[0];g.fillRect(0,0,600,750);g.fillStyle=p[1];g.textAlign='center';g.font=fit(w,'800 {s}px Bricolage Grotesque',490,180)+'px Bricolage Grotesque';g.fillText(w.toUpperCase(),300,400);g.strokeStyle=p[1];g.lineWidth=2;g.strokeRect(30,30,540,690)}
 function render(){g.setTransform(2,0,0,2,0,0);g.globalAlpha=1;var p=PALS[V][pi],w=word();
  ({loud:drawLoud,calm:drawCalm,retro:drawRetro,chrome:drawChrome})[V](T,p,w);
- g.textAlign='center';g.font='600 11px "DM Sans",sans-serif';g.fillStyle=(V==='calm'||V==='loud')?p[3]:'#fff';g.globalAlpha=.7;g.fillText('made at the UI Zoo',300,737);g.globalAlpha=1}
+ g.textAlign='center';g.font='600 16px "DM Sans",sans-serif';g.fillStyle=(V==='calm'||V==='loud')?p[3]:p[1];g.globalAlpha=.7;g.fillText('made at the UI Zoo',300,737);g.globalAlpha=1}
 (function loop(now){var dt=Math.min(.05,(now-lastT)/1000);lastT=now;if(vis&&!document.hidden){if(!paused)T+=dt;render()}requestAnimationFrame(loop)})(0);
 new IntersectionObserver(function(e){vis=e[0].isIntersecting}).observe(pc);
 function printIt(){pc.classList.remove('print');void pc.offsetWidth;pc.classList.add('print');tone(220,.12,'sawtooth')}
-document.querySelectorAll('.vb').forEach(function(b){b.addEventListener('click',function(){V=b.dataset.v;pi=0;document.querySelectorAll('.vb').forEach(function(x){x.setAttribute('aria-pressed',x===b)});printIt()})});
+document.querySelectorAll('.vb').forEach(function(b){b.addEventListener('click',function(){V=b.dataset.v;pi=0;$('#fz').disabled=V!=='loud';$('#fz').textContent=V==='loud'?(paused?'Play poster':'Pause poster'):'Static poster';document.querySelectorAll('.vb').forEach(function(x){x.setAttribute('aria-pressed',x===b)});printIt()})});
 $('#rm').addEventListener('click',function(){pi=(pi+1)%4;printIt()});
-$('#fz').addEventListener('click',function(e){paused=!paused;e.target.textContent=paused?'Resume motion':'Freeze frame'});
+$('#fz').addEventListener('click',function(e){paused=!paused;e.target.textContent=paused?'Play poster':'Pause poster'});
 $('#w').addEventListener('change',printIt);
-var dlc=null;
-$('#dl').addEventListener('click',async function(){var note=$('#note');
- if(!dlc){note.textContent='Saving is not available here. Try right-clicking the poster.';return}
- pc.toBlob(async function(b){try{await dlc.save({filename:'ui-zoo-poster-'+V+'.png',data:b});note.textContent='Poster saved. Show it off!'}catch(e){note.textContent=e&&e.code==='declined'?'No problem, nothing was saved.':'Could not save this time.'}},'image/png')});
-(async function(){try{dlc=await claude.use('downloads')}catch(e){}if(!dlc)$('#dl').style.display='none'})();
+$('#dl').addEventListener('click',function(){pc.toBlob(function(blob){if(!blob){$('#note').textContent='Could not create the image. Please try again.';return}const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='ui-zoo-poster-'+V+'.png';a.click();setTimeout(()=>URL.revokeObjectURL(url),10000);$('#note').textContent='Your PNG download is ready.'},'image/png')});
 </script>
-</body>
+<script src="motion-12.23.24.js"></script><script>
+(()=>{const reduced=matchMedia('(prefers-reduced-motion: reduce)');if(!reduced.matches&&window.Motion){const a=Motion.animate(document.querySelectorAll('[data-enter]'),{opacity:[0,1],y:[16,0]},{duration:.65,ease:[.22,1,.36,1]});reduced.addEventListener('change',()=>a.complete(),{once:true})}})();</script><script>matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',e=>{rm=e.matches;if(rm){paused=true;document.getElementById('fz').textContent='Play poster'}});</script></body>
 </html>
