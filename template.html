@@ -57,7 +57,7 @@ transform:rotate(var(--rot));transition:transform .2s cubic-bezier(.3,1.6,.5,1),
 #nb{display:none;background:#ff6b6b;color:#fff;border:3px solid #1b1530;border-radius:99px;padding:2px 12px;font-weight:700;font-size:14px;transform:rotate(-4deg);margin-bottom:6px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>
-</head>
+<link rel="stylesheet" href="/css/premium.css?v=1"></head>
 <body>
 <div id="dood" aria-hidden="true"></div>
 <div class="wrap">
@@ -183,7 +183,7 @@ function face(k){var F='#fff5e1',E=function(x,r,p){return '<circle cx="'+x+'" cy
 'Tiny Games for Moods'.split(' ').forEach(function(w,wi,all){var s=document.createElement('span');s.style.display='inline-block';
  w.split('').forEach(function(ch,i){var l=document.createElement('span');l.textContent=ch;l.style.cssText='--i:'+(wi*5+i)+';--r:'+(i%2?-5:5)+'deg;color:'+PAL[(wi*3+i)%PAL.length];s.appendChild(l)});$('#ttl').appendChild(s);if(wi<all.length-1)$('#ttl').appendChild(document.createTextNode(' '))});
 for(var i=0;i<14;i++){var d=document.createElement('i'),z=R(18,46),k=i%4;d.style.cssText='left:'+R(0,96)+'%;top:'+R(0,96)+'%;width:'+z+'px;height:'+z+'px;--d:'+R(3,7)+'s;background:'+(k==3?'none':PAL[i%PAL.length])+';'+(k==0?'border-radius:50%':k==1?'border-radius:30%':k==2?'clip-path:polygon(50% 0,100% 100%,0 100%)':'border-radius:50%;border:5px solid '+PAL[i%PAL.length]);$('#dood').appendChild(d)}
-function cards(){$('#grid').innerHTML=GAMES.map(function(g,i){return '<button class="card" data-i="'+i+'" style="--col:'+g.col+';--n:'+i+';--rot:'+(i%2?1.5:-1.5)+'deg">'+(best[i]!=null?'<u>Best '+best[i]+'</u>':'')+face(g.face)+'<b>'+g.mood+'</b><em>'+g.name+'</em></button>'}).join('')}
+function cards(){$('#grid').innerHTML=GAMES.map(function(g,i){return '<button class="card" data-i="'+i+'" style="--col:'+g.col+';--n:'+i+';--rot:'+(i%2?1.5:-1.5)+'deg">'+(best[i]!=null?'<u>Best '+best[i]+'</u>':'')+face(g.face)+'<b>'+g.mood+'</b>'+g.name+'</button>'}).join('')}
 cards();
 addEventListener('pointermove',function(e){var r=document.documentElement.style;r.setProperty('--px',(e.clientX/innerWidth-.5)*2);r.setProperty('--py',(e.clientY/innerHeight-.5)*2)});
 $('#grid').addEventListener('click',function(e){var c=e.target.closest('.card');if(c){var r=c.getBoundingClientRect();openG(+c.dataset.i,r.left+r.width/2,r.top+r.height/2)}});

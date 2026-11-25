@@ -8,11 +8,11 @@
 // --- CASE STUDIES DATABASE (SANJEEV SRIRAM STYLE) ---
 const CASE_STUDIES = {
   graphic_studio: {
-    badge: "Graphic Design Studio · Editorial Posters · Type Lab",
+    badge: "Graphic Design Studio / Editorial Posters / Type Lab",
     title: "Graphic Design Studio | Posters & Type Lab",
-    subtitle: "A digital design studio exploring editorial broadsheets and posters, interactive lightboxes, and real-time Archivo variable typography.",
+    subtitle: "A digital design studio exploring editorial broadsheets and posters, interactive lightboxes, and live Archivo variable typography.",
     role: "Lead Graphic Designer, Brand Identity & Creative Technologist",
-    timeline: "Q1 2026",
+    timeline: "Independent project",
     stack: "Figma, Photoshop, Framer, Sketch, Affinity, Archivo Variable Font, CSS Custom Properties",
     deliverables: "Editorial Broadsheet Series, Interactive Type Lab, Full Modal Lightbox",
     presentUrl: "/Graphic Design Studio.html",
@@ -22,16 +22,16 @@ const CASE_STUDIES = {
     inspiration: "90s vintage manga screentones, archival crime broadsheets, and Swiss typographic discipline. High-contrast paper tones, glowing neon accents, and tactile interactive card physics.",
     architecture: "Built with zero external frameworks. Features responsive grid filtering (All, Poster), 3D perspective card tilting on pointermove, a full-screen dynamic lightbox dialog with hex palette tags, and an Archivo variable font sandbox with live weight, width, and size controllers.",
     challenges: "Seamlessly displaying heavy high-resolution editorial raster imagery alongside dynamic vector typography without jank. Solved using native browser image decoding, CSS will-change optimizations, and responsive lightbox dialogs.",
-    results: "5 editorial design artifacts, instant client-side category filtering, full-fidelity modal zooms, and an embedded interactive variable type experiment praised for fluid responsiveness.",
+    results: "Open the project to try its interface and interaction controls.",
     tags: ["Editorial Posters", "Variable Fonts", "Brutalist Layouts", "Brand Identity"]
   },
 
   scroll_lab: {
-    badge: "Motion Lab · Creative Frontend · Anime.js 3",
+    badge: "Motion Lab / Creative Frontend / Anime.js 3",
     title: "Scroll Physics Lab | 14 Inertial Dynamics & 3D Optics",
     subtitle: "A kinetic experimental laboratory engineered with Anime.js 3 featuring 14 distinct interactive scroll and micro-physics behaviors.",
     role: "Lead Creative Technologist & Motion Designer",
-    timeline: "3 Weeks · Q1 2026",
+    timeline: "Independent project",
     stack: "Anime.js 3, Vanilla JS, CSS Custom Properties, Web Animations API",
     deliverables: "Interactive Motion Suite, Component Playground, Code Generator",
     presentUrl: "/scroll-lab-play.html",
@@ -40,17 +40,17 @@ const CASE_STUDIES = {
     problem: "Most digital interfaces treat scrolling as a passive document reader rather than an expressive sensory medium. Commercial libraries frequently introduce massive bundle bloat (500KB+), stuttering 30fps jank on mid-range devices, or rigid proprietary abstractions that developers cannot easily understand, tweak, or copy.",
     inspiration: "Inspired by arcade physics, tactile spring mechanical toys, and the playful demoscene culture of poking software to discover hidden quirks. The visual direction blends a nostalgic pastel bubblegum palette with razor-sharp modernist typography.",
     architecture: "Constructed a centralized, zero-dependency RequestAnimationFrame scroll dispatcher. Instead of binding distinct listeners on every element, a single observer measures scroll delta, acceleration vector, and velocity damping. This passes normalized progress values (0.0 to 1.0) into discrete Anime.js timeline instances.",
-    challenges: "Handling bidirectional velocity-skewing and element pinning without layout thrashing. Standard getBoundingClientRect calls during rapid scroll events triggered constant browser reflows. Overcame this by caching element offsets at resize and calculating real-time positions purely from scrollY delta and CSS transform matrices.",
-    results: "Locked 60fps performance across mobile and desktop. 14 distinct effects (word-by-word reveal, progressive color shift, 3D scale zoom, kinetic velocity skew). Over 10,000 code snippets copied by creative developers worldwide.",
+    challenges: "Handling bidirectional velocity-skewing and element pinning without layout thrashing. Standard getBoundingClientRect calls during rapid scroll events triggered constant browser reflows. Overcame this by caching element offsets at resize and calculating live positions purely from scrollY delta and CSS transform matrices.",
+    results: "Open the project to try its interface and interaction controls.",
     tags: ["Scroll Physics", "Anime.js 3", "Micro-Interactions", "Open Source Code"]
   },
 
   pepper_club: {
-    badge: "Brand Identity · Sensory UI/UX · E-Commerce",
+    badge: "Brand Identity / Sensory UI/UX / E-Commerce",
     title: "Pepper Club | Slow-Fermented Heat E-Commerce",
     subtitle: "A tactile, artisanal e-commerce experience converting small-batch fermentation and distinct heat profiles into a rich sensory digital brand.",
     role: "Lead UI/UX Designer & Brand Strategist",
-    timeline: "4 Weeks · Q4 2025",
+    timeline: "Independent project",
     stack: "Figma, Modern CSS Grid, Vanilla JS, WebGL Shaders, SVG Path Morphing",
     deliverables: "E-Commerce Experience, Heat Index Visualizer, Packaging Art",
     presentUrl: "/pepper-club.html",
@@ -60,16 +60,16 @@ const CASE_STUDIES = {
     inspiration: "Heritage farm fermentation crocks, vintage California citrus crate labels, and bold mid-century pop art. The design uses energetic mustard yellows, hot volcanic reds, and fizzy fermentation bubble particles to immediately stimulate the appetite.",
     architecture: "Designed an interactive Heat Matrix & Flavor Wheel that translates Scoville units and flavor notes into dynamic visual weights. The shopping experience features a frictionless slide-out tasting cart, custom ingredient origins mapping, and seamless bottle angle pivots on hover.",
     challenges: "Balancing playful floating fermentation bubble physics with lightning-fast page loading and strict e-commerce accessibility (WCAG AA). Overcame this by rendering background bubbles via lightweight canvas particle simulations that automatically throttle down during scroll or under battery saver mode.",
-    results: "Transformed static product browsing into an appetizing culinary journey. 42% increase in average session duration and a 3.1x boost in bundle checkout conversions compared to standard storefront templates.",
+    results: "Open the project to try its interface and interaction controls.",
     tags: ["E-Commerce UX", "Sensory Design", "Branding", "Fermentation Storytelling"]
   },
 
   ui_zoo: {
-    badge: "Design Systems · Anthropomorphic UI · Micro-Interactions",
+    badge: "Design Systems / Anthropomorphic UI / Micro-Interactions",
     title: "UI Zoo | Where interface components live, play and nap",
     subtitle: "An exploratory design system and component ecosystem where UI primitives behave like living creatures with personality, mood, and physics.",
     role: "Systems Architect & Interaction Designer",
-    timeline: "3 Weeks · Q1 2026",
+    timeline: "Independent project",
     stack: "Figma, CSS Spring Animations, Canvas API, Web Audio Synth",
     deliverables: "Design System, Interactive Exhibit Playground, Poster Machine Tool",
     presentUrl: "/ui-zoo.html",
@@ -79,16 +79,16 @@ const CASE_STUDIES = {
     inspiration: "Children's illustrated encyclopedias, Japanese mascot character design, and physical mechanical automata. Components were conceptualized not as static controls, but as living organisms that react to user touch, get sleepy when idle, and celebrate when clicked.",
     architecture: "Each component is built around a tripartite signal system: State, Character, and Sound. The Sleepy Cat Switch uses 550ms spring overshoot with breathing eye animations and subtle snoring audio. The Slithering Slider merges track and value fill into a seamless snake body. Includes a generative Poster Machine that lets users compose custom typographic posters from exhibit elements.",
     challenges: "Maintaining full semantic HTML and keyboard accessibility (role=switch, ARIA values, Tab focus states) while implementing unconventional animal-morphing visuals. Solved by decoupling the invisible accessible input from the animated visual canvas layer, ensuring full screen-reader compliance.",
-    results: "Featured on leading design curation galleries as a benchmark in functional whimsy. Proved that enterprise-grade accessibility and playful emotional design can coexist harmoniously.",
+    results: "Open the project to try its interface and interaction controls.",
     tags: ["Anthropomorphic UI", "Spring Physics", "Generative Poster Machine", "Accessible Delights"]
   },
 
   tiny_games: {
-    badge: "Emotional UX · Generative Audio · Micro-Gaming",
+    badge: "Emotional UX / Generative Audio / Micro-Gaming",
     title: "Tiny Games for Moods | 30-second mental resets",
     subtitle: "A digital sanctuary offering six 30-second therapeutic micro-games designed with feelings, sound synthesis, and zero ads.",
     role: "Game Designer, Creative Developer & Sound Architect",
-    timeline: "2 Weeks · Q4 2025",
+    timeline: "Independent project",
     stack: "HTML5 Canvas, Web Audio API, RequestAnimationFrame, Touch Gestures",
     deliverables: "Web Game Suite, Web Audio Synthesizer, Mood State Engine",
     presentUrl: "/tiny-games-for-moods.html",
@@ -96,9 +96,9 @@ const CASE_STUDIES = {
     detailImg: "project_assets/tiny_games_detail.png",
     problem: "Digital fatigue and anxiety are pervasive in modern mobile browsing. Users looking for a brief mental breather are bombarded by ad-heavy casual games, manipulative retention mechanics, or high-commitment meditation apps that demand lengthy sessions.",
     inspiration: "WarioWare micro-games, zen gardens, and tactile fidget toys. The premise: match your exact immediate emotional state (stressed, bored, sleepy, furious, happy, anxious) with a single, highly cathartic 30-second interactive loop.",
-    architecture: "Built with pure vanilla Canvas 2D and real-time Web Audio API frequency synthesis (no external audio assets). High-performance particle physics power the Confetti Cannon, while soothing sinusoidal breathing curves drive Breathe With Me, and explosive haptic smash physics drive Smash Room.",
+    architecture: "Built with pure vanilla Canvas 2D and live Web Audio API frequency synthesis (no external audio assets). High-performance particle physics power the Confetti Cannon, while soothing sinusoidal breathing curves drive Breathe With Me, and explosive haptic smash physics drive Smash Room.",
     challenges: "Mobile Safari audio auto-play restrictions and ensuring procedural audio sounds melodious rather than harsh. Engineered an AudioContext unlock trigger on initial user touch and utilized pentatonic chord synthesis matrices with gentle gain envelopes.",
-    results: "Over 80,000 micro-game sessions played with an average emotional relief rating of 4.9/5. Zero tracking scripts, zero ads, 100% focused on human mental wellness.",
+    results: "Open the project to try its interface and interaction controls.",
     tags: ["Emotional Design", "Web Audio API", "Micro-Games", "Zero Ads"]
   }
 };
@@ -585,7 +585,7 @@ function initCaseStudyModal() {
 
         <!-- 06. Interactive Live Present Prototype -->
         <div class="cs-section">
-          <h3 class="cs-section-title"><span>06 /</span> Real-Time Live Present Prototype</h3>
+          <h3 class="cs-section-title"><span>06 /</span> live Live Present Prototype</h3>
           <p class="cs-prose">Experience the fully functional build directly in this live preview container, or launch it in a dedicated tab.</p>
           
           <div class="cs-live-preview-box">
@@ -596,7 +596,7 @@ function initCaseStudyModal() {
               </div>
               <div class="cs-live-actions">
                 <a href="${cs.presentUrl}" target="_blank" rel="noopener" class="cs-live-btn">
-                  Launch Fullscreen Present Link ↗
+                  Launch Fullscreen Present Link 
                 </a>
               </div>
             </div>
@@ -654,7 +654,7 @@ function initServicesTracker() {
   onScroll();
 }
 
-// 7. REAL-TIME TOKYO & LOCAL CLOCK
+// 7. live TOKYO & LOCAL CLOCK
 function initLiveClock() {
   const clockEl = document.getElementById("headerTimeTicker");
   if (!clockEl) return;
@@ -662,7 +662,7 @@ function initLiveClock() {
   function updateClock() {
     const now = new Date();
     const tyoTime = now.toLocaleTimeString("en-US", { timeZone: "Asia/Tokyo", hour: "2-digit", minute: "2-digit" });
-    clockEl.textContent = `TYO ${tyoTime} · AVAILABLE FOR WORK`;
+    clockEl.textContent = `TYO ${tyoTime} / AVAILABLE FOR WORK`;
   }
   updateClock();
   setInterval(updateClock, 30000);

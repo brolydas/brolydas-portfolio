@@ -21,7 +21,7 @@ let scene,renderer,composer,camera,clock,raycaster,pointer,lastStage=-1;
 let rings=[],screens=[],floor,observer,largeScreen,focusPanel,ringLights,streaks,hovered=null;
 let progress=0,previousScroll=scrollY,velocity=0,targetVelocity=0,paused=false,raf=0,selected=null,selection=0,disposeTextures=[],surfaces=new Map(),lastMediaFrame=0;
 
-function projectLink(p){return p.url?'<a class="text-link" href="'+esc(p.url)+'" target="'+(p.url.startsWith('http')?'_blank':'_self')+'" rel="noopener">'+esc(p.linkLabel||'Open the project')+' <span aria-hidden="true">↗</span></a>':'';}
+function projectLink(p){return p.url?'<a class="text-link" href="'+esc(p.url)+'" target="'+(p.url.startsWith('http')?'_blank':'_self')+'" rel="noopener">'+esc(p.linkLabel||'Open the project')+' <span aria-hidden="true"></span></a>':'';}
 function renderIndex(){
   list.innerHTML=projects[mode].map((p,i)=>`<article class="project-row"><div><small>${String(i+1).padStart(2,'0')} / ${esc(p.kind)}</small><h3>${esc(p.title)}</h3></div><p>${esc(p.description)}</p><button data-project="${esc(p.id)}">Read this project</button></article>`).join('');
   list.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>openCase(projects[mode].find(p=>p.id===b.dataset.project))));
@@ -92,7 +92,7 @@ function buildWorld(){
   renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.16;
   camera=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,.1,90);
   composer=new EffectComposer(renderer);composer.addPass(new RenderPass(scene,camera));
-  composer.addPass(new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),.18,.28,1.18));
+  
   composer.addPass(new OutputPass());
   // The camera begins above the mouth of the well and continues to look down.
   camera.position.set(0,29,3);camera.lookAt(0,-7,0);
