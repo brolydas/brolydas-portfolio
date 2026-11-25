@@ -30,3 +30,6 @@ The Scroll and Motion pages now share an editorial instrument identity: Space Gr
 
 ## Content-specific template previews
 25 individually authored SVG charts use illustrative sample data. 17 finite CSS motion specimens demonstrate the source recipes; 141 UX entries have individual before/after descriptions and reusable visual pattern families. App, React and stack guides show source Do/Don't comparisons. Font cards load actual fonts (Inter mapped to DM Sans); landing layouts follow source section order; styles use representative visual families and source swatches. Product directions show source recommendations. Existing palette and icon reference cards retained. Animation starts once on visibility, replays on hover/focus/button, stops offscreen, and respects reduced motion. Browser checks added; browser QA pending.
+
+## Shared catalog theme
+The UI/UX Lab and its UI Zoo alias now use the same persisted lab-color-mode preference and Liquid Metal toggle as Scroll/Motion. Catalog chrome, inputs, filters, dialog and font specimen surfaces adapt to both themes. Individual chart, palette and before/after specimen colors remain intentionally preserved on readable canvases. Browser checks for theme persistence and dialog colors added.
