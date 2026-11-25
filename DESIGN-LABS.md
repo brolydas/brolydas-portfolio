@@ -48,3 +48,6 @@ Original real-time projected particle field with cursor repulsion, native scroll
 
 ## Solid cinematic card finish
 Cards fade only on entry, then remain opaque as the scroll sequence fans them into three nearly nonoverlapping specimens. Smaller type, independent depth, and mobile spacing keep the final content legible. Added final-state opacity and overlap regression checks.
+
+## UXCraft branding
+Renamed the public-facing platform, lab headers, metadata, portfolio entries, cover artwork and generated motion credits to UXCraft. Existing routes and aliases remain unchanged; /uxcraft is an additional homepage entry route. No domain availability or trademark clearance is implied.

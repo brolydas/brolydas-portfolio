@@ -54,6 +54,10 @@
     {
       "source": "/creative-studio",
       "destination": "/lab-tools.html"
+    },
+    {
+      "source": "/uxcraft",
+      "destination": "/ui-ux-lab.html"
     }
   ]
 }
