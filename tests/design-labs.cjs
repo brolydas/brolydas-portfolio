@@ -8,7 +8,7 @@ const read=p=>fs.readFile(path.join(root,p),'utf8');
 (async()=>{
 await fs.mkdir(output,{recursive:true});
 for(const name of pages){const html=await read(name);const markup=html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,'');assert.equal((markup.match(/<h1\b/gi)||[]).length,1,name+' has one h1');assert.equal((markup.match(/<main\b/gi)||[]).length,1,name+' has one main');const ids=[...markup.matchAll(/\bid="([^"]+)"/g)].map(x=>x[1]);assert.equal(new Set(ids).size,ids.length,name+' unique IDs');for(const match of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)){if(match[2].trim()){if(/type=["'](?:application\/ld\+json|importmap)["']/.test(match[1]))JSON.parse(match[2]);else new vm.Script(match[2],{filename:name});}}}
-for(const file of ['ui-ux-lab.js','motion-lab.js','motion-12.23.24.js','lab-experience.js'])new vm.Script(await read(file),{filename:file});
+for(const file of ['ui-ux-lab.js','motion-lab.js','motion-12.23.24.js','lab-experience.js','lab-specimens.js'])new vm.Script(await read(file),{filename:file});
 assert.equal(await read('scroll-lab.html'),await read('scroll-lab-play.html'));
 assert.equal(await read('ui-zoo.html'),await read('ui-ux-lab.html'));
 assert.equal(await read('pepper-club.html'),await read('Pepper Club - Hot sauce, fermented slow.html'));
@@ -36,6 +36,13 @@ await page.screenshot({path:path.join(output,'motion-lab-dark-hero.png')});
 await page.locator('.lab-theme-toggle').click();await page.screenshot({path:path.join(output,'motion-lab-light-hero.png')});
 await page.locator('.lab-theme-toggle').click();record('Live scene controls and persisted cross-lab theme');
 await open('ui-ux-lab.html');await page.locator('.ref-card').first().waitFor();
+await page.locator('[data-group="charts"]').click();await page.waitForFunction(()=>document.querySelectorAll('[data-specimen-kind^="chart-"]').length===12);
+const chartKinds=new Set();for(let k=0;k<3;k++){for(const kind of await page.locator('[data-specimen-kind^="chart-"]').evaluateAll(els=>els.map(e=>e.dataset.specimenKind)))chartKinds.add(kind);if(k<2)await page.locator('#next-page').click();}assert.equal(chartKinds.size,25);
+await page.locator('[data-group="motion"]').click();await page.waitForFunction(()=>document.querySelectorAll('[data-specimen-kind^="motion-"]').length===12);
+const motionKinds=new Set(await page.locator('[data-specimen-kind^="motion-"]').evaluateAll(els=>els.map(e=>e.dataset.specimenKind)));await page.locator('#next-page').click();for(const kind of await page.locator('[data-specimen-kind^="motion-"]').evaluateAll(els=>els.map(e=>e.dataset.specimenKind)))motionKinds.add(kind);assert.equal(motionKinds.size,17);
+await page.locator('[data-replay]').first().click();assert.equal(await page.locator('[data-animate-preview]').first().getAttribute('data-playing'),'true');
+await page.locator('[data-group="ux-guidelines"]').click();await page.waitForFunction(()=>document.querySelectorAll('.ux-pair').length===12);assert.match(await page.locator('.ux-pair').first().textContent(),/Jump to section.*Smooth scroll to section/);await page.locator('[data-open]').first().click();assert.equal(await page.locator('[data-detail-replay]').count(),1);await page.keyboard.press('Escape');
+record('25 chart types, 17 motion recipes, UX before-after and replay');
 await page.locator('[data-group="typography"]').click();await page.waitForFunction(()=>document.querySelector('#result-status').textContent.startsWith('74 '));
 await page.locator('#catalog-search').fill('Playfair');await page.waitForFunction(()=>document.querySelector('#result-status').textContent.includes('matching'));
 assert.ok(await page.locator('.ref-card').count()>0);await page.locator('[data-open]').first().click();assert.equal(await page.locator('#detail-dialog').isVisible(),true);await page.locator('#sample-text').fill('A tested idea.');assert.equal(await page.locator('#font-heading').textContent(),'A tested idea.');await page.locator('#sample-size').fill('80');assert.equal(await page.locator('#size-value').textContent(),'80 px');await page.locator('#save-detail').click();await page.keyboard.press('Escape');assert.equal(await page.locator('#detail-dialog').isVisible(),false);await page.locator('#saved-only').click();await page.waitForFunction(()=>document.querySelector('#result-status').textContent.includes('saved'));assert.ok(await page.locator('.ref-card').count()>=1);record('Font preview, size control, saved studies and keyboard dialog');
