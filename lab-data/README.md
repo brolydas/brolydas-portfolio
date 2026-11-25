@@ -1,0 +1,3 @@
+# Design reference data
+
+MIT-licensed UI UX Pro Max data from Next Level Builder, pinned to commit 8db36338810d0942567b97ce439affd1619fcf31. See LICENSE.txt. Records are displayed as reference material, not executed as code. Counts are derived from imported files, not copied from marketing text. Deprecated styles remain available through the archive filter. Inter is catalogued for completeness but is never used for the interface or live previews. Fonts load on selection through Google Fonts; font files are not redistributed. Jitter is a gallery/interaction reference only: no Jitter assets, templates, brands or source code are copied.

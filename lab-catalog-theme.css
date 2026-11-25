@@ -1,0 +1,38 @@
+
+/* Catalog uses the same theme tokens and Liquid Metal control as both labs.
+   Specimen canvases retain their intended example colors, not a global inversion. */
+.lab-catalog .type-stage{background:#d6f477;color:#182111;border-radius:24px;border:1px solid #a5bf57}
+.lab-catalog .type-stage .folio{color:#354523;border-color:#657b3e}
+.lab-catalog .specimen-controls button{color:#24371b;border-radius:8px;border-color:#718c42}
+.lab-catalog .specimen-controls button[aria-pressed=true]{background:#182111;color:#fff;border-color:#182111}
+.lab-catalog .lab-skip{background:var(--lab-white);color:var(--lab-ink)}
+.lab-catalog .catalog-nav button{border-left:0;border-radius:9px;color:var(--lab-muted);padding:10px 12px}
+.lab-catalog .catalog-nav button:hover{background:var(--lab-hover);color:var(--lab-ink)}
+.lab-catalog .catalog-nav button[aria-pressed=true]{background:var(--lab-hover);color:var(--lab-ink);box-shadow:inset 0 0 0 1px var(--lab-line);font-weight:600}
+.lab-catalog .lab-field input,.lab-catalog .lab-field select,.lab-catalog .lab-field textarea{background:var(--lab-panel);border:1px solid var(--lab-line);border-radius:9px;color:var(--lab-ink)}
+.lab-catalog .lab-field input::placeholder{color:var(--lab-muted);opacity:.85}
+.lab-catalog .lab-button[aria-pressed=true]{background:var(--lab-ink);color:var(--lab-paper);border-color:var(--lab-ink)}
+.lab-catalog .lab-button.solid:hover{background:#e6ffa1;color:#182111}
+.lab-catalog .catalog-options{color:var(--lab-muted)}
+.lab-catalog .catalog-options input,.lab-catalog .font-controls input{accent-color:var(--lab-ink)}
+.lab-catalog .ref-card{border-color:var(--lab-line)}
+.lab-catalog .ref-preview-button{border-radius:10px}
+.lab-catalog .ref-preview:not(.spec-preview){border-radius:10px}
+.lab-catalog .ref-actions button{color:var(--lab-ink)}
+.lab-catalog .ref-actions button[aria-pressed=true],.lab-catalog .ref-actions .spec-replay{color:var(--lab-blue)}
+.lab-catalog .font-sample{background:var(--lab-panel);color:var(--lab-ink);border:1px solid var(--lab-line);border-radius:12px}
+.lab-catalog .lab-code{background:var(--lab-panel);color:var(--lab-ink);border:1px solid var(--lab-line);border-radius:9px;width:100%}
+.lab-catalog .lab-dialog::backdrop{background:#080b08b3}
+.lab-catalog .detail-fields div,.lab-catalog .lab-more-links a{border-color:var(--lab-line)}
+.lab-catalog .detail-live .spec-preview{height:340px}
+.lab-catalog .empty{background:var(--lab-panel);border-radius:12px}
+html[data-lab-theme=dark] .lab-catalog .ref-preview.spec-preview{background:#242b25!important;color:#edf2e7!important;border-color:#455446}
+html[data-lab-theme=dark] .lab-catalog .spec-top,html[data-lab-theme=dark] .lab-catalog .spec-cap{color:#c3d0c0}
+html[data-lab-theme=dark] .lab-catalog .spec-art>.spec-svg{background:#eef1e8;border-radius:6px;padding:5px}
+html[data-lab-theme=dark] .lab-catalog .ux-side{color:#233a32}
+html[data-lab-theme=dark] .lab-catalog .product-spec span{color:#233a32}
+html[data-lab-theme=dark] .lab-catalog .layout-wire{color:#233a32}
+html[data-lab-theme=dark] .lab-catalog .spec-font{color:#edf2e7}
+html[data-lab-theme=dark] .lab-catalog .ref-preview.type{background:#242b25;color:#edf2e7}
+@media(max-width:760px){.lab-catalog .type-stage{border-radius:18px}.lab-catalog .lab-nav nav a{min-width:0}.lab-catalog .lab-heading h2{overflow-wrap:anywhere}}
+@media(prefers-reduced-motion:reduce){.lab-catalog *,.lab-catalog *::before,.lab-catalog *::after{transition:none!important;animation:none!important}}

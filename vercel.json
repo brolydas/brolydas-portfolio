@@ -30,6 +30,34 @@
     {
       "source": "/tiny-games",
       "destination": "/tiny-games-for-moods.html"
+    },
+    {
+      "source": "/ui-ux-lab",
+      "destination": "/ui-ux-lab.html"
+    },
+    {
+      "source": "/motion-lab",
+      "destination": "/motion-lab.html"
+    },
+    {
+      "source": "/ui-ux-experiments",
+      "destination": "/ui-ux-experiments.html"
+    },
+    {
+      "source": "/lab-tools",
+      "destination": "/lab-tools.html"
+    },
+    {
+      "source": "/lab-resources",
+      "destination": "/lab-resources.html"
+    },
+    {
+      "source": "/creative-studio",
+      "destination": "/lab-tools.html"
+    },
+    {
+      "source": "/uxcraft",
+      "destination": "/ui-ux-lab.html"
     }
   ]
 }

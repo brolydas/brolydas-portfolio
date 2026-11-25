@@ -1,0 +1,40 @@
+name: Design labs checks
+on:
+  pull_request:
+    paths:
+      - '**lab**'
+      - 'ui-zoo.html'
+      - 'ui-ux-experiments.html'
+      - '*pepper*'
+      - 'Pepper Club*'
+      - 'tiny-games-for-moods.html'
+      - 'tests/design-labs.cjs'
+      - '.github/workflows/design-labs.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: design-labs-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned browser test runtime
+        run: npm install --prefix /tmp/lab-check --no-package-lock --no-save playwright@1.56.1
+      - name: Install Chromium
+        run: /tmp/lab-check/node_modules/.bin/playwright install --with-deps chromium
+      - name: Verify source, routes, controls and exports
+        run: NODE_PATH=/tmp/lab-check/node_modules node tests/design-labs.cjs
+      - name: Upload screenshots and report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: design-labs-browser-report
+          path: test-results/design-labs
+          retention-days: 14
