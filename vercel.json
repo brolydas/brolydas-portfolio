@@ -46,6 +46,14 @@
     {
       "source": "/lab-tools",
       "destination": "/lab-tools.html"
+    },
+    {
+      "source": "/lab-resources",
+      "destination": "/lab-resources.html"
+    },
+    {
+      "source": "/creative-studio",
+      "destination": "/lab-tools.html"
     }
   ]
 }

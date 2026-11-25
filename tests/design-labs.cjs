@@ -2,13 +2,13 @@
 const fs=require('node:fs/promises'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict'),vm=require('node:vm');
 const {chromium}=require('playwright');
 const root=process.cwd(),output=path.join(root,'test-results/design-labs'),exportsMap=new Map(),report=[],errors=[];
-const pages=['ui-ux-lab.html','ui-zoo.html','lab-tools.html','motion-lab.html','scroll-lab.html','scroll-lab-play.html','ui-ux-experiments.html','pepper-club.html','tiny-games-for-moods.html'];
+const pages=['ui-ux-lab.html','ui-zoo.html','lab-tools.html','lab-resources.html','motion-lab.html','scroll-lab.html','scroll-lab-play.html','ui-ux-experiments.html','pepper-club.html','tiny-games-for-moods.html'];
 const record=(name,details)=>{report.push({name,passed:true,...details});console.log('PASS',name,JSON.stringify(details||{}));};
 const read=p=>fs.readFile(path.join(root,p),'utf8');
 (async()=>{
 await fs.mkdir(output,{recursive:true});
 for(const name of pages){const html=await read(name);const markup=html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,'');assert.equal((markup.match(/<h1\b/gi)||[]).length,1,name+' has one h1');assert.equal((markup.match(/<main\b/gi)||[]).length,1,name+' has one main');const ids=[...markup.matchAll(/\bid="([^"]+)"/g)].map(x=>x[1]);assert.equal(new Set(ids).size,ids.length,name+' unique IDs');for(const match of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)){if(match[2].trim()){if(/type=["'](?:application\/ld\+json|importmap)["']/.test(match[1]))JSON.parse(match[2]);else new vm.Script(match[2],{filename:name});}}}
-for(const file of ['ui-ux-lab.js','motion-lab.js','motion-12.23.24.js','lab-experience.js','lab-specimens.js','lab-public.js','lab-tools.js'])new vm.Script(await read(file),{filename:file});
+for(const file of ['ui-ux-lab.js','motion-lab.js','motion-12.23.24.js','lab-experience.js','lab-specimens.js','lab-public.js','lab-tools.js','lab-mega.js'])new vm.Script(await read(file),{filename:file});
 assert.equal(await read('scroll-lab.html'),await read('scroll-lab-play.html'));
 assert.equal(await read('ui-zoo.html'),await read('ui-ux-lab.html'));
 assert.equal(await read('pepper-club.html'),await read('Pepper Club - Hot sauce, fermented slow.html'));
@@ -22,6 +22,15 @@ browser=await chromium.launch();const context=await browser.newContext({viewport
 const open=async name=>{await page.goto(base+name);await page.waitForLoadState('domcontentloaded');};
 for(const name of pages){await open(name);if(name==='ui-ux-lab.html'||name==='ui-zoo.html')await page.locator('.ref-card').first().waitFor();if(name==='motion-lab.html')await page.locator('.motion-card').first().waitFor();for(const width of [320,390,768,1440]){await page.setViewportSize({width,height:1000});const layout=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth,client:document.documentElement.clientWidth,offscreen:[...document.querySelectorAll('h1,h2,nav,button,input')].filter(e=>{const r=e.getBoundingClientRect();return r.width&&(r.right>innerWidth+1||r.left<-1)}).map(e=>({tag:e.tagName,id:e.id,text:e.textContent.slice(0,50)})).slice(0,8)}));assert.ok(layout.scroll<=layout.width+1,name+' overflow at '+width+': '+JSON.stringify(layout));if([390,1440].includes(width)&&['ui-ux-lab.html','motion-lab.html','scroll-lab.html'].includes(name))await page.screenshot({path:path.join(output,name.replace('.html','')+'-'+width+'.png'),fullPage:true});}record('Responsive '+name,{widths:[320,390,768,1440]});}
 await page.setViewportSize({width:1440,height:1000});
+await open('ui-ux-lab.html');await page.locator('[data-menu-trigger="playground"]').click();
+assert.equal(await page.locator('#lab-playground-menu a').count(),3);assert.ok(await page.locator('#lab-playground-menu').isVisible());
+await page.keyboard.press('Escape');assert.equal(await page.locator('[data-menu-trigger="playground"]').getAttribute('aria-expanded'),'false');
+await page.locator('[data-menu-trigger="resources"]').click();assert.equal(await page.locator('#lab-resources-menu .mega-link').count(),17);
+assert.ok(await page.locator('#lab-resources-menu').isVisible());await page.locator('#lab-resources-menu a[href="/lab-resources.html#wireframe"]').click();
+await page.waitForURL('**/lab-resources.html#wireframe');assert.ok(await page.locator('#wireframe').isVisible());
+await page.locator('#wireframe a').click();await page.waitForURL('**/lab-tools.html?fidelity=lo#studio');assert.equal(await page.locator('#design-fidelity').inputValue(),'lo');
+await page.setViewportSize({width:320,height:800});await page.locator('[data-menu-trigger="resources"]').click();assert.ok(await page.locator('#lab-resources-menu').isVisible());assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await page.keyboard.press('Escape');await page.setViewportSize({width:1440,height:1000});
+record('Shared Playground and Resources menus, all 17 resource links, keyboard dismissal and mobile layout');
 await open('lab-tools.html');
 assert.equal(await page.locator('header .lab-portfolio').count(),0);
 await page.locator('#tool-mode').selectOption('shape');assert.equal(await page.locator('#tool-preview svg path').count(),1);
