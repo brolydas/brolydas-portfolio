@@ -6,3 +6,17 @@
 
 @media(max-width:360px){.kw-header{gap:5px}.kw-brand{width:117px}.nav-actions button{min-width:30px;padding:3px}.stats{gap:14px}.collection-pin{padding:12px}.collection-copy .button{gap:0;white-space:normal}.collection-type strong{font-size:34px}}
 @media(max-height:650px) and (min-width:641px){.hero-wrap,.collection-wrap{height:auto}.hero-pin,.collection-pin{position:relative;top:0;height:auto;min-height:580px}}
+
+/* Sakuga UI: keep Kamewear's existing sizing, type and color palette. */
+:root{--sk-card:#fffaf2;--sk-ink:#211b17;--sk-dim:#766b61;--sk-soft:#f3c597;--sk-pri:#a8440b;--sk-acc:#a8440b;--sk-r:8px;--sk-bw:1.5px;--sk-sh:3px 3px 0 #f3c597;--sk-alt-sh:none;--sk-alt-line:#211b17;--sk-btn-sh:none;--sk-btn-line:#211b17;--sk-on-pri:#fff}
+.kw-sakuga-button::part(button){font:700 14px/1.3 Archivo,Arial,sans-serif;padding:11px 17px;min-height:44px;background:transparent;border-radius:8px;box-shadow:none}
+#product-search{display:block;width:100%;--sk-input-width:100%}
+#product-search::part(input){font:500 16px/1.4 Archivo,Arial,sans-serif;width:100%;border-color:#c8bfb6;box-shadow:none;padding:12px}
+#product-search::part(input):focus-visible{outline:3px solid #a24000;outline-offset:3px}
+#kw-sakuga-toast{position:fixed;left:clamp(16px,4vw,42px);bottom:22px;z-index:80;max-width:calc(100vw - 32px);pointer-events:none;--sk-r:10px}
+#kw-sakuga-toast::part(toast){font-family:Archivo,Arial,sans-serif;pointer-events:auto;width:min(300px,calc(100vw - 32px));white-space:normal}
+#kw-sakuga-toast::part(close){min-width:32px;min-height:32px}
+.sizes button{position:relative}
+.kw-size-hit::after{content:'';position:absolute;inset:-7px;pointer-events:none;border:2px solid #ff7900;border-radius:9px;animation:kw-size-spark .35s ease-out both}
+@keyframes kw-size-spark{from{transform:scale(.86);opacity:1}to{transform:scale(1.17);opacity:0}}
+@media(prefers-reduced-motion:reduce){.kw-size-hit::after{display:none}}

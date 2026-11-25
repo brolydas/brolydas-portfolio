@@ -8,7 +8,7 @@ const read=p=>fs.readFile(path.join(root,p),'utf8');
 (async()=>{
 await fs.mkdir(output,{recursive:true});
 for(const name of pages){const html=await read(name);const markup=html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,'');assert.equal((markup.match(/<h1\b/gi)||[]).length,1,name+' has one h1');assert.equal((markup.match(/<main\b/gi)||[]).length,1,name+' has one main');const ids=[...markup.matchAll(/\bid="([^"]+)"/g)].map(x=>x[1]);assert.equal(new Set(ids).size,ids.length,name+' unique IDs');for(const match of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)){if(match[2].trim()){if(/type=["'](?:application\/ld\+json|importmap)["']/.test(match[1]))JSON.parse(match[2]);else new vm.Script(match[2],{filename:name});}}}
-for(const file of ['ui-ux-lab.js','motion-lab.js','motion-12.23.24.js','lab-experience.js','lab-specimens.js','lab-public.js','lab-tools.js','lab-mega.js','lab-cinematic.js','kamewear.js'])new vm.Script(await read(file),{filename:file});
+for(const file of ['ui-ux-lab.js','motion-lab.js','motion-12.23.24.js','lab-experience.js','lab-specimens.js','lab-public.js','lab-tools.js','lab-mega.js','lab-cinematic.js','kamewear.js','kamewear-vfx.js','vendor/sakuga-vfx/kamewear-components.js'])new vm.Script(await read(file),{filename:file});
 assert.equal(await read('scroll-lab.html'),await read('scroll-lab-play.html'));
 assert.equal(await read('ui-zoo.html'),await read('ui-ux-lab.html'));
 assert.equal(await read('pepper-club.html'),await read('Pepper Club - Hot sauce, fermented slow.html'));
@@ -132,13 +132,14 @@ await open('kamewear.html');
 await page.locator('#shop').scrollIntoViewIfNeeded();
 await page.locator('[data-filter="Accessories"]').click();assert.equal(await page.locator('#product-grid .product:visible').count(),1);
 await page.locator('#product-grid [data-product="cap"]').first().click();await page.locator('[data-size="One size"]').click();await page.locator('#bag-add').click();
-assert.equal(await page.locator('#cart-count').textContent(),'(1)');await page.locator('#cart-toggle').click();assert.match(await page.locator('#cart-items').textContent(),/Kame Cap/);await page.locator('[data-remove]').click();assert.equal(await page.locator('#cart-count').textContent(),'(0)');await page.keyboard.press('Escape');
-await page.locator('[data-filter="All"]').click();await page.locator('#search-toggle').click();await page.locator('#product-search').fill('saiyan');assert.equal(await page.locator('#product-grid .product:visible').count(),2);
-await page.locator('#product-search').fill('');await page.locator('#search-toggle').click();
+assert.equal(await page.locator('#cart-count').textContent(),'(1)');assert.ok(await page.locator('sakuga-toast').count());assert.ok(await page.locator('canvas.sakuga-fx').count());assert.equal(await page.locator('canvas.sakuga-fx').evaluate(e=>getComputedStyle(e).pointerEvents),'none');await page.locator('#cart-toggle').click();assert.match(await page.locator('#cart-items').textContent(),/Kame Cap/);await page.locator('[data-remove]').click();assert.equal(await page.locator('#cart-count').textContent(),'(0)');await page.keyboard.press('Escape');
+await page.locator('[data-filter="All"]').click();await page.locator('#search-toggle').click();await page.getByRole('searchbox').fill('saiyan');assert.equal(await page.locator('#product-grid .product:visible').count(),2);
+await page.getByRole('searchbox').fill('');await page.locator('#search-toggle').click();
 await page.evaluate(()=>scrollTo(0,0));await page.waitForFunction(()=>scrollY<2);await page.screenshot({path:path.join(output,'kamewear-home.png')});
 await page.evaluate(()=>{const el=document.querySelector('.collection-wrap');scrollTo(0,el.offsetTop+el.offsetHeight*.35);});await page.waitForFunction(()=>Number(document.querySelector('.collection-pin').dataset.progress)>.1);await page.screenshot({path:path.join(output,'kamewear-collection.png')});
 await page.setViewportSize({width:390,height:844});await page.locator('#menu-toggle').click();assert.equal(await page.locator('#menu-toggle').getAttribute('aria-expanded'),'true');await page.locator('#kw-nav a').first().click();assert.equal(await page.locator('#menu-toggle').getAttribute('aria-expanded'),'false');
 record('Kamewear filters, size selection, cart, search, scroll and mobile navigation');
+await page.emulateMedia({reducedMotion:'reduce'});await open('kamewear.html');await page.locator('[data-filter="Hoodies"]').click();assert.equal(await page.locator('canvas.sakuga-fx').count(),0);await page.emulateMedia({reducedMotion:'no-preference'});record('Sakuga VFX native state, canvas pointer passthrough and reduced motion');
 assert.deepEqual(errors,[],'No uncaught page errors');record('No uncaught browser errors');
 await fs.writeFile(path.join(output,'report.json'),JSON.stringify({passed:true,checks:report},null,2));
 }catch(error){console.error(error);await fs.writeFile(path.join(output,'report.json'),JSON.stringify({passed:false,error:error.stack,checks:report,pageErrors:errors},null,2));process.exitCode=1;}finally{await browser?.close();server.close();}
