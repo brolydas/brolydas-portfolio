@@ -16,7 +16,7 @@ ctx.globalAlpha=1;
 }
 function compose(){
  const entry=smooth((p-.12)*2.8),fan=smooth((p-.48)*2.15),mobile=w<690;
- const stackWidth=w*(mobile?.88:.49),spacing=mix(mobile?9:23,stackWidth*.345,fan);
+ const stackWidth=stage.querySelector('.cinematic-stack').getBoundingClientRect().width,spacing=mix(mobile?9:23,stackWidth*.37,fan);
  for(let i=0;i<cards.length;i++){
   const offset=1-i,depth=-offset*68*entry*(1-fan);
   // Keep specimens solid throughout the native scroll sequence.
