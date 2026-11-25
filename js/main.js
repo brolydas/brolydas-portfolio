@@ -8,22 +8,22 @@
 // --- CASE STUDIES DATABASE (SANJEEV SRIRAM STYLE) ---
 const CASE_STUDIES = {
   graphic_studio: {
-    badge: "Graphic Design Studio · Streetwear UI · Editorial Posters · Type Lab",
-    title: "Graphic Design Studio | Kamewear, Posters & Type Lab",
-    subtitle: "A comprehensive digital design studio exploring high-energy anime streetwear storefronts (Kamewear), distressed crime-editorial broadsheets (Biohazard, Joker), interactive lightboxes, and real-time Archivo variable typography.",
+    badge: "Graphic Design Studio · Editorial Posters · Type Lab",
+    title: "Graphic Design Studio | Posters & Type Lab",
+    subtitle: "A digital design studio exploring editorial broadsheets and posters, interactive lightboxes, and real-time Archivo variable typography.",
     role: "Lead Graphic Designer, Brand Identity & Creative Technologist",
     timeline: "Q1 2026",
     stack: "Figma, Photoshop, Framer, Sketch, Affinity, Archivo Variable Font, CSS Custom Properties",
-    deliverables: "Kamewear E-commerce Lookbook, Editorial Broadsheet Series, Interactive Type Lab, Full Modal Lightbox",
+    deliverables: "Editorial Broadsheet Series, Interactive Type Lab, Full Modal Lightbox",
     presentUrl: "/Graphic Design Studio.html",
-    heroImg: "Kamewear Anime Streetwear Homepage.png",
-    detailImg: "Biohazard_ Grace Ashcroft Editorial Poster.png",
-    problem: "Most creative portfolios fail to bridge commercial web storefronts with high-concept print editorial design. Broly needed a unified creative environment to present high-production anime streetwear merchandising (Kamewear) alongside raw, tactile editorial print and variable typographic tools.",
-    inspiration: "Tokyo streetwear culture, 90s vintage manga screentones, archival crime broadsheets, and Swiss typographic discipline. High-contrast paper tones, glowing neon accents, and tactile interactive card physics.",
-    architecture: "Built with zero external frameworks. Features responsive grid filtering (All, Web Design, Poster), 3D perspective card tilting on pointermove, a full-screen dynamic lightbox dialog with hex palette tags, and an Archivo variable font sandbox with live weight, width, and size controllers.",
+    heroImg: "Biohazard_ Grace Ashcroft Editorial Poster.png",
+    detailImg: "Gotham Times_ Joker Unleashed.png",
+    problem: "Create a unified environment to present editorial print artwork alongside interactive variable typography tools.",
+    inspiration: "90s vintage manga screentones, archival crime broadsheets, and Swiss typographic discipline. High-contrast paper tones, glowing neon accents, and tactile interactive card physics.",
+    architecture: "Built with zero external frameworks. Features responsive grid filtering (All, Poster), 3D perspective card tilting on pointermove, a full-screen dynamic lightbox dialog with hex palette tags, and an Archivo variable font sandbox with live weight, width, and size controllers.",
     challenges: "Seamlessly displaying heavy high-resolution editorial raster imagery alongside dynamic vector typography without jank. Solved using native browser image decoding, CSS will-change optimizations, and responsive lightbox dialogs.",
-    results: "9 distinct production-ready design artifacts, instant client-side category filtering, full-fidelity modal zooms, and an embedded interactive variable type experiment praised for fluid responsiveness.",
-    tags: ["Streetwear UI", "Editorial Posters", "Variable Fonts", "Brutalist Layouts", "Brand Identity"]
+    results: "5 editorial design artifacts, instant client-side category filtering, full-fidelity modal zooms, and an embedded interactive variable type experiment praised for fluid responsiveness.",
+    tags: ["Editorial Posters", "Variable Fonts", "Brutalist Layouts", "Brand Identity"]
   },
 
   scroll_lab: {

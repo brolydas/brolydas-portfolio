@@ -121,17 +121,13 @@ var NAME='Broly Das';
 var $=function(s){return document.querySelector(s)},$$=function(s){return Array.prototype.slice.call(document.querySelectorAll(s))};
 var ART={};
 var WORK=[
-  {t:'Kamewear — Streetwear Hub',c:'Web Design',y:2026,src:'Kamewear Anime Streetwear Homepage.png',b:'Next-generation anime streetwear storefront featuring bold display typography, vibrant drop hero, category pill navigation, and curated best-seller carousels.',p:['#ff5722','#141416','#f3eee5']},
   {t:'Biohazard — Grace Ashcroft',c:'Poster',y:2026,src:'Biohazard_ Grace Ashcroft Editorial Poster.png',b:'Dark cinematic fashion-editorial magazine cover spotlighting Grace Ashcroft. Textured leather biker styling with monochrome contrast and glowing cybernetic HUD oculars.',p:['#121214','#00b4d8','#f1ede4']},
-  {t:'Kamewear — Capsule Lookbook',c:'Web Design',y:2026,src:'Kamewear Anime Streetwear Collection.png',b:'Immersive e-commerce lookbook interface with lavender cyber-pastels, interactive warrior apparel tabs, featured look spotlight cards, and dynamic drop tags.',p:['#7c5cfc','#22143d','#ffffff']},
   {t:'Gotham Times — Joker Unleashed',c:'Poster',y:2026,src:'Gotham Times_ Joker Unleashed.png',b:'Vintage broadsheet newspaper montage exploring graphic anarchism, distressed newsprint halftones, spray-paint stencils, and gritty crime typography.',p:['#1e1814','#7b2cbf','#f5f0e6']},
-  {t:'Kamewear — Saiyan Drop',c:'Web Design',y:2026,src:'Kamewear Anime Streetwear Collection (1).png',b:'High-energy streetwear catalog layout with layered bold lettering, gender-focused collections, and capsule hoodie showcase cards.',p:['#e63946','#111113','#ded8cd']},
   {t:'Arcane — League of Legends',c:'Poster',y:2025,src:'justbychris_ (@justbychris) on X.jpg',b:'Manga-punk graphic poster featuring Jinx and Vi. Comic narrative paneling, halftone screentones, stark red and cyan duotones, and expressive Japanese typography.',p:['#e61c47','#0f141c','#28b5e6']},
-  {t:'Kamewear — Muse Profile',c:'Web Design',y:2026,src:'Kamewear Anime Streetwear Profile.png',b:'Widescreen character dashboard featuring frosted glassmorphism metrics, live stream status, embedded video lookbook, and dark violet UI tones.',p:['#8b5cf6','#140e26','#ff7a00']},
   {t:'Gohan — Hybrid Saiyan',c:'Poster',y:2025,src:'download (2).jpg',b:'Archival anime character study poster with aged parchment textures, vintage 90s screentones, Japanese kanji seals, and Son Gohan retrospective story panels.',p:['#3e2b5e','#ddd4be','#1c1728']},
   {t:'Nami — Boxing Showdown',c:'Poster',y:2026,src:"Nami_ Navigator's Boxing Showdown.png",b:'Retro sports publication cover celebrating the Grand Line showdown. Heavy display condensed serif titles, dynamic ringside composition, and classic editorial barcoding.',p:['#e63946','#261b18','#f4a261']}
 ];
-var CATS=['All','Web Design','Poster'];
+var CATS=['All','Poster'];
 // ---- helpers ----
 document.querySelectorAll('[data-name]').forEach(function(e){e.textContent=NAME});
 function rollify(root){(root||document).querySelectorAll('.roll').forEach(function(e){if(e.dataset.r)return;e.dataset.r=1;var t=e.textContent;e.setAttribute('aria-label',t);e.innerHTML='<i aria-hidden="true">'+t+'</i><i aria-hidden="true">'+t+'</i>'})}
