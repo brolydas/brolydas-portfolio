@@ -1,0 +1,7 @@
+
+(()=>{const box=document.querySelector('[data-workflow-display]');if(!box)return;
+const screens=[['01 / Brief','<h3>A better checkout.</h3><p>Help a customer review an order, add delivery details and confirm with confidence.</p><div class="wf-flow"><span>Goal</span><span>Audience</span><span>Constraints</span></div>'],['02 / Wireframe','<h3>Review your order</h3><div class="wf-wire"></div><div class="wf-wire"></div><div class="wf-wire"></div><div class="wf-btn" style="background:#879b8c">Continue</div>'],['03 / Visual design','<h3>Review your order.</h3><p>Every detail, in one place.</p><div class="wf-flow"><span>01 / Studio bag</span><span>₹1,499</span></div><div class="wf-btn">Continue to delivery ↗</div>'],['04 / Connected prototype','<h3>One journey. Three screens.</h3><div class="wf-flow"><span>Cart</span>→<span>Delivery</span>→<span>Confirmed</span></div><p>Open the studio to edit and export a real clickable flow.</p>']];
+const btns=[...document.querySelectorAll('[data-workflow]')],reduced=matchMedia('(prefers-reduced-motion: reduce)');let selected=-1,anim;
+function select(i){if(i===selected)return;selected=i;btns.forEach((b,j)=>b.setAttribute('aria-pressed',String(i===j)));const demo=box.querySelector('.workflow-demo');demo.innerHTML=screens[i][1];box.querySelector('.workflow-caption').textContent=screens[i][0];if(window.Motion&&!reduced.matches){anim?.cancel?.();anim=Motion.animate(demo,{opacity:[.3,1],y:[8,0]},{duration:.3,ease:[.22,1,.36,1]});}}
+btns.forEach((b,i)=>b.addEventListener('click',()=>select(i)));select(0);
+})();

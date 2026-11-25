@@ -42,6 +42,10 @@
     {
       "source": "/ui-ux-experiments",
       "destination": "/ui-ux-experiments.html"
+    },
+    {
+      "source": "/lab-tools",
+      "destination": "/lab-tools.html"
     }
   ]
 }

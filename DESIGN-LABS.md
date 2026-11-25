@@ -33,3 +33,6 @@ The Scroll and Motion pages now share an editorial instrument identity: Space Gr
 
 ## Shared catalog theme
 The UI/UX Lab and its UI Zoo alias now use the same persisted lab-color-mode preference and Liquid Metal toggle as Scroll/Motion. Catalog chrome, inputs, filters, dialog and font specimen surfaces adapt to both themes. Individual chart, palette and before/after specimen colors remain intentionally preserved on readable canvases. Browser checks for theme persistence and dialog colors added.
+
+## Public product direction
+Removed personal portfolio navigation from the labs and their aliases; kept source/license attribution. Added independent Tools navigation and a four-step interactive workflow demonstration. The Tools workspace includes nine local SVG generators (linear, mesh, metallic, noise, halftone, optical, shape, ASCII and dither), a preset-based three-screen prototype editor with HTML/JSON export, and a WCAG text contrast calculator. No AI backend, predictive heatmaps, Figma sync, URL cloning, MP4 rendering or account system is implemented; these remain separate product milestones. Reference: UX Pilot public feature descriptions and workflow; original UI and assets, no copied pages. Browser visual QA pending.
