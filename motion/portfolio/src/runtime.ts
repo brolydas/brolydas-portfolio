@@ -43,17 +43,29 @@ export function mountFlow(){
  player.activate();board.dataset.engine='motion-canvas';
  addEventListener('pagehide',event=>{if(event.persisted)return;disposed=true;observer.disconnect();media.revert();player.onRender.unsubscribe(render);player.deactivate();reading.remove();reduced.removeEventListener('change',preference);document.removeEventListener('visibilitychange',visibility);document.removeEventListener('portfolio:mode',refresh);},{once:true});
 }
+
+export function runIntro(dialog:HTMLDialogElement,done:()=>void){
+ const letters=dialog.querySelectorAll('.intro-letters span');
+ const timeline=gsap.timeline({onComplete:done});
+ timeline.fromTo(letters,{x:(i:number)=>Math.cos(i*.9)*90,y:(i:number)=>Math.sin(i*.9)*65,rotation:(i:number)=>i*37-120,scale:.35},{x:0,y:0,rotation:0,scale:1,duration:.9,ease:'power3.inOut',stagger:.025})
+ .to(letters,{x:(i:number)=>(i-3.5)*35,y:(i:number)=>Math.sin(i)*25,rotation:(i:number)=>(i-3.5)*12,scale:.7,duration:.45,ease:'power2.in',delay:.15});
+ dialog.addEventListener('close',()=>timeline.kill(),{once:true});
+}
 let heroMounted=false;
 export function mountHero(){
  if(heroMounted)return;heroMounted=true;
  const section=document.querySelector<HTMLElement>('#hero');if(!section)return;
- const media=gsap.matchMedia();let context:gsap.Context|undefined;
+ const media=gsap.matchMedia();let context:gsap.Context|undefined,first=true;
  function setup(){context?.revert();context=gsap.context(()=>{
- const picture=section.querySelector('.hero-visual');
- if(!picture)return;
- gsap.fromTo(picture,{y:24,scale:.97},{y:0,scale:1,duration:1.25,ease:'power3.out',clearProps:'transform'});
- gsap.to(picture,{yPercent:-7,ease:'none',scrollTrigger:{trigger:section,start:'top top',end:'bottom top',scrub:.7,invalidateOnRefresh:true}});
+ const picture=section.querySelector<HTMLElement>('.hero-visual');if(!picture)return;
+ const lines=section.querySelectorAll<HTMLElement>('[data-hero-line]');
+ if(first){lines.forEach(line=>{line.setAttribute('aria-label',line.textContent||'');const text=line.textContent||'';line.textContent='';for(const c of text){const span=document.createElement('span');span.className='hero-glyph';span.setAttribute('aria-hidden','true');span.textContent=c;line.append(span);}});
+ const glyphs=section.querySelectorAll<HTMLElement>('.hero-glyph');
+ gsap.from(glyphs,{x:(_i:number,el:HTMLElement)=>innerWidth*.48-(el.getBoundingClientRect().left+el.offsetWidth/2),y:(_i:number,el:HTMLElement)=>innerHeight*.42-(el.getBoundingClientRect().top+el.offsetHeight/2),rotation:(i:number)=>(i%2?1:-1)*(18+i*2),scale:.08,duration:1.05,stagger:{each:.025,from:'center'},ease:'power3.inOut',clearProps:'transform,willChange'});
+ gsap.fromTo(picture,{scale:.86,y:35,rotation:-5},{scale:1,y:0,rotation:0,duration:1.3,ease:'power3.out',clearProps:'transform'});first=false;}
+ gsap.to(picture,{scale:1.08,yPercent:-6,ease:'none',scrollTrigger:{trigger:section,start:'top top',end:'bottom top',scrub:.7,invalidateOnRefresh:true}});
  },section);section.dataset.motion='gsap';}
- media.add('(prefers-reduced-motion: no-preference)',()=>{setup();document.addEventListener('portfolio:mode',setup);return()=>{context?.revert();document.removeEventListener('portfolio:mode',setup);};});
+ function ready(){if(document.documentElement.classList.contains('intro-active'))return;setup();}
+ media.add('(prefers-reduced-motion: no-preference)',()=>{ready();document.addEventListener('portfolio:intro-ready',ready);document.addEventListener('portfolio:mode',setup);return()=>{context?.revert();document.removeEventListener('portfolio:intro-ready',ready);document.removeEventListener('portfolio:mode',setup);};});
  addEventListener('pagehide',e=>{if(!e.persisted)media.revert();},{once:true});
 }

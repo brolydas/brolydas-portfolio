@@ -1,0 +1,4 @@
+# Local motion references
+Inspected both user-provided local MP4s using ffprobe and frame contact sheets. Page load: 4.9s, 60fps; scattered small letterforms and readiness text lead to an assembling large headline and settling media. Card flow: 5.22s, 60fps; media expands while scrolling, then content panels overlap and settle.
+
+Adaptation uses the portfolio’s own copy, images and two palettes. The intro is capped at 2.8s, supports Skip/Escape and is absent under reduced motion. No fake loading percentage, scroll lock or hidden-page dependency is added. GSAP assembles actual headline glyphs and settles the media. Selected Work has sticky overlapping project panels on desktop and a normal stacked list on mobile/reduced motion. Content remains opaque. These are original mechanics informed by the references, not copied media.

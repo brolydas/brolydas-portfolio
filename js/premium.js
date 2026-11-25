@@ -1,4 +1,7 @@
-/* Hero movement is owned by GSAP in the compiled portfolio runtime. */
-(()=>{const section=document.querySelector('#hero');if(!section)return;const reduced=matchMedia('(prefers-reduced-motion: reduce)');if(reduced.matches)return;
-import('/assets/portfolio-flow/runtime.js').then(m=>m.mountHero?.()).catch(()=>{section.dataset.motion='still';});
+/* A bounded, skippable load sequence; failed scripts never hide the page. */
+(()=>{const hero=document.querySelector('#hero');if(!hero)return;const reduce=matchMedia('(prefers-reduced-motion: reduce)');let dialog,timer,finished=false;
+function finish(){if(finished)return;finished=true;clearTimeout(timer);if(dialog){dialog.close();dialog.remove();}document.documentElement.classList.remove('intro-active');document.dispatchEvent(new Event('portfolio:intro-ready'));}
+if(!reduce.matches&&scrollY<20){dialog=document.createElement('dialog');dialog.className='portfolio-intro';dialog.setAttribute('aria-label','Portfolio introduction');dialog.innerHTML='<div class="intro-letters" aria-hidden="true">'+Array.from('BROLYDAS').map(c=>'<span>'+c+'</span>').join('')+'</div><p>Preparing the work</p><button type="button">Skip intro</button>';document.body.append(dialog);document.documentElement.classList.add('intro-active');dialog.showModal();dialog.querySelector('button').addEventListener('click',finish);dialog.addEventListener('cancel',e=>{e.preventDefault();finish();});timer=setTimeout(finish,2800);reduce.addEventListener('change',()=>{if(reduce.matches)finish();},{once:true});}
+import('/assets/portfolio-flow/runtime.js').then(m=>{m.mountHero?.();if(dialog&&!finished)m.runIntro?.(dialog,finish);else finish();}).catch(()=>{hero.dataset.motion='still';finish();});
+addEventListener('pagehide',finish,{once:true});
 })();

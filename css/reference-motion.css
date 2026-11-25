@@ -1,0 +1,19 @@
+
+.portfolio-intro{position:fixed;inset:0;width:100vw;max-width:none;height:100dvh;max-height:none;margin:0;padding:0;border:0;background:var(--studio-ground,#08090a);color:var(--studio-accent,#caff60);overflow:hidden}
+.portfolio-intro::backdrop{background:var(--studio-ground,#08090a)}
+.portfolio-intro .intro-letters{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:.12em;font:500 clamp(22px,4vw,64px)/1 var(--display)}
+.intro-letters span{display:inline-block}
+.portfolio-intro p{position:absolute;top:58%;width:100%;text-align:center;font:400 16px var(--body)}
+.portfolio-intro button{position:absolute;right:24px;bottom:24px;border:1px solid currentColor;padding:12px 18px;min-height:48px;background:transparent;color:inherit}
+.hero-glyph{display:inline-block;white-space:pre;will-change:transform}
+.home-page #hero-title{overflow:visible}
+.home-page .featured-projects{display:block}
+.home-page .feature,.home-page .feature:nth-child(2),.home-page .feature:nth-child(3){display:grid;grid-template-columns:7fr 5fr;gap:6vw;margin:0 0 96px;align-items:center;position:relative;background:var(--canvas);border-top:1px solid var(--line);padding-top:40px}
+.home-page .feature:nth-child(2){grid-template-columns:5fr 7fr}
+.home-page .feature:nth-child(2) .feature-visual{order:2}
+.home-page .feature .feature-visual{aspect-ratio:1.4;border:0}
+.home-page .feature .feature-copy{padding:0}
+.home-page .feature h3{font-size:clamp(32px,4vw,64px)}
+@media(min-width:901px) and (prefers-reduced-motion:no-preference){.home-page .feature{position:sticky;top:32px;min-height:75svh;padding-bottom:48px}.home-page .feature:nth-child(2){top:56px}.home-page .feature:nth-child(3){top:80px}}
+@media(max-width:600px){.home-page .feature,.home-page .feature:nth-child(2),.home-page .feature:nth-child(3){display:block;margin-bottom:64px;padding-top:24px}.home-page .feature:nth-child(2) .feature-visual{order:0}.home-page .feature .feature-copy{padding-top:20px}}
+@media(prefers-reduced-motion:reduce){.hero-glyph{will-change:auto}.portfolio-intro{display:none}}
