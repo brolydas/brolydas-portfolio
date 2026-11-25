@@ -6,6 +6,7 @@ on:
       - 'ui-zoo.html'
       - 'ui-ux-experiments.html'
       - '*pepper*'
+      - 'kamewear*'
       - 'Pepper Club*'
       - 'tiny-games-for-moods.html'
       - 'tests/design-labs.cjs'
