@@ -8,7 +8,7 @@ const read=p=>fs.readFile(path.join(root,p),'utf8');
 (async()=>{
 await fs.mkdir(output,{recursive:true});
 for(const name of pages){const html=await read(name);const markup=html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,'');assert.equal((markup.match(/<h1\b/gi)||[]).length,1,name+' has one h1');assert.equal((markup.match(/<main\b/gi)||[]).length,1,name+' has one main');const ids=[...markup.matchAll(/\bid="([^"]+)"/g)].map(x=>x[1]);assert.equal(new Set(ids).size,ids.length,name+' unique IDs');for(const match of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)){if(match[2].trim()){if(/type=["'](?:application\/ld\+json|importmap)["']/.test(match[1]))JSON.parse(match[2]);else new vm.Script(match[2],{filename:name});}}}
-for(const file of ['ui-ux-lab.js','motion-lab.js','motion-12.23.24.js'])new vm.Script(await read(file),{filename:file});
+for(const file of ['ui-ux-lab.js','motion-lab.js','motion-12.23.24.js','lab-experience.js'])new vm.Script(await read(file),{filename:file});
 assert.equal(await read('scroll-lab.html'),await read('scroll-lab-play.html'));
 assert.equal(await read('ui-zoo.html'),await read('ui-ux-lab.html'));
 assert.equal(await read('pepper-club.html'),await read('Pepper Club - Hot sauce, fermented slow.html'));
@@ -21,7 +21,21 @@ try{
 browser=await chromium.launch();const context=await browser.newContext({viewport:{width:1440,height:1000},acceptDownloads:true});const page=await context.newPage();page.on('pageerror',error=>errors.push(error.message));const base='http://127.0.0.1:8777/';
 const open=async name=>{await page.goto(base+name);await page.waitForLoadState('domcontentloaded');};
 for(const name of pages){await open(name);if(name==='ui-ux-lab.html'||name==='ui-zoo.html')await page.locator('.ref-card').first().waitFor();if(name==='motion-lab.html')await page.locator('.motion-card').first().waitFor();for(const width of [320,390,768,1440]){await page.setViewportSize({width,height:1000});const layout=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth,client:document.documentElement.clientWidth,offscreen:[...document.querySelectorAll('h1,h2,nav,button,input')].filter(e=>{const r=e.getBoundingClientRect();return r.width&&(r.right>innerWidth+1||r.left<-1)}).map(e=>({tag:e.tagName,id:e.id,text:e.textContent.slice(0,50)})).slice(0,8)}));assert.ok(layout.scroll<=layout.width+1,name+' overflow at '+width+': '+JSON.stringify(layout));if([390,1440].includes(width)&&['ui-ux-lab.html','motion-lab.html','scroll-lab.html'].includes(name))await page.screenshot({path:path.join(output,name.replace('.html','')+'-'+width+'.png'),fullPage:true});}record('Responsive '+name,{widths:[320,390,768,1440]});}
-await page.setViewportSize({width:1440,height:1000});await open('ui-ux-lab.html');await page.locator('.ref-card').first().waitFor();
+await page.setViewportSize({width:1440,height:1000});
+await open('scroll-lab.html');
+await page.locator('.lab-theme-toggle').waitFor();
+assert.equal(await page.locator('html').getAttribute('data-lab-theme'),'dark');
+await page.locator('.lab-theme-toggle').click();assert.equal(await page.locator('html').getAttribute('data-lab-theme'),'light');
+await page.locator('#aperture-button').click();assert.equal(await page.locator('#aperture-button').getAttribute('aria-pressed'),'true');
+await open('motion-lab.html');assert.equal(await page.locator('html').getAttribute('data-lab-theme'),'light');
+await page.locator('#lab-phase').fill('78');assert.equal(await page.locator('#lab-phase-value').textContent(),'78%');
+await page.locator('.lab-scene-play').click();await page.waitForFunction(()=>document.querySelector('#lab-phase-value').textContent!=='78%');
+await page.locator('.lab-scene-play').click();assert.equal(await page.locator('.lab-scene-play').getAttribute('aria-pressed'),'false');
+await page.locator('.lab-theme-toggle').click();assert.equal(await page.locator('html').getAttribute('data-lab-theme'),'dark');
+await page.screenshot({path:path.join(output,'motion-lab-dark-hero.png')});
+await page.locator('.lab-theme-toggle').click();await page.screenshot({path:path.join(output,'motion-lab-light-hero.png')});
+await page.locator('.lab-theme-toggle').click();record('Live scene controls and persisted cross-lab theme');
+await open('ui-ux-lab.html');await page.locator('.ref-card').first().waitFor();
 await page.locator('[data-group="typography"]').click();await page.waitForFunction(()=>document.querySelector('#result-status').textContent.startsWith('74 '));
 await page.locator('#catalog-search').fill('Playfair');await page.waitForFunction(()=>document.querySelector('#result-status').textContent.includes('matching'));
 assert.ok(await page.locator('.ref-card').count()>0);await page.locator('[data-open]').first().click();assert.equal(await page.locator('#detail-dialog').isVisible(),true);await page.locator('#sample-text').fill('A tested idea.');assert.equal(await page.locator('#font-heading').textContent(),'A tested idea.');await page.locator('#sample-size').fill('80');assert.equal(await page.locator('#size-value').textContent(),'80 px');await page.locator('#save-detail').click();await page.keyboard.press('Escape');assert.equal(await page.locator('#detail-dialog').isVisible(),false);await page.locator('#saved-only').click();await page.waitForFunction(()=>document.querySelector('#result-status').textContent.includes('saved'));assert.ok(await page.locator('.ref-card').count()>=1);record('Font preview, size control, saved studies and keyboard dialog');
