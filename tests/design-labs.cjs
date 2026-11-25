@@ -8,7 +8,7 @@ const read=p=>fs.readFile(path.join(root,p),'utf8');
 (async()=>{
 await fs.mkdir(output,{recursive:true});
 for(const name of pages){const html=await read(name);const markup=html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,'');assert.equal((markup.match(/<h1\b/gi)||[]).length,1,name+' has one h1');assert.equal((markup.match(/<main\b/gi)||[]).length,1,name+' has one main');const ids=[...markup.matchAll(/\bid="([^"]+)"/g)].map(x=>x[1]);assert.equal(new Set(ids).size,ids.length,name+' unique IDs');for(const match of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)){if(match[2].trim()){if(/type=["'](?:application\/ld\+json|importmap)["']/.test(match[1]))JSON.parse(match[2]);else new vm.Script(match[2],{filename:name});}}}
-for(const file of ['ui-ux-lab.js','motion-lab.js','motion-12.23.24.js','lab-experience.js','lab-specimens.js','lab-public.js','lab-tools.js','lab-mega.js'])new vm.Script(await read(file),{filename:file});
+for(const file of ['ui-ux-lab.js','motion-lab.js','motion-12.23.24.js','lab-experience.js','lab-specimens.js','lab-public.js','lab-tools.js','lab-mega.js','lab-cinematic.js'])new vm.Script(await read(file),{filename:file});
 assert.equal(await read('scroll-lab.html'),await read('scroll-lab-play.html'));
 assert.equal(await read('ui-zoo.html'),await read('ui-ux-lab.html'));
 assert.equal(await read('pepper-club.html'),await read('Pepper Club - Hot sauce, fermented slow.html'));
@@ -31,6 +31,11 @@ await page.waitForURL(u=>u.pathname.endsWith('/lab-resources.html')&&u.hash==='#
 await page.locator('#wireframe a').click();await page.waitForURL(u=>u.pathname.endsWith('/lab-tools.html')&&u.searchParams.get('fidelity')==='lo'&&u.hash==='#studio',{waitUntil:'domcontentloaded'});assert.equal(await page.locator('#design-fidelity').inputValue(),'lo');
 await page.setViewportSize({width:320,height:800});await page.locator('[data-menu-trigger="resources"]').click();assert.ok(await page.locator('#lab-resources-menu').isVisible());assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await page.keyboard.press('Escape');await page.setViewportSize({width:1440,height:1000});
 for(const dest of ['scroll-lab.html','motion-lab.html','lab-tools.html']){await open('ui-ux-lab.html');await page.locator('[data-menu-trigger="playground"]').click();await Promise.all([page.waitForURL(u=>u.pathname.endsWith('/'+dest),{waitUntil:'domcontentloaded'}),page.locator('#lab-playground-menu a[href="/'+dest+'"]').click()]);assert.ok(await page.locator('main').isVisible());}record('Playground native navigation to all three labs');
+await open('ui-ux-lab.html');await page.locator('#lab-dust').waitFor();assert.ok(await page.locator('#lab-dust').evaluate(e=>e.width>0&&e.height>0));
+await page.locator('.cinematic-pause').click();assert.equal(await page.locator('.cinematic-pause').getAttribute('aria-pressed'),'true');
+await page.locator('.cinematic-pause').click();assert.equal(await page.locator('.cinematic-pause').getAttribute('aria-pressed'),'false');
+await page.evaluate(()=>scrollTo(0,document.querySelector('.lab-cinematic').offsetTop+innerHeight));await page.waitForFunction(()=>document.querySelector('#cinematic-chapter-label').textContent!=='The field');
+await page.locator('.gateway-card[href="/motion-lab.html"]').click();await page.waitForURL(u=>u.pathname.endsWith('/motion-lab.html'));record('Particle homepage, pause, scroll chapters and gateway navigation');
 record('Shared Playground and Resources menus, all 17 resource links, keyboard dismissal and mobile layout');
 await open('lab-tools.html');
 assert.equal(await page.locator('header .lab-portfolio').count(),0);

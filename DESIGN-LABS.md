@@ -42,3 +42,6 @@ Home and Templates remain direct links. Playground groups Scroll Lab, Motion Lab
 
 ## Navigation repair
 Removed synchronous dropdown dismissal during anchor activation and hover-triggered menu switching; links use ordinary native navigation. Browser tests now follow all three Playground links and wait for the theme transition to finish instead of asserting an intermediate color. Previous CI failures were a resource navigation timeout and an early CSS transition assertion; new browser run pending.
+
+## Cinematic home
+Original real-time projected particle field with cursor repulsion, native scroll-driven morph and perspective zoom, three layered cards, theme-specific colors and pause/reduced-motion controls. Prichard reference was reviewed from public text and user screenshot; animation timing and original source were not captured. The catalog remains available directly via #library. Browser checks added.
