@@ -57,6 +57,7 @@ await page.locator('#lab-playground-menu a[href="/motion-lab"]').hover();
 await page.waitForFunction(()=>!!document.querySelector('link[rel="prefetch"][href="/motion-lab"]'));
 await page.keyboard.press('Escape');record('Playground intent prefetch hints');
 await open('ui-ux-lab.html');await page.locator('#lab-dust').waitFor();assert.ok(await page.locator('#lab-dust').evaluate(e=>e.width>0&&e.height>0));
+console.log('VISUAL_UXCRAFT:'+(await page.screenshot({type:'jpeg',quality:40})).toString('base64'));
 await page.locator('.cinematic-pause').click();assert.equal(await page.locator('.cinematic-pause').getAttribute('aria-pressed'),'true');
 await page.locator('.cinematic-pause').click();assert.equal(await page.locator('.cinematic-pause').getAttribute('aria-pressed'),'false');
 await page.evaluate(()=>scrollTo(0,document.querySelector('.lab-cinematic').offsetTop+innerHeight));await page.waitForFunction(()=>Number(document.querySelector('[data-cinematic]').dataset.scrollPhase)>0);
