@@ -43,3 +43,17 @@ export function mountFlow(){
  player.activate();board.dataset.engine='motion-canvas';
  addEventListener('pagehide',event=>{if(event.persisted)return;disposed=true;observer.disconnect();media.revert();player.onRender.unsubscribe(render);player.deactivate();reading.remove();reduced.removeEventListener('change',preference);document.removeEventListener('visibilitychange',visibility);document.removeEventListener('portfolio:mode',refresh);},{once:true});
 }
+let heroMounted=false;
+export function mountHero(){
+ if(heroMounted)return;heroMounted=true;
+ const section=document.querySelector<HTMLElement>('#hero');if(!section)return;
+ const media=gsap.matchMedia();let context:gsap.Context|undefined;
+ function setup(){context?.revert();context=gsap.context(()=>{
+ const picture=section.querySelector('.hero-visual');
+ if(!picture)return;
+ gsap.fromTo(picture,{y:24,scale:.97},{y:0,scale:1,duration:1.25,ease:'power3.out',clearProps:'transform'});
+ gsap.to(picture,{yPercent:-7,ease:'none',scrollTrigger:{trigger:section,start:'top top',end:'bottom top',scrub:.7,invalidateOnRefresh:true}});
+ },section);section.dataset.motion='gsap';}
+ media.add('(prefers-reduced-motion: no-preference)',()=>{setup();document.addEventListener('portfolio:mode',setup);return()=>{context?.revert();document.removeEventListener('portfolio:mode',setup);};});
+ addEventListener('pagehide',e=>{if(!e.persisted)media.revert();},{once:true});
+}
