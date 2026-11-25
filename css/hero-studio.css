@@ -14,7 +14,7 @@
 .home-page .hero-bottom .text-link{padding:13px 20px;background:var(--studio-accent);color:#101216;min-height:48px;border-radius:5px;font-size:16px;margin:0}
 html[data-mode=intelligence] .home-page .hero-bottom .text-link{color:#fff}
 .home-page .hero-bottom .text-link:after{display:none}
-.home-page .hero-visual{right:var(--space);top:37%;width:44%;height:50%;min-height:0;z-index:1;overflow:visible;transform:none;pointer-events:auto}
+.home-page .hero-visual{right:var(--space);top:46%;width:44%;height:43%;min-height:0;z-index:1;overflow:visible;transform:none;pointer-events:auto}
 .home-page .hero-art-main{inset:0;border:0;transform:none;box-shadow:0 24px 40px #0003;overflow:hidden;background:#fff}
 .home-page .hero-art-main img{filter:grayscale(1)!important;object-fit:cover;object-position:top;transform:none;transition:transform .7s cubic-bezier(.22,1,.36,1)}
 .home-page .hero-art-main:hover img{transform:scale(1.025)}
