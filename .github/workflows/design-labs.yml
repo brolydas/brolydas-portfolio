@@ -46,12 +46,12 @@ jobs:
           else
             /tmp/lab-check/node_modules/.bin/playwright install --with-deps chromium
           fi
+      - name: Verify six-part portfolio flow
+        run: NODE_PATH=/tmp/lab-check/node_modules node tests/scroll-flow.cjs
       - name: Verify source, routes, controls and exports
         run: NODE_PATH=/tmp/lab-check/node_modules node tests/design-labs.cjs
       - name: Verify portfolio redesign and modes
         run: NODE_PATH=/tmp/lab-check/node_modules node tests/premium.cjs
-      - name: Verify six-part portfolio flow
-        run: NODE_PATH=/tmp/lab-check/node_modules node tests/scroll-flow.cjs
       - name: Upload screenshots and report
         if: always()
         uses: actions/upload-artifact@v4
