@@ -35,6 +35,12 @@ await open('ui-ux-lab.html');await page.locator('#lab-dust').waitFor();assert.ok
 await page.locator('.cinematic-pause').click();assert.equal(await page.locator('.cinematic-pause').getAttribute('aria-pressed'),'true');
 await page.locator('.cinematic-pause').click();assert.equal(await page.locator('.cinematic-pause').getAttribute('aria-pressed'),'false');
 await page.evaluate(()=>scrollTo(0,document.querySelector('.lab-cinematic').offsetTop+innerHeight));await page.waitForFunction(()=>document.querySelector('#cinematic-chapter-label').textContent!=='The field');
+await page.evaluate(()=>{const el=document.querySelector('.lab-cinematic'),stage=el.querySelector('.cinematic-sticky');scrollTo(0,el.offsetTop+el.offsetHeight-stage.offsetHeight-94);});
+await page.waitForFunction(()=>[...document.querySelectorAll('.cinematic-card')].every(e=>+getComputedStyle(e).opacity>.999));
+await page.waitForFunction(()=>+document.querySelector('.cinematic-card').style.getPropertyValue('--fan')>.98);
+const cardBounds=await page.locator('.cinematic-card').evaluateAll(els=>els.map(e=>{const r=e.getBoundingClientRect();return {left:r.left,right:r.right}}).sort((a,b)=>a.left-b.left));
+assert.ok(cardBounds[0].right<=cardBounds[1].left+8&&cardBounds[1].right<=cardBounds[2].left+8,'Final cards have minimal overlap: '+JSON.stringify(cardBounds));
+await page.screenshot({path:path.join(output,'cinematic-solid-cards.png')});
 await page.locator('.gateway-card[href="/motion-lab.html"]').click();await page.waitForURL(u=>u.pathname.endsWith('/motion-lab.html'));record('Particle homepage, pause, scroll chapters and gateway navigation');
 record('Shared Playground and Resources menus, all 17 resource links, keyboard dismissal and mobile layout');
 await open('lab-tools.html');

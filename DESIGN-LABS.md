@@ -45,3 +45,6 @@ Removed synchronous dropdown dismissal during anchor activation and hover-trigge
 
 ## Cinematic home
 Original real-time projected particle field with cursor repulsion, native scroll-driven morph and perspective zoom, three layered cards, theme-specific colors and pause/reduced-motion controls. Prichard reference was reviewed from public text and user screenshot; animation timing and original source were not captured. The catalog remains available directly via #library. Browser checks added.
+
+## Solid cinematic card finish
+Cards fade only on entry, then remain opaque as the scroll sequence fans them into three nearly nonoverlapping specimens. Smaller type, independent depth, and mobile spacing keep the final content legible. Added final-state opacity and overlap regression checks.
