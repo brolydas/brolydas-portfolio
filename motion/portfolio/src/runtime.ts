@@ -16,6 +16,7 @@ export function mountFlow(){
  const stage=new Stage(),size=new Vector2(960,640);
  stage.configure({size,resolutionScale:1,background:'#e8ebef'});
  const canvas=stage.finalBuffer;canvas.setAttribute('aria-hidden','true');board.append(canvas);
+ project.logger.onLogged.subscribe(event=>console.warn('Motion Canvas:',event));
  const player=new Player(project,{size,fps:30,resolutionScale:1},{loop:false,muted:true});
  let duration=0,visible=false,paused=false,ready=false,disposed=false,manual=false,progress=0;
  const state={progress:0};
