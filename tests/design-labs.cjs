@@ -93,13 +93,13 @@ await page.locator('.lab-theme-toggle').click();await page.screenshot({path:path
 await page.locator('.lab-theme-toggle').click();record('Live scene controls and persisted cross-lab theme');
 await open('ui-ux-lab.html');await page.locator('.ref-card').first().waitFor();
 assert.equal(await page.locator('html').getAttribute('data-lab-theme'),'dark');
-assert.equal(await page.locator('body').evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(16, 17, 16)');
+assert.equal(await page.locator('body').evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(17, 19, 23)');
 await page.locator('[data-open]').first().click();
-assert.equal(await page.locator('#detail-dialog').evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(27, 29, 26)');
+assert.equal(await page.locator('#detail-dialog').evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(28, 31, 36)');
 await page.keyboard.press('Escape');
 await page.locator('.lab-theme-toggle').click();
 assert.equal(await page.locator('html').getAttribute('data-lab-theme'),'light');
-await page.waitForFunction(()=>getComputedStyle(document.body).backgroundColor==='rgb(248, 247, 240)');
+await page.waitForFunction(()=>getComputedStyle(document.body).backgroundColor==='rgb(255, 255, 255)');
 await open('ui-zoo.html');assert.equal(await page.locator('html').getAttribute('data-lab-theme'),'light');
 await open('scroll-lab.html');assert.equal(await page.locator('html').getAttribute('data-lab-theme'),'light');
 await open('ui-ux-lab.html');await page.locator('.ref-card').first().waitFor();
