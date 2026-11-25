@@ -58,6 +58,10 @@
     {
       "source": "/uxcraft",
       "destination": "/ui-ux-lab.html"
+    },
+    {
+      "source": "/kamewear",
+      "destination": "/kamewear.html"
     }
   ]
 }
