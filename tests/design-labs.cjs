@@ -14,6 +14,7 @@ assert.equal(await read('ui-zoo.html'),await read('ui-ux-lab.html'));
 assert.equal(await read('pepper-club.html'),await read('Pepper Club - Hot sauce, fermented slow.html'));
 const manifest=JSON.parse(await read('lab-data/manifest.json'));for(const [category,count]of Object.entries(manifest.counts)){assert.equal(JSON.parse(await read('lab-data/'+category+'.json')).length,count);}
 for(const file of ['work.html','projects.html','js/projects.js']){const src=await read(file);assert.match(src,/url:'\/ui-ux-lab\.html', linkLabel:'Open the lab'/,file+' portfolio lab CTA opens homepage');assert.ok(!src.includes("url:'/scroll-lab-play.html', linkLabel:'Open the lab'"),file+' no old CTA');}
+for(const file of ['work.html','projects.html','js/projects.js']){const src=await read(file);assert.ok(src.includes("id:'scroll', title:'UXCraft'"));assert.ok(src.includes("id:'zoo', title:'UXCraft Templates'"));assert.ok(!/title:'Scroll (?:Physics )?Lab'/.test(src));}
 record('Portfolio Open the lab links target the cinematic homepage');
 for(const name of ['ui-ux-lab.html','ui-zoo.html','scroll-lab.html','scroll-lab-play.html','motion-lab.html','lab-tools.html','lab-resources.html','ui-ux-experiments.html']){const html=await read(name);assert.match(html,/aria-label="UXCraft home"/,name+' UXCraft branding');assert.ok(!html.includes('UI/UX Lab'),name+' no old brand');}
 assert.ok(JSON.parse(await read('vercel.json')).rewrites.some(r=>r.source==='/uxcraft'&&r.destination==='/ui-ux-lab.html'));
