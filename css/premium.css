@@ -150,3 +150,5 @@ html[data-mode=intelligence] .home-page .hero-system{background:#fff;color:#1619
 @media(max-width:600px){html[data-mode=intelligence] .home-page .hero h1{font-size:20vw}.home-page .hero-visual{margin:0;min-height:0}.site-header .wordmark{font-size:19px}.site-header .sound-bars{display:none}}
 
 .home-page .hero-art-main{transform:translate3d(var(--hero-x,0px),var(--hero-y,0px),0) rotate(-7deg);transition:transform .25s ease-out}.home-page .hero-art-detail{transform:translate3d(calc(var(--hero-x,0px) * -1.5),calc(var(--hero-y,0px) * -1.5),0) rotate(9deg);transition:transform .25s ease-out}.home-page .hero h1{text-wrap:balance}.lab-catalog .lab-hero h2{font:600 clamp(44px,6.7vw,110px)/.98 var(--studio-font);letter-spacing:-.065em}.lab-catalog .lab-hero{grid-template-columns:7fr 5fr;padding-block:120px;gap:7vw}.lab-catalog .lab-hero>div:first-child{max-width:none}@media(max-width:600px){.lab-catalog .lab-hero{grid-template-columns:1fr;padding-block:70px;gap:35px}}
+
+body:has(.services-main-title){--bg-dark:#111317;--accent-gold:#ffffff;--text-main:#f5f6f7;--text-muted:#aab2bf;background:#111317;color:#f5f6f7}
