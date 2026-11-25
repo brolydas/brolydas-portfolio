@@ -10,17 +10,17 @@ function scroll(){const r=section.getBoundingClientRect(),s=stage.getBoundingCli
 function pointer(e){if(paused||e.pointerType==='touch')return;const r=stage.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top;tx=(mx/w-.5)*2;ty=(my/h-.5)*2;ensure();}
 function leave(){tx=ty=0;mx=my=-999;dirty=true;ensure();}
 function draw(){if(!w||!h)return;ctx.clearRect(0,0,w,h);const light=theme==='light',mobile=w<690,centerX=w*(mobile?.64:.73),centerY=h*(mobile?.57:.48),scale=Math.min(w*(mobile?.29:.23),h*.36),morph=smooth(p*2.15),spread=smooth((p-.53)*2.15),zoom=1+1.25*smooth(p*1.7)-.38*spread,ry=clock*.075+px*.26+p*.92,rx=py*.19+.12;const cy=Math.cos(ry),sy=Math.sin(ry),cx=Math.cos(rx),sx=Math.sin(rx);const count=mobile?2200:N;
-const glow=ctx.createRadialGradient(centerX,centerY,0,centerX,centerY,Math.max(w,h)*.56);glow.addColorStop(0,light?'rgba(86,124,68,.12)':'rgba(140,190,109,.15)');glow.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=glow;ctx.fillRect(0,0,w,h);
+
 for(let i=0;i<count;i++){const q=points[i],a=q.a+clock*.035,ring=1.05+q.j*.28;let x=mix(q.x,Math.cos(a)*ring,morph),y=mix(q.y,Math.sin(a)*ring,morph),z=mix(q.z,(q.band-1)*.52+.22*Math.sin(a*3+q.phase),morph);x+=spread*(q.band-1)*.66;y+=spread*Math.sin(q.phase)*.4;z+=Math.sin(clock*.6+q.phase)*.035;const X=x*cy+z*sy,Z=-x*sy+z*cy,Y=y*cx-Z*sx,depth=y*sx+Z*cx;const k=4.2/(4.2-depth),xx=centerX+X*scale*k*zoom,yy=centerY+Y*scale*k*zoom;let dx=xx-mx,dy=yy-my,dist=Math.hypot(dx,dy),force=!paused&&dist<128?(1-dist/128)**2*40:0;const size=clamp(q.size*k*(.68+zoom*.24),.5,2.8);const alpha=clamp((.24+q.j*.45)*k*(1-.38*spread),.08,.8);ctx.fillStyle=light?(q.band===0?'#476749':'#708873'):(q.band===0?'#d6f477':q.band===1?'#9ebda5':'#e5eadf');ctx.globalAlpha=alpha;ctx.fillRect(xx+(dist>0?dx/dist*force:0),yy+(dist>0?dy/dist*force:0),size,size);}
 ctx.globalAlpha=1;
 }
 function compose(){
  const entry=smooth((p-.12)*2.8),fan=smooth((p-.48)*2.15),mobile=w<690;
- const stackWidth=w*(mobile?.88:.49),spacing=mix(mobile?9:23,stackWidth*.345,fan);
+ const stackWidth=stage.querySelector('.cinematic-stack').getBoundingClientRect().width,spacing=mix(mobile?9:23,stackWidth*.37,fan);
  for(let i=0;i<cards.length;i++){
   const offset=1-i,depth=-offset*68*entry*(1-fan);
-  // Fade only on entrance. Once revealed, each card is fully opaque.
-  const opacity=smooth((p-.12-i*.035)*8);
+  // Keep specimens solid throughout the native scroll sequence.
+  const opacity=1;
   cards[i].style.opacity=String(opacity);
   cards[i].style.setProperty('--fan',String(fan));
   cards[i].style.width=mix(mobile?43:65,31.5,fan)+'%';

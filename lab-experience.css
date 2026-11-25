@@ -2,7 +2,7 @@
 /* UI/UX Lab — kinetic instrument system. Applies only to Scroll and Motion.
    Art direction: carbon/porcelain, independent specimen colors, technical editorial type. */
 html[data-lab-theme=dark]{color-scheme:dark;--lab-paper:#101110;--lab-white:#1b1d1a;--lab-ink:#f5f3eb;--lab-muted:#b4b7ad;--lab-line:#373a35;--lab-blue:#b8e5f0;--lab-acid:#d6f477;--lab-panel:#1b1e1a;--lab-hover:#272c24;--lab-glass:rgba(24,27,23,.87);--lab-metal-border:#565b53;--lab-shadow:0 14px 40px #0005}
-html[data-lab-theme=light]{color-scheme:light;--lab-paper:#f8f7f0;--lab-white:#fffefa;--lab-ink:#22251e;--lab-muted:#5c6256;--lab-line:#d6d9cc;--lab-blue:#28548b;--lab-acid:#d6f477;--lab-panel:#eeeee4;--lab-hover:#e6e9da;--lab-glass:rgba(252,251,245,.87);--lab-metal-border:#b7bcb0;--lab-shadow:0 14px 40px #323c1810}
+html[data-lab-theme=light]{color-scheme:light;--lab-paper:#ffffff;--lab-white:#ffffff;--lab-ink:#22251e;--lab-muted:#5c6256;--lab-line:#d6d9cc;--lab-blue:#28548b;--lab-acid:#d6f477;--lab-panel:#ffffff;--lab-hover:#e6e9da;--lab-glass:rgba(255,255,255,.87);--lab-metal-border:#b7bcb0;--lab-shadow:0 14px 40px #323c1810}
 .lab-experience{--paper:var(--lab-paper);--ink:var(--lab-ink);--muted:var(--lab-muted);--line:var(--lab-line);--accent:var(--lab-acid);--edge:clamp(20px,5vw,76px);--lab-edge:var(--edge);--ease-lab:cubic-bezier(.22,1,.36,1);margin:0;background:var(--lab-paper);color:var(--lab-ink);font:400 16px/1.55 'DM Sans',Arial,sans-serif;transition:background .36s,color .36s}
 .lab-experience .shell,.lab-experience .lab-shell{max-width:1520px;padding-inline:var(--edge);margin-inline:auto}
 .lab-experience .lab-nav{width:calc(100% - 2 * var(--edge));max-width:1368px;top:12px;margin:14px auto 0;padding:8px 15px 8px 20px;gap:18px;border:1px solid var(--lab-line);border-radius:18px;background:var(--lab-glass);box-shadow:var(--lab-shadow),inset 0 1px 0 #ffffff13;backdrop-filter:blur(20px) saturate(1.25);-webkit-backdrop-filter:blur(20px) saturate(1.25)}
@@ -30,7 +30,7 @@ html[data-lab-theme=light] .theme-light{color:#fff}
 .lab-eyebrow,.lab-experience .lab-eyebrow{font:500 12px/1.5 'Space Grotesk',sans-serif;color:var(--lab-muted);letter-spacing:.12em;text-transform:uppercase;max-width:none;margin:0 0 24px}
 .lab-eyebrow span{color:var(--lab-ink);font-variant-numeric:tabular-nums}
 .lab-experience .lab-experience-hero h1{font:500 clamp(62px,7.5vw,120px)/.89 'Space Grotesk',sans-serif;letter-spacing:-.08em;max-width:none;text-wrap:initial;color:var(--lab-ink);margin:0 0 30px}
-.lab-experience .lab-experience-hero h1 em,.lab-library-heading h2 em,.lab-next h2 em{font:400 italic 1.16em/.85 'Instrument Serif',Georgia,serif;letter-spacing:-.035em}
+.lab-experience .lab-experience-hero h1 em,.lab-library-heading h2 em,.lab-next h2 em{font:400 italic 1.16em/.85 'Space Grotesk',Georgia,serif;letter-spacing:-.035em}
 .lab-experience .lab-experience-hero .lab-hero-lede{font:400 clamp(16px,1.3vw,19px)/1.6 'DM Sans',sans-serif;color:var(--lab-muted);max-width:36ch;margin:0 0 28px}
 .lab-hero-actions{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
 .lab-main-cta{min-height:51px;display:inline-flex;align-items:center;justify-content:space-between;gap:24px;background:#d6f477;color:#182111;border:1px solid #d6f477;text-decoration:none;font:600 15px/1.15 'DM Sans',sans-serif;padding:15px 18px 15px 22px;border-radius:999px;transition:transform .22s var(--ease-lab),background .22s;white-space:nowrap}
@@ -50,7 +50,7 @@ html[data-lab-theme=light] .theme-light{color:#fff}
 .cross-one{left:24px;top:72px}.cross-two{right:24px;bottom:125px}
 .lab-scene-caption{position:absolute;z-index:2;bottom:77px;left:25px;right:24px;pointer-events:none}
 .lab-scene-caption>span{font:500 10px/1.5 'Space Grotesk',sans-serif;letter-spacing:.12em;color:#d0d7c9}
-.lab-scene-caption strong{display:block;font:400 clamp(28px,3.7vw,55px)/.95 'Instrument Serif',Georgia,serif;margin:8px 0;color:#fffef4}
+.lab-scene-caption strong{display:block;font:400 clamp(28px,3.7vw,55px)/.95 'Space Grotesk',Georgia,serif;margin:8px 0;color:#fffef4}
 .lab-scene-caption p{font-size:12px;color:#d5ddcf;margin:5px 0;max-width:37ch}
 .lab-experience .lab-scene-button,.lab-scene-pause,.lab-scene-play{position:absolute;z-index:3;bottom:20px;min-height:44px;padding:10px 15px;border-radius:999px;border:1px solid #c8d9be70;background:#141e18d9;color:#f7faed;font:500 13px/1.2 'DM Sans',sans-serif}
 .lab-experience .lab-scene-button{left:24px;right:auto}

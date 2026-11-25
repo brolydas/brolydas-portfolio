@@ -173,7 +173,7 @@ function mountContactScene(section, host) {
   tree(106,ground,1.03,0);tree(610,ground,1.12,1);
   path(scene,'M8 288 Q174 286 333 288 T680 288 M8 299 Q174 297 333 299 T680 299',1);
   for(let x=12;x<W;x+=33)path(scene,'M'+x+' 289 l-2 9',.48);
-  // Bench and a small plant: a quiet place to meet.
+  // Bench and a small plant: a focused place to meet.
   const bench=el('g',{opacity:.82},scene);
   path(bench,'M166 258 L222 258 L222 262 L166 262Z M169 263 L169 280 M219 263 L219 280 M170 246 L218 246 L218 253 L170 253Z M172 253 L172 258 M216 253 L216 258',.8,true);
   path(scene,'M349 273 L364 273 L361 287 L352 287Z M357 273 Q343 257 349 254 Q357 252 357 273 M357 273 Q365 248 370 255 Q374 263 357 273',.8,true);

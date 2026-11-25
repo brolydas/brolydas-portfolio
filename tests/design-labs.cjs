@@ -24,7 +24,7 @@ const server=http.createServer(async(req,res)=>{try{let pathname=decodeURICompon
 await new Promise(resolve=>server.listen(8777,'127.0.0.1',resolve));
 let browser;
 try{
-browser=await chromium.launch();const context=await browser.newContext({viewport:{width:1440,height:1000},acceptDownloads:true});const page=await context.newPage();page.on('pageerror',error=>errors.push(error.message));const base='http://127.0.0.1:8777/';
+browser=await chromium.launch({channel:process.env.PLAYWRIGHT_CHANNEL||undefined});const context=await browser.newContext({viewport:{width:1440,height:1000},acceptDownloads:true});const page=await context.newPage();page.on('pageerror',error=>errors.push(error.message));const base='http://127.0.0.1:8777/';
 const open=async name=>{await page.goto(base+name);await page.waitForLoadState('domcontentloaded');};
 for(const name of pages){await open(name);if(name==='ui-ux-lab.html'||name==='ui-zoo.html')await page.locator('.ref-card').first().waitFor();if(name==='motion-lab.html')await page.locator('.motion-card').first().waitFor();for(const width of [320,390,768,1440]){await page.setViewportSize({width,height:1000});const layout=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth,client:document.documentElement.clientWidth,offscreen:[...document.querySelectorAll('h1,h2,nav,button,input')].filter(e=>{const r=e.getBoundingClientRect();return r.width&&(r.right>innerWidth+1||r.left<-1)}).map(e=>({tag:e.tagName,id:e.id,text:e.textContent.slice(0,50)})).slice(0,8)}));assert.ok(layout.scroll<=layout.width+1,name+' overflow at '+width+': '+JSON.stringify(layout));if([390,1440].includes(width)&&['ui-ux-lab.html','motion-lab.html','scroll-lab.html'].includes(name))await page.screenshot({path:path.join(output,name.replace('.html','')+'-'+width+'.png'),fullPage:true});}record('Responsive '+name,{widths:[320,390,768,1440]});}
 await page.setViewportSize({width:1440,height:1000});
@@ -57,6 +57,7 @@ await page.locator('#lab-playground-menu a[href="/motion-lab"]').hover();
 await page.waitForFunction(()=>!!document.querySelector('link[rel="prefetch"][href="/motion-lab"]'));
 await page.keyboard.press('Escape');record('Playground intent prefetch hints');
 await open('ui-ux-lab.html');await page.locator('#lab-dust').waitFor();assert.ok(await page.locator('#lab-dust').evaluate(e=>e.width>0&&e.height>0));
+console.log('VISUAL_UXCRAFT:'+(await page.screenshot({type:'jpeg',quality:40})).toString('base64'));
 await page.locator('.cinematic-pause').click();assert.equal(await page.locator('.cinematic-pause').getAttribute('aria-pressed'),'true');
 await page.locator('.cinematic-pause').click();assert.equal(await page.locator('.cinematic-pause').getAttribute('aria-pressed'),'false');
 await page.evaluate(()=>scrollTo(0,document.querySelector('.lab-cinematic').offsetTop+innerHeight));await page.waitForFunction(()=>Number(document.querySelector('[data-cinematic]').dataset.scrollPhase)>0);
@@ -92,13 +93,13 @@ await page.locator('.lab-theme-toggle').click();await page.screenshot({path:path
 await page.locator('.lab-theme-toggle').click();record('Live scene controls and persisted cross-lab theme');
 await open('ui-ux-lab.html');await page.locator('.ref-card').first().waitFor();
 assert.equal(await page.locator('html').getAttribute('data-lab-theme'),'dark');
-assert.equal(await page.locator('body').evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(16, 17, 16)');
+assert.equal(await page.locator('body').evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(17, 19, 23)');
 await page.locator('[data-open]').first().click();
-assert.equal(await page.locator('#detail-dialog').evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(27, 29, 26)');
+assert.equal(await page.locator('#detail-dialog').evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(28, 31, 36)');
 await page.keyboard.press('Escape');
 await page.locator('.lab-theme-toggle').click();
 assert.equal(await page.locator('html').getAttribute('data-lab-theme'),'light');
-await page.waitForFunction(()=>getComputedStyle(document.body).backgroundColor==='rgb(248, 247, 240)');
+await page.waitForFunction(()=>getComputedStyle(document.body).backgroundColor==='rgb(255, 255, 255)');
 await open('ui-zoo.html');assert.equal(await page.locator('html').getAttribute('data-lab-theme'),'light');
 await open('scroll-lab.html');assert.equal(await page.locator('html').getAttribute('data-lab-theme'),'light');
 await open('ui-ux-lab.html');await page.locator('.ref-card').first().waitFor();
