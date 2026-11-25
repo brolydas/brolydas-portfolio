@@ -13,6 +13,8 @@ assert.equal(await read('scroll-lab.html'),await read('scroll-lab-play.html'));
 assert.equal(await read('ui-zoo.html'),await read('ui-ux-lab.html'));
 assert.equal(await read('pepper-club.html'),await read('Pepper Club - Hot sauce, fermented slow.html'));
 const manifest=JSON.parse(await read('lab-data/manifest.json'));for(const [category,count]of Object.entries(manifest.counts)){assert.equal(JSON.parse(await read('lab-data/'+category+'.json')).length,count);}
+for(const file of ['work.html','projects.html','js/projects.js']){const src=await read(file);assert.match(src,/url:'\/ui-ux-lab\.html', linkLabel:'Open the lab'/,file+' portfolio lab CTA opens homepage');assert.ok(!src.includes("url:'/scroll-lab-play.html', linkLabel:'Open the lab'"),file+' no old CTA');}
+record('Portfolio Open the lab links target the cinematic homepage');
 record('Source syntax, landmarks, unique IDs, aliases and dataset counts');
 const server=http.createServer(async(req,res)=>{try{let pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname);if(exportsMap.has(pathname)){res.setHeader('Content-Type','text/html');res.end(exportsMap.get(pathname));return;}let file=path.resolve(root,'.'+pathname);if(file!==root&&!file.startsWith(root+path.sep)){res.writeHead(403).end();return;}if(!path.extname(file))file+='.html';const data=await fs.readFile(file);const ext=path.extname(file);res.setHeader('Content-Type',({'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.png':'image/png','.svg':'image/svg+xml'})[ext]||'text/plain');res.end(data);}catch{res.writeHead(404).end('Not found');}});
 await new Promise(resolve=>server.listen(8777,'127.0.0.1',resolve));
