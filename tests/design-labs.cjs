@@ -35,7 +35,26 @@ assert.ok(await page.locator('#lab-resources-menu').isVisible());await page.loca
 await page.waitForURL(u=>u.pathname.endsWith('/lab-resources.html')&&u.hash==='#wireframe',{waitUntil:'domcontentloaded'});assert.ok(await page.locator('#wireframe').isVisible());
 await page.locator('#wireframe a').click();await page.waitForURL(u=>u.pathname.endsWith('/lab-tools.html')&&u.searchParams.get('fidelity')==='lo'&&u.hash==='#studio',{waitUntil:'domcontentloaded'});assert.equal(await page.locator('#design-fidelity').inputValue(),'lo');
 await page.setViewportSize({width:320,height:800});await page.locator('[data-menu-trigger="resources"]').click();assert.ok(await page.locator('#lab-resources-menu').isVisible());assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await page.keyboard.press('Escape');await page.setViewportSize({width:1440,height:1000});
-for(const dest of ['scroll-lab.html','motion-lab.html','lab-tools.html']){await open('ui-ux-lab.html');await page.locator('[data-menu-trigger="playground"]').click();await Promise.all([page.waitForURL(u=>u.pathname.endsWith('/'+dest),{waitUntil:'domcontentloaded'}),page.locator('#lab-playground-menu a[href="/'+dest+'"]').click()]);assert.ok(await page.locator('main').isVisible());}record('Playground native navigation to all three labs');
+for(const dest of ['scroll-lab','motion-lab','lab-tools']){await open('ui-ux-lab.html');await page.locator('[data-menu-trigger="playground"]').click();await Promise.all([page.waitForURL(u=>u.pathname.endsWith('/'+dest),{waitUntil:'domcontentloaded'}),page.locator('#lab-playground-menu a[href="/'+dest+'"]').click()]);assert.ok(await page.locator('main').isVisible());}record('Playground native navigation to all three labs');
+const perfContext=await browser.newContext({viewport:{width:1280,height:900}});
+try{
+ const fastPage=await perfContext.newPage();
+ // Simulate a stalled third-party font stylesheet; local tools must still initialize.
+ let unblock;const fontGate=new Promise(resolve=>{unblock=resolve;});
+ await fastPage.route('https://fonts.googleapis.com/**',async route=>{await fontGate;await route.abort().catch(()=>{});});
+ try{
+  for(const [dest,ready] of [['scroll-lab','#stage'],['motion-lab','.motion-card'],['lab-tools','#tool-preview svg']]){
+   await fastPage.goto(base+dest,{waitUntil:'domcontentloaded',timeout:10000});
+   await fastPage.locator(ready).first().waitFor({state:'visible',timeout:5000});
+   assert.ok(await fastPage.locator('h1').isVisible());
+  }
+ }finally{unblock();}
+ record('All three lab pages initialize while external font CSS is stalled');
+}finally{await perfContext.close();}
+await open('ui-ux-lab.html');await page.locator('[data-menu-trigger="playground"]').click();
+await page.locator('#lab-playground-menu a[href="/motion-lab"]').hover();
+await page.waitForFunction(()=>!!document.querySelector('link[rel="prefetch"][href="/motion-lab"]'));
+await page.keyboard.press('Escape');record('Playground intent prefetch hints');
 await open('ui-ux-lab.html');await page.locator('#lab-dust').waitFor();assert.ok(await page.locator('#lab-dust').evaluate(e=>e.width>0&&e.height>0));
 await page.locator('.cinematic-pause').click();assert.equal(await page.locator('.cinematic-pause').getAttribute('aria-pressed'),'true');
 await page.locator('.cinematic-pause').click();assert.equal(await page.locator('.cinematic-pause').getAttribute('aria-pressed'),'false');
@@ -46,7 +65,7 @@ await page.waitForFunction(()=>+document.querySelector('.cinematic-card').style.
 const cardBounds=await page.locator('.cinematic-card').evaluateAll(els=>els.map(e=>{const r=e.getBoundingClientRect();return {left:r.left,right:r.right}}).sort((a,b)=>a.left-b.left));
 assert.ok(cardBounds[0].right<=cardBounds[1].left+8&&cardBounds[1].right<=cardBounds[2].left+8,'Final cards have minimal overlap: '+JSON.stringify(cardBounds));
 await page.screenshot({path:path.join(output,'cinematic-solid-cards.png')});
-await page.locator('.gateway-card[href="/motion-lab.html"]').click();await page.waitForURL(u=>u.pathname.endsWith('/motion-lab.html'));record('Particle homepage, pause, scroll chapters and gateway navigation');
+await page.locator('.gateway-card[href="/motion-lab"]').click();await page.waitForURL(u=>u.pathname.endsWith('/motion-lab'));record('Particle homepage, pause, scroll chapters and gateway navigation');
 record('Shared Playground and Resources menus, all 17 resource links, keyboard dismissal and mobile layout');
 await open('lab-tools.html');
 assert.equal(await page.locator('header .lab-portfolio').count(),0);

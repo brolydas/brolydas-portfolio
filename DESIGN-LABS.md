@@ -51,3 +51,6 @@ Cards fade only on entry, then remain opaque as the scroll sequence fans them in
 
 ## UXCraft branding
 Renamed the public-facing platform, lab headers, metadata, portfolio entries, cover artwork and generated motion credits to UXCraft. Existing routes and aliases remain unchanged; /uxcraft is an additional homepage entry route. No domain availability or trademark clearance is implied.
+
+## Navigation loading improvements
+Consolidated duplicate external font CSS into one shared nonblocking stylesheet (with a no-JavaScript fallback), deferred the optional Motion runtime, moved Scroll's entrance to native WAAPI, and used extensionless Playground links to avoid cleanUrls redirects. Hover/focus supplies low-priority document prefetch hints only when data-saving/slow-network preferences allow. On-demand specimen fonts also load nonblocking. Added browser tests for stalled font CSS and navigation intent. No live timing measurements yet.
