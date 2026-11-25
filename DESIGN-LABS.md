@@ -39,3 +39,6 @@ Removed personal portfolio navigation from the labs and their aliases; kept sour
 
 ## Public navigation
 Home and Templates remain direct links. Playground groups Scroll Lab, Motion Lab and Creative Studio (formerly Tools). Resources is a responsive two-column disclosure menu with all 17 capability entries from the supplied UX Pilot menu, using independent names for proprietary products. The resource directory labels available, limited and planned features and links to existing functionality. Menus support click/touch, keyboard, Escape, outside dismissal and reduced-motion; existing lab routes and aliases retained. AI model, agent, cloning, mockup and image-to-code features are not implemented. Browser checks added.
+
+## Navigation repair
+Removed synchronous dropdown dismissal during anchor activation and hover-triggered menu switching; links use ordinary native navigation. Browser tests now follow all three Playground links and wait for the theme transition to finish instead of asserting an intermediate color. Previous CI failures were a resource navigation timeout and an early CSS transition assertion; new browser run pending.

@@ -27,9 +27,10 @@ assert.equal(await page.locator('#lab-playground-menu a').count(),3);assert.ok(a
 await page.keyboard.press('Escape');assert.equal(await page.locator('[data-menu-trigger="playground"]').getAttribute('aria-expanded'),'false');
 await page.locator('[data-menu-trigger="resources"]').click();assert.equal(await page.locator('#lab-resources-menu .mega-link').count(),17);
 assert.ok(await page.locator('#lab-resources-menu').isVisible());await page.locator('#lab-resources-menu a[href="/lab-resources.html#wireframe"]').click();
-await page.waitForURL('**/lab-resources.html#wireframe');assert.ok(await page.locator('#wireframe').isVisible());
-await page.locator('#wireframe a').click();await page.waitForURL('**/lab-tools.html?fidelity=lo#studio');assert.equal(await page.locator('#design-fidelity').inputValue(),'lo');
+await page.waitForURL(u=>u.pathname.endsWith('/lab-resources.html')&&u.hash==='#wireframe',{waitUntil:'domcontentloaded'});assert.ok(await page.locator('#wireframe').isVisible());
+await page.locator('#wireframe a').click();await page.waitForURL(u=>u.pathname.endsWith('/lab-tools.html')&&u.searchParams.get('fidelity')==='lo'&&u.hash==='#studio',{waitUntil:'domcontentloaded'});assert.equal(await page.locator('#design-fidelity').inputValue(),'lo');
 await page.setViewportSize({width:320,height:800});await page.locator('[data-menu-trigger="resources"]').click();assert.ok(await page.locator('#lab-resources-menu').isVisible());assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await page.keyboard.press('Escape');await page.setViewportSize({width:1440,height:1000});
+for(const dest of ['scroll-lab.html','motion-lab.html','lab-tools.html']){await open('ui-ux-lab.html');await page.locator('[data-menu-trigger="playground"]').click();await Promise.all([page.waitForURL(u=>u.pathname.endsWith('/'+dest),{waitUntil:'domcontentloaded'}),page.locator('#lab-playground-menu a[href="/'+dest+'"]').click()]);assert.ok(await page.locator('main').isVisible());}record('Playground native navigation to all three labs');
 record('Shared Playground and Resources menus, all 17 resource links, keyboard dismissal and mobile layout');
 await open('lab-tools.html');
 assert.equal(await page.locator('header .lab-portfolio').count(),0);
@@ -61,7 +62,7 @@ assert.equal(await page.locator('#detail-dialog').evaluate(e=>getComputedStyle(e
 await page.keyboard.press('Escape');
 await page.locator('.lab-theme-toggle').click();
 assert.equal(await page.locator('html').getAttribute('data-lab-theme'),'light');
-assert.equal(await page.locator('body').evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(248, 247, 240)');
+await page.waitForFunction(()=>getComputedStyle(document.body).backgroundColor==='rgb(248, 247, 240)');
 await open('ui-zoo.html');assert.equal(await page.locator('html').getAttribute('data-lab-theme'),'light');
 await open('scroll-lab.html');assert.equal(await page.locator('html').getAttribute('data-lab-theme'),'light');
 await open('ui-ux-lab.html');await page.locator('.ref-card').first().waitFor();
