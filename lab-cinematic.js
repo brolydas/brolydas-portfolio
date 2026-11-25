@@ -27,7 +27,7 @@ function compose(){
   cards[i].style.height=mix(mobile?88:90,mobile?86:69,fan)+'%';
   cards[i].style.transform='translate(-50%,-50%) translate3d('+(offset*spacing+px*5*(1-fan))+'px,'+(-offset*mix(mobile?7:18,mobile?2:7,fan)+py*5*(1-fan))+'px,'+depth+'px) rotateY('+mix(-22+px*5,-3,fan)+'deg) rotateX('+mix(10+py*4,2,fan)+'deg) rotateZ('+(offset*mix(8,2,fan))+'deg) scale('+mix(.74+entry*.26,1,fan)+')';
  }
- bar.style.transform='scaleX('+p+')';const idx=p<.28?0:p<.72?1:2;stage.querySelector('#cinematic-chapter-no').textContent='0'+(idx+1)+' / 03';stage.querySelector('#cinematic-chapter-label').textContent=['The field','The layers','The flow'][idx];
+ bar.style.transform='scaleX('+p+')';const idx=p<.28?0:p<.72?1:2;stage.dataset.scrollPhase=String(idx);
 }
 function ensure(){if(visible&&!document.hidden&&!frame)frame=requestAnimationFrame(tick);}
 function tick(now){frame=0;if(!visible||document.hidden)return;const dt=last?Math.min(.05,(now-last)/1000):.016;last=now;if(!paused){clock+=dt;const a=1-Math.exp(-dt*7);p=mix(p,target,a);px=mix(px,tx,a);py=mix(py,ty,a);}else{p=target;px=py=0;}draw();compose();dirty=false;if(!paused)ensure();else last=0;}

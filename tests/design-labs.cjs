@@ -39,7 +39,7 @@ for(const dest of ['scroll-lab.html','motion-lab.html','lab-tools.html']){await 
 await open('ui-ux-lab.html');await page.locator('#lab-dust').waitFor();assert.ok(await page.locator('#lab-dust').evaluate(e=>e.width>0&&e.height>0));
 await page.locator('.cinematic-pause').click();assert.equal(await page.locator('.cinematic-pause').getAttribute('aria-pressed'),'true');
 await page.locator('.cinematic-pause').click();assert.equal(await page.locator('.cinematic-pause').getAttribute('aria-pressed'),'false');
-await page.evaluate(()=>scrollTo(0,document.querySelector('.lab-cinematic').offsetTop+innerHeight));await page.waitForFunction(()=>document.querySelector('#cinematic-chapter-label').textContent!=='The field');
+await page.evaluate(()=>scrollTo(0,document.querySelector('.lab-cinematic').offsetTop+innerHeight));await page.waitForFunction(()=>Number(document.querySelector('[data-cinematic]').dataset.scrollPhase)>0);
 await page.evaluate(()=>{const el=document.querySelector('.lab-cinematic'),stage=el.querySelector('.cinematic-sticky');scrollTo(0,el.offsetTop+el.offsetHeight-stage.offsetHeight-94);});
 await page.waitForFunction(()=>[...document.querySelectorAll('.cinematic-card')].every(e=>+getComputedStyle(e).opacity>.999));
 await page.waitForFunction(()=>+document.querySelector('.cinematic-card').style.getPropertyValue('--fan')>.98);
