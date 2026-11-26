@@ -1,3 +1,4 @@
+import {mountSideStack} from './side-stack';
 import {Player,Stage,Vector2} from '@motion-canvas/core';
 import {gsap} from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
@@ -72,23 +73,8 @@ export function mountHero(){
  gsap.fromTo(picture,{x:0,y:0,scale:1},{x:targetX,y:targetY,scale:targetScale,ease:'none',scrollTrigger:{trigger:section,start:'top top',end:'bottom bottom',scrub:.65,invalidateOnRefresh:true,onUpdate:self=>{picture.style.zIndex=self.progress>.06?'4':'1';stage.dataset.expansion=String(self.progress);}}});
  }
  },section);section.dataset.motion='gsap';}
- function ready(){if(document.documentElement.classList.contains('intro-active'))return;setup();mountCapabilitySprings();}
+ function ready(){if(document.documentElement.classList.contains('intro-active'))return;setup();mountSideStack();}
  media.add({wide:'(min-width:901px)',motion:'(prefers-reduced-motion: no-preference)'},scope=>{if(!scope.conditions?.motion)return;ready();document.addEventListener('portfolio:intro-ready',ready);document.addEventListener('portfolio:mode',setup);return()=>{context?.revert();document.removeEventListener('portfolio:intro-ready',ready);document.removeEventListener('portfolio:mode',setup);};});
  addEventListener('pagehide',e=>{if(!e.persisted)media.revert();},{once:true});
 }
 
-let capabilityMounted=false;
-function mountCapabilitySprings(){
- if(capabilityMounted)return;capabilityMounted=true;
- const panels=[...document.querySelectorAll<HTMLElement>('.capability-list article')];
- const media=gsap.matchMedia();
- media.add('(prefers-reduced-motion: no-preference) and (hover:hover) and (pointer:fine)',()=>{
- const cleanups=panels.map((panel,i)=>{
- const move=(event:PointerEvent)=>{const box=panel.getBoundingClientRect();const x=(event.clientX-box.left)/box.width-.5;gsap.to(panel,{rotation:gsap.utils.clamp(-2.4,2.4,x*4.8),y:-8,duration:.28,ease:'power2.out',overwrite:true});panel.dataset.spring='active';};
- const reset=()=>{gsap.to(panel,{rotation:0,y:0,duration:.95,ease:'elastic.out(.7,.3)',overwrite:true,onComplete:()=>{gsap.set(panel,{clearProps:'transform'});panel.dataset.spring='rest';}});};
- panel.addEventListener('pointermove',move);panel.addEventListener('pointerleave',reset);const focus=()=>{gsap.to(panel,{y:-6,duration:.2});};panel.addEventListener('focusin',focus);panel.addEventListener('focusout',reset);
- return()=>{panel.removeEventListener('pointermove',move);panel.removeEventListener('pointerleave',reset);panel.removeEventListener('focusout',reset);panel.removeEventListener('focusin',focus);gsap.killTweensOf(panel);gsap.set(panel,{clearProps:'transform'});panel.dataset.spring='rest';};
- });return()=>cleanups.forEach(fn=>fn());
- });
- addEventListener('pagehide',e=>{if(!e.persisted)media.revert();},{once:true});
-}

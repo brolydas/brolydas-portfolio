@@ -1,0 +1,40 @@
+
+/* The inquiry and About form one continuous, diagonally scrubbed story. */
+.side-stack-story{position:relative}
+.sheet-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.sheet-tags span{display:inline-flex;align-items:center;min-height:36px;padding:7px 12px;border:1px solid currentColor;border-radius:4px;font:500 14px/1.2 var(--body)}
+.side-sheet-content{display:grid;grid-template-columns:1fr 1fr;gap:6vw;width:100%;height:100%}
+.home-page .sheet-title h3{font:500 clamp(34px,4.3vw,66px)/1.02 var(--display);letter-spacing:-.055em;max-width:13ch}
+.sheet-text{display:flex;flex-direction:column;align-items:start;justify-content:center;min-width:0}
+.home-page .sheet-text p{font:400 18px/1.65 var(--body);max-width:38ch;margin:0 0 24px}
+.home-page .sheet-text a,.home-page .sheet-text button{margin-top:14px}
+.home-page .stack-about-panel{display:grid;grid-template-columns:1fr 1fr;gap:6vw;padding-block:60px}
+.home-page .stack-about-panel h2{font:600 clamp(38px,5vw,76px)/1 var(--display);letter-spacing:-.06em;margin:0}
+.home-page .capability-list article{min-height:460px!important}
+.home-page .side-stack-story .capability-list article:hover{z-index:6}
+.side-stack-story.side-stack-enhanced{height:530svh;margin-inline:var(--space)}
+.side-stack-enhanced .side-stack-stage{position:sticky;top:28px;height:calc(100svh - 100px);max-height:1000px;overflow:clip;isolation:isolate;perspective:1800px;border-radius:8px}
+.home-page .side-stack-enhanced #project-inquiry{position:absolute;inset:0;min-height:0;margin:0;padding:clamp(28px,4vw,64px);border:1px solid var(--line);border-radius:8px;background:var(--canvas);display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.home-page .side-stack-enhanced #inquiry-title{font-size:clamp(38px,5vw,76px);line-height:1;max-width:11ch}
+.home-page .side-stack-enhanced .inquiry-copy{display:flex;flex-direction:column;justify-content:center;align-items:start}
+.side-stack-enhanced .composition{align-self:center;min-width:0}
+.side-stack-enhanced .composition-controls{font-size:14px;gap:8px}
+.home-page .side-stack-enhanced #about{position:absolute;inset:0;min-height:0;margin:0;padding:0;border:0;display:block;pointer-events:none;overflow:visible}
+.home-page .side-stack-enhanced #about>div.stack-about-panel{display:grid;grid-template-columns:1fr 1fr;gap:6vw}
+.home-page .side-stack-enhanced .stack-about-panel{position:absolute;inset:0;background:#fff;color:#11151b;border:1px solid #c6ccd5;border-radius:8px;padding:clamp(28px,4vw,64px);pointer-events:auto;transform-origin:100% 100%}
+.home-page .side-stack-enhanced .stack-about-panel .sheet-text p{color:#414b58!important}
+.home-page .side-stack-enhanced .stack-about-panel [data-other-mode]{color:#11151b}
+.home-page .side-stack-enhanced .capability-list{position:absolute;inset:0;margin:0;padding:0;pointer-events:none}
+.home-page .side-stack-enhanced .capability-list article{position:absolute;inset:0;top:0;min-height:0!important;height:100%;margin:0!important;padding:0;border:0;border-radius:8px;pointer-events:auto;overflow:hidden;will-change:transform;transform-origin:100% 100%}
+.side-stack-enhanced .side-sheet-content{padding:clamp(28px,4vw,64px);border:1px solid #7d85933d;border-radius:8px;background:inherit;transform-origin:50% 100%}
+.side-stack-enhanced [data-side-sheet]{box-shadow:-12px -8px 36px #0002}
+.side-stack-enhanced [data-side-sheet=inquiry]{z-index:0}.side-stack-enhanced #about{z-index:1}
+.side-stack-enhanced [data-side-sheet=about]{z-index:1}
+.side-stack-enhanced [data-side-sheet=skill-0]{z-index:2}
+.side-stack-enhanced [data-side-sheet=skill-1]{z-index:3}
+.side-stack-enhanced [data-side-sheet=skill-2]{z-index:4}
+.side-stack-enhanced .sheet-text{justify-content:center}
+@media(max-width:760px){.home-page .stack-about-panel,.side-sheet-content{display:block}.home-page .stack-about-panel .sheet-text{margin-top:28px}.home-page .capability-list .side-sheet-content{padding:0}.sheet-tags{margin-top:24px;margin-bottom:24px}.home-page .capability-list article{padding:28px!important;min-height:400px!important}.home-page .sheet-title h3{font-size:36px;margin:0 0 24px}.home-page .sheet-text p{font-size:17px}.home-page #about{padding-top:60px}}
+@media(prefers-reduced-motion:reduce){.side-stack-story{height:auto}.side-stack-stage{position:static}.side-sheet-content{transform:none!important}.home-page .capability-list article{transform:none!important}}
+
+.home-page #about>.capability-list{display:block}.home-page .capability-list article{display:block}

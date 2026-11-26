@@ -11,6 +11,7 @@ on:
       - 'vercel.json'
       - 'tests/scroll-flow.cjs'
       - 'tests/project-flow.cjs'
+      - 'tests/side-stack.cjs'
       - 'js/**'
       - 'tests/premium.cjs'
       - 'ui-zoo.html'
@@ -47,6 +48,8 @@ jobs:
           else
             /tmp/lab-check/node_modules/.bin/playwright install --with-deps chromium
           fi
+      - name: Verify sideways scroll stack
+        run: NODE_PATH=/tmp/lab-check/node_modules node tests/side-stack.cjs
       - name: Verify reference project interactions
         run: NODE_PATH=/tmp/lab-check/node_modules node tests/project-flow.cjs
       - name: Verify six-part portfolio flow
