@@ -53,3 +53,10 @@ html[data-mode=intelligence] .capability-list article:first-child{color:#fff}
 .detail-visit{display:inline-flex;align-items:center;padding:14px 20px;min-height:48px;background:var(--studio-accent);color:#111;text-decoration:none}
 html[data-mode=intelligence] .detail-visit{color:#fff}
 @media(max-width:600px){.archive-heading{display:block}.archive-heading h1{font-size:46px;max-width:10ch;margin-bottom:24px}.project-detail{padding:24px}.archive-browser .section-wrap{padding-top:40px}.archive-browser .project-cover{max-height:none}}
+
+/* Keep the vendor control intact; use its public tokens for the portfolio palette. */
+:root{--sk-card:var(--canvas);--sk-ink:var(--ink);--sk-pri:var(--studio-accent);--sk-acc:var(--studio-accent);--sk-bw:2px}
+.project-browse{display:flex;gap:18px;align-items:center;min-width:0;font-size:14px}
+.project-browse sakuga-slider{--sk-slider-width:230px;flex:none}
+.project-rail-controls{padding-top:12px;overflow:visible}
+@media(max-width:600px){.project-rail-controls{gap:10px;flex-wrap:wrap}.project-browse{gap:10px}.project-browse>span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}.project-browse sakuga-slider{--sk-slider-width:140px}.project-rail-controls>button{padding-inline:12px}}
