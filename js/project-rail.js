@@ -16,9 +16,9 @@ export function renderProjectRail(root,projects,mode){
  let pointer=null,dragged=false;
  rail.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'||e.button!==0)return;pointer={id:e.pointerId,x:e.clientX,left:rail.scrollLeft};dragged=false;});
  const move=e=>{if(!pointer||e.pointerId!==pointer.id)return;const dx=e.clientX-pointer.x;if(Math.abs(dx)>6){dragged=true;rail.classList.add('is-dragging');rail.scrollLeft=pointer.left-dx;e.preventDefault();}};
- const release=()=>{pointer=null;rail.classList.remove('is-dragging');setTimeout(()=>{dragged=false;},0);};
+ const release=()=>{pointer=null;rail.classList.remove('is-dragging');};
  rail.addEventListener('pointermove',move);window.addEventListener('pointerup',release);
- rail.addEventListener('click',e=>{if(dragged){e.preventDefault();dragged=false;}},true);
+ rail.addEventListener('click',e=>{if(dragged){e.preventDefault();e.stopPropagation();dragged=false;}},true);
  rail.addEventListener('dragstart',e=>e.preventDefault());
  const ro=new ResizeObserver(selected);ro.observe(rail);draw();
  root._dispose=()=>{disposed=true;cleanup.forEach(fn=>fn());ro.disconnect();window.removeEventListener('pointerup',release);};
