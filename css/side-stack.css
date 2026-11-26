@@ -11,7 +11,7 @@
 .home-page .stack-about-panel{display:grid;grid-template-columns:1fr 1fr;gap:6vw;padding-block:60px}
 .home-page .stack-about-panel h2{font:600 clamp(38px,5vw,76px)/1 var(--display);letter-spacing:-.06em;margin:0}
 .home-page .capability-list article{min-height:460px!important}
-.home-page .side-stack-story .capability-list article:hover{z-index:6}
+
 .side-stack-story.side-stack-enhanced{height:530svh;margin-inline:var(--space)}
 .side-stack-enhanced .side-stack-stage{position:sticky;top:28px;height:calc(100svh - 100px);max-height:1000px;overflow:clip;isolation:isolate;perspective:1800px;border-radius:8px}
 .home-page .side-stack-enhanced #project-inquiry{position:absolute;inset:0;min-height:0;margin:0;padding:clamp(28px,4vw,64px);border:1px solid var(--line);border-radius:8px;background:var(--canvas);display:grid;grid-template-columns:1fr 1fr;gap:40px}
