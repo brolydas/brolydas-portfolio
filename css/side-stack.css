@@ -38,3 +38,5 @@
 @media(prefers-reduced-motion:reduce){.side-stack-story{height:auto}.side-stack-stage{position:static}.side-sheet-content{transform:none!important}.home-page .capability-list article{transform:none!important}}
 
 .home-page #about>.capability-list{display:block}.home-page .capability-list article{display:block}
+
+.home-page .side-stack-story:not(.side-stack-enhanced) .capability-list article{position:relative;top:auto;margin-top:0!important}
