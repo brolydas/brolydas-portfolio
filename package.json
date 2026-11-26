@@ -1,1 +1,8 @@
-{"name":"design-intelligence-portfolio","private":true,"type":"module"}
+{
+  "name": "design-intelligence-portfolio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "npm install --prefix motion/portfolio --no-audit --no-fund && npm run build --prefix motion/portfolio && node scripts/build-static.mjs"
+  }
+}

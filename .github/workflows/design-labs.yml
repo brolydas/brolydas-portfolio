@@ -5,6 +5,13 @@ on:
       - '**lab**'
       - '**.html'
       - 'css/**'
+      - 'motion/**'
+      - 'scripts/**'
+      - 'package.json'
+      - 'vercel.json'
+      - 'tests/scroll-flow.cjs'
+      - 'tests/project-flow.cjs'
+      - 'tests/side-stack.cjs'
       - 'js/**'
       - 'tests/premium.cjs'
       - 'ui-zoo.html'
@@ -29,6 +36,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Build the Motion Canvas composition
+        run: npm run build
       - name: Install pinned browser test runtime
         run: npm install --prefix /tmp/lab-check --no-package-lock --no-save playwright@1.56.1
       - name: Install Chromium
@@ -39,6 +48,12 @@ jobs:
           else
             /tmp/lab-check/node_modules/.bin/playwright install --with-deps chromium
           fi
+      - name: Verify sideways scroll stack
+        run: NODE_PATH=/tmp/lab-check/node_modules node tests/side-stack.cjs
+      - name: Verify reference project interactions
+        run: NODE_PATH=/tmp/lab-check/node_modules node tests/project-flow.cjs
+      - name: Verify six-part portfolio flow
+        run: NODE_PATH=/tmp/lab-check/node_modules node tests/scroll-flow.cjs
       - name: Verify source, routes, controls and exports
         run: NODE_PATH=/tmp/lab-check/node_modules node tests/design-labs.cjs
       - name: Verify portfolio redesign and modes

@@ -1,9 +1,7 @@
-/* Pointer-led image planes. No scroll reveals; reduced motion keeps a still composition. */
-(()=>{const hero=document.querySelector('.home-page .hero');if(!hero)return;
-const reduce=matchMedia('(prefers-reduced-motion: reduce)');let frame=0,nextX=0,nextY=0;
-function paint(){frame=0;hero.style.setProperty('--hero-x',nextX+'px');hero.style.setProperty('--hero-y',nextY+'px');}
-function reset(){nextX=nextY=0;if(!frame)frame=requestAnimationFrame(paint);}
-hero.addEventListener('pointermove',e=>{if(reduce.matches||e.pointerType==='touch')return;const r=hero.getBoundingClientRect();nextX=(e.clientX-r.left-r.width/2)*.018;nextY=(e.clientY-r.top-r.height/2)*.018;if(!frame)frame=requestAnimationFrame(paint);},{passive:true});
-hero.addEventListener('pointerleave',reset);reduce.addEventListener('change',reset);
-addEventListener('pagehide',()=>{if(frame)cancelAnimationFrame(frame);});
+/* A bounded, skippable load sequence; failed scripts never hide the page. */
+(()=>{const hero=document.querySelector('#hero');if(!hero)return;const reduce=matchMedia('(prefers-reduced-motion: reduce)');if(reduce.matches)return;let dialog,timer,finished=false;
+function finish(){if(finished)return;finished=true;clearTimeout(timer);if(dialog){dialog.close();dialog.remove();}document.documentElement.classList.remove('intro-active');document.dispatchEvent(new Event('portfolio:intro-ready'));}
+if(!reduce.matches&&scrollY<20){dialog=document.createElement('dialog');dialog.className='portfolio-intro';dialog.setAttribute('aria-label','Portfolio introduction');dialog.innerHTML='<div class="intro-letters" aria-hidden="true">'+Array.from(new URLSearchParams(location.search).get('mode')==='intelligence'?'THARUN':'BROLY').map(c=>'<span>'+c+'</span>').join('')+'</div><p>Preparing the work</p><button type="button">Skip intro</button>';document.body.append(dialog);document.documentElement.classList.add('intro-active');dialog.showModal();dialog.querySelector('button').addEventListener('click',finish);dialog.addEventListener('cancel',e=>{e.preventDefault();finish();});timer=setTimeout(finish,2800);reduce.addEventListener('change',()=>{if(reduce.matches)finish();},{once:true});}
+import('/assets/portfolio-flow/runtime.js').then(m=>{m.mountHero?.();if(dialog&&!finished)m.runIntro?.(dialog,finish);else finish();}).catch(()=>{hero.dataset.motion='still';finish();});
+addEventListener('pagehide',finish,{once:true});
 })();
