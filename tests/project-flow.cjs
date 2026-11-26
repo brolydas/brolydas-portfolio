@@ -4,8 +4,7 @@ const {chromium}=require('playwright');
 try{browser=await chromium.launch({channel:process.env.PLAYWRIGHT_CHANNEL||undefined});const context=await browser.newContext({viewport:{width:1440,height:1000}}),page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
 const base='http://127.0.0.1:8782/';
 await page.goto(base);await page.waitForFunction(()=>!document.querySelector('.portfolio-intro'));await page.waitForTimeout(1500);
-await page.evaluate(()=>scrollTo(0,document.querySelector('#hero').offsetTop+innerHeight*.82));await page.waitForTimeout(1100);const film=await page.locator('.hero-visual').boundingBox();assert.ok(film.width>=innerWidthFrom(1440)*.96,'Media fills viewport '+film.width);await page.screenshot({path:path.join(output,'expanded-media.png')});
-function innerWidthFrom(n){return n;}
+await page.evaluate(()=>scrollTo(0,document.querySelector('#hero').offsetTop+innerHeight*.82));await page.waitForTimeout(1100);const film=await page.locator('.hero-visual').boundingBox();assert.ok(film.width>=1440*.96,'Media fills viewport '+film.width);await page.screenshot({path:path.join(output,'expanded-media.png')});
 await page.locator('#featured-projects').scrollIntoViewIfNeeded();assert.equal(await page.locator('.project-tile').count(),4);
 await page.locator('[data-rail-next]').click();await page.waitForFunction(()=>document.querySelector('.project-rail').scrollLeft>100);
 await page.locator('[data-project-filter=motion]').click();assert.equal(await page.locator('.project-tile').count(),1);assert.equal(await page.locator('.project-tile').getAttribute('data-project-id'),'scroll');
