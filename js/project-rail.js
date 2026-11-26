@@ -16,7 +16,7 @@ export function renderProjectRail(root,projects,mode){
  let pointer=null,dragged=false;
  rail.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'||e.button!==0)return;pointer={id:e.pointerId,x:e.clientX,left:rail.scrollLeft};dragged=false;});
  const move=e=>{if(!pointer||e.pointerId!==pointer.id)return;const dx=e.clientX-pointer.x;if(Math.abs(dx)>6){dragged=true;rail.classList.add('is-dragging');rail.scrollLeft=pointer.left-dx;e.preventDefault();}};
- const release=()=>{pointer=null;rail.classList.remove('is-dragging');};
+ const release=()=>{pointer=null;rail.classList.remove('is-dragging');setTimeout(()=>{dragged=false;},0);};
  rail.addEventListener('pointermove',move);window.addEventListener('pointerup',release);
  rail.addEventListener('click',e=>{if(dragged){e.preventDefault();dragged=false;}},true);
  rail.addEventListener('dragstart',e=>e.preventDefault());
@@ -25,6 +25,7 @@ export function renderProjectRail(root,projects,mode){
 }
 function attachPixels(cover){
  const canvas=cover.querySelector('canvas'),image=cover.querySelector('img'),context=canvas.getContext('2d');let frame=0,until=0,px=.5,py=.5;
+ if(!context)return()=>{};
  function clear(){if(frame)cancelAnimationFrame(frame);frame=0;context?.clearRect(0,0,canvas.width,canvas.height);delete cover.dataset.pixelActive;}
  function paint(now){frame=0;if(reduce.matches||now>until||document.hidden||!cover.isConnected){clear();return;}const box=cover.getBoundingClientRect();canvas.width=Math.round(box.width);canvas.height=Math.round(box.height);const w=canvas.width,h=canvas.height,size=Math.max(13,Math.round(w/16)),fade=Math.min(1,(until-now)/180);
  context.clearRect(0,0,w,h);context.imageSmoothingEnabled=false;
