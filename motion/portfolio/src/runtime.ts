@@ -16,7 +16,7 @@ export function mountFlow(){
  const stage=new Stage(),size=new Vector2(960,640);
  stage.configure({size,resolutionScale:1,background:'#e8ebef'});
  const canvas=stage.finalBuffer;canvas.setAttribute('aria-hidden','true');board.append(canvas);
- project.logger.onLogged.subscribe(event=>console.warn('Motion Canvas:',event));
+ 
  const player=new Player(project,{size,fps:30,resolutionScale:1},{loop:false,muted:true});
  let duration=0,visible=false,paused=false,ready=false,disposed=false,manual=false,progress=0;
  const state={progress:0};
@@ -58,7 +58,7 @@ export function mountHero(){
  const media=gsap.matchMedia();let context:gsap.Context|undefined,first=true;
  function setup(){context?.revert();context=gsap.context(()=>{
  const picture=section.querySelector<HTMLElement>('.hero-visual');if(!picture)return;
- const lines=section.querySelectorAll<HTMLElement>('[data-hero-line]');
+ const lines=section.querySelectorAll<HTMLElement>('[data-hero-line]');lines.forEach(line=>line.removeAttribute('aria-label'));
  if(first){lines.forEach(line=>{line.setAttribute('aria-label',line.textContent||'');const text=line.textContent||'';line.textContent='';for(const c of text){const span=document.createElement('span');span.className='hero-glyph';span.setAttribute('aria-hidden','true');span.textContent=c;line.append(span);}});
  const glyphs=section.querySelectorAll<HTMLElement>('.hero-glyph');
  gsap.from(glyphs,{x:(_i:number,el:HTMLElement)=>innerWidth*.48-(el.getBoundingClientRect().left+el.offsetWidth/2),y:(_i:number,el:HTMLElement)=>innerHeight*.42-(el.getBoundingClientRect().top+el.offsetHeight/2),rotation:(i:number)=>(i%2?1:-1)*(18+i*2),scale:.08,duration:1.05,stagger:{each:.025,from:'center'},ease:'power3.inOut',clearProps:'transform,willChange'});
