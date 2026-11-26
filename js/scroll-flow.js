@@ -8,3 +8,6 @@ async function loadMotion(){if(reduce.matches||loading)return;loading=import('/a
 const observer=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting))loadMotion();},{rootMargin:'600px'});observer.observe(board);
 reduce.addEventListener('change',()=>{if(!reduce.matches)loadMotion();});
 addEventListener('pagehide',()=>observer.disconnect(),{once:true});
+
+function syncSheetTags(){const intelligent=document.documentElement.dataset.mode==='intelligence';const groups=intelligent?[['Retrieval systems','Model development'],['Embedding search','Agent orchestration'],['Vision pipelines','Camera interaction'],['PyTorch','Evaluation']]:[['Interface design','Creative development'],['Product browsing','Interaction feedback'],['Scroll studies','Animation exports'],['Canvas interaction','Input & sound']];document.querySelectorAll('.sheet-tags').forEach((group,i)=>group.querySelectorAll('span').forEach((span,j)=>{span.textContent=groups[i]?.[j]||span.textContent;}));}
+syncSheetTags();document.addEventListener('portfolio:mode',syncSheetTags);
