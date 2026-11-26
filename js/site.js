@@ -1,3 +1,4 @@
+import {renderProjectRail} from './project-rail.js';
 import {prepareLiquidTransition,cancelLiquidTransition} from './liquid-transition.js';
 import {projects,modeFromURL,escapeHTML as esc} from './projects.js';
 import {PortfolioAudio} from './audio.js';
@@ -22,7 +23,7 @@ function renderHeroVisual(){
  }
 }
 function diagramMarkup(p){return `<div class="diagram-preview" aria-label="${esc(p.title)} architecture">${p.diagram.map((n,i)=>`<div class="diagram-node">${esc(n)}<span aria-hidden="true">${i===p.diagram.length-1?'●':'↓'}</span></div>`).join('')}</div>`;}
-function renderFeatured(){const el=document.querySelector('#featured-projects');if(!el)return;const selection=mode==='design'?projects.design.slice(0,3):[projects.intelligence[0],projects.intelligence[3],projects.intelligence[6]];el.innerHTML=selection.map(p=>`<article class="feature" style="--project-color:${p.color}"><a class="feature-visual" href="/work.html?mode=${mode}&project=${p.id}#project-index" aria-label="Read about ${esc(p.title)}">${p.image?`<span class="image-fallback" aria-hidden="true">${esc(p.title)}</span><img loading="lazy" decoding="async" src="${esc(p.image)}" alt="${esc(p.title)} project preview">`:diagramMarkup(p)}</a><div class="feature-copy"><div class="feature-meta"><span>${esc(p.kind)}</span><span>Selected work</span></div><h3>${esc(p.title)}</h3><p>${esc(p.description)}</p><a class="text-link" href="/work.html?mode=${mode}&project=${p.id}#project-index">View project <span aria-hidden="true"></span></a></div></article>`).join('');el.querySelectorAll('img').forEach(img=>img.addEventListener('error',()=>img.classList.add('failed'),{once:true}));}
+function renderFeatured(){const el=document.querySelector('#featured-projects');if(el)renderProjectRail(el,projects[mode],mode);}
 function kineticTitle(){if(simpleMotion)return;document.querySelectorAll('[data-hero-line]').forEach(el=>{let i=0;const walk=node=>{for(const child of Array.from(node.childNodes)){if(child.nodeType===Node.TEXT_NODE){const fragment=document.createDocumentFragment();for(const char of child.textContent){if(char===' '){fragment.append(' ');continue;}const span=document.createElement('span');span.className='letter';span.style.setProperty('--i',i++);span.textContent=char;fragment.append(span);}child.replaceWith(fragment);}else walk(child);}};el.setAttribute('aria-label',el.textContent);walk(el);el.querySelectorAll('.letter').forEach(x=>x.setAttribute('aria-hidden','true'));});}
 let modeFlow=null;
 export function setMode(next,options={}){
