@@ -1,0 +1,26 @@
+@font-face{font-family:Silkscreen;src:url('/assets/fonts/silkscreen-hero-400.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:Silkscreen;src:url('/assets/fonts/silkscreen-hero-700.ttf') format('truetype');font-weight:700;font-style:normal;font-display:swap}
+/* Modular, staggered words and one image crossing their plane. */
+.home-page #hero{padding:0;display:block;overflow:visible}
+.home-page #hero .hero-film-stage{display:block;position:relative;padding:52px 0 64px;height:auto;overflow:hidden}
+.home-page #hero .hero-copy{position:relative;display:block;z-index:2}
+.home-page #hero #hero-title{font-family:Silkscreen,monospace;font-weight:700;font-size:24vw;line-height:.88;letter-spacing:-.04em;text-transform:uppercase;color:var(--studio-accent);max-width:none;margin:0;width:100%;text-wrap:initial}
+.home-page #hero .title-line{display:block;white-space:nowrap;padding:0;margin:0;line-height:.88}
+.home-page #hero .title-line.second{font-family:Silkscreen,monospace;font-weight:400;font-size:20vw;text-align:right;padding:0 1vw 0 0;margin:0;line-height:.94;letter-spacing:-.045em}
+html[data-mode=intelligence] .home-page #hero #hero-title{font-size:10.3vw}
+html[data-mode=intelligence] .home-page #hero .title-line.second{font-size:14.5vw}
+.home-page #hero .hero-bottom{margin:48px var(--space) 0;width:32%;gap:20px;align-items:flex-start}
+.home-page #hero .hero-bottom p{font-size:clamp(16px,1.15vw,19px);max-width:32ch}
+.home-page #hero .hero-visual{position:absolute;right:5vw;left:auto;top:8vw;width:27vw;height:19vw;min-height:0;margin:0;z-index:3;overflow:visible}
+.home-page #hero .hero-art-main{position:absolute;inset:0;transform:rotate(12deg);border-radius:22px;box-shadow:12px 24px 32px #0004;overflow:hidden}
+.home-page #hero .hero-art-main img{filter:none!important;object-fit:cover}
+.home-page #hero .hero-system{transform:rotate(10deg);border-radius:18px;padding:20px;overflow:hidden}
+.home-page #hero .hero-system .system-title{font-size:clamp(18px,2.3vw,34px)}
+.home-page #hero .hero-system .system-flow{gap:6px}
+.home-page #hero .hero-system .system-node{min-height:32px}
+.home-page #hero .hero-system .system-node strong{font-size:clamp(10px,.9vw,14px)}
+.home-page #hero .hero-system .system-foot{font-size:12px}
+html[data-mode=intelligence] .home-page #hero .hero-visual{top:5vw;width:27vw;height:20vw}
+@media(min-width:901px) and (prefers-reduced-motion:no-preference){.home-page #hero{height:190svh;min-height:0}.home-page #hero .hero-film-stage{position:sticky;top:0;height:100svh;min-height:0;padding-top:40px}}
+@media(max-width:900px){.home-page #hero{height:auto;min-height:0}.home-page #hero .hero-film-stage{padding-top:52px}.home-page #hero .hero-bottom{width:44%}.home-page #hero .hero-visual{top:12vw;width:33vw;height:25vw}html[data-mode=intelligence] .home-page #hero .hero-visual{top:7vw;width:31vw;height:24vw}.home-page #hero .hero-system .system-flow{display:none}}
+@media(max-width:600px){.home-page #hero .hero-film-stage{padding:44px 0 50px}.home-page #hero .hero-visual{top:24vw;right:5vw;width:38vw;height:29vw}.home-page #hero .hero-art-main{border-radius:12px}.home-page #hero .hero-bottom{width:auto;margin:40px 22px 0}.home-page #hero .hero-bottom p{max-width:29ch}.home-page #hero .hero-system{padding:12px;border-radius:12px}.home-page #hero .hero-system .system-title{font-size:18px}.home-page #hero .hero-system .system-foot{display:none}html[data-mode=intelligence] .home-page #hero .hero-visual{top:15vw;width:37vw;height:27vw}html[data-mode=intelligence] .home-page #hero .hero-bottom{margin-top:64px}}
