@@ -3,6 +3,8 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)');
 const groups={design:[['all','All projects'],['interface','Interfaces'],['motion','Motion'],['play','Play']],intelligence:[['all','All projects'],['retrieval','Retrieval'],['vision','Vision'],['systems','Systems']]};
 function category(p,mode){if(mode==='design')return p.id==='games'?'play':p.id==='scroll'?'motion':'interface';return ['rag','semantic','research','multimodal'].includes(p.id)?'retrieval':['vision','sudoku'].includes(p.id)?'vision':'systems';}
 export function renderProjectRail(root,projects,mode){
+ // The vendor exposes its smoke palette; keep its bundled effects unchanged.
+ if(window.SakugaFX)Object.assign(window.SakugaFX.P,mode==='intelligence'?{fill:'#eaf0ff',shade:'#8eabff',line:'#2454ed'}:{fill:'#f2ffd2',shade:'#c8ff5f',line:'#739b24'});
  root._dispose?.();let disposed=false,cleanup=[],index=0,list=projects;
  root.classList.add('project-gallery');
  root.innerHTML='<div class="project-filters" role="group" aria-label="Filter selected work">'+groups[mode].map(([id,title])=>'<button type="button" data-project-filter="'+id+'" aria-pressed="'+(id==='all')+'">'+title+'</button>').join('')+'</div><div class="project-rail" tabindex="0" role="region" aria-label="Project gallery. Use Left and Right to browse."></div><div class="project-rail-controls"><button type="button" data-rail-prev>Previous</button><div class="project-browse"><span>Browse projects</span><sakuga-slider value="0" min="0" max="100" step="1" unit="%" label="Browse projects" name="project-position"></sakuga-slider></div><button type="button" data-rail-next>Next</button><p class="sr-only" aria-live="polite" data-rail-status></p></div>';
