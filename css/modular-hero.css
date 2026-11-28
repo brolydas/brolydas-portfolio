@@ -24,3 +24,17 @@ html[data-mode=intelligence] .home-page #hero .hero-visual{top:5vw;width:27vw;he
 @media(min-width:901px) and (prefers-reduced-motion:no-preference){.home-page #hero{height:190svh;min-height:0}.home-page #hero .hero-film-stage{position:sticky;top:0;height:100svh;min-height:0;padding-top:40px}}
 @media(max-width:900px){.home-page #hero{height:auto;min-height:0}.home-page #hero .hero-film-stage{padding-top:52px}.home-page #hero .hero-bottom{width:44%}.home-page #hero .hero-visual{top:12vw;width:33vw;height:25vw}html[data-mode=intelligence] .home-page #hero .hero-visual{top:7vw;width:31vw;height:24vw}.home-page #hero .hero-system .system-flow{display:none}}
 @media(max-width:600px){.home-page #hero .hero-film-stage{padding:44px 0 50px}.home-page #hero .hero-visual{top:24vw;right:5vw;width:38vw;height:29vw}.home-page #hero .hero-art-main{border-radius:12px}.home-page #hero .hero-bottom{width:auto;margin:40px 22px 0}.home-page #hero .hero-bottom p{max-width:29ch}.home-page #hero .hero-system{padding:12px;border-radius:12px}.home-page #hero .hero-system .system-title{font-size:18px}.home-page #hero .hero-system .system-foot{display:none}html[data-mode=intelligence] .home-page #hero .hero-visual{top:15vw;width:37vw;height:27vw}html[data-mode=intelligence] .home-page #hero .hero-bottom{margin-top:64px}}
+
+/* Preserve the word shapes while keeping the media across the type's plane. */
+.home-page #hero .hero-visual{background:transparent!important;box-shadow:none;top:16vw}
+.home-page #hero .hero-bottom .text-link{align-self:flex-start}
+html[data-mode=intelligence] .home-page #hero .hero-visual{left:10vw;right:auto;top:10vw;width:25vw;height:17vw}
+.home-page #hero .hero-system .system-flow{display:none}
+@media(max-width:900px) and (min-width:601px){html[data-mode=intelligence] .home-page #hero .hero-visual{left:8vw;top:12vw;width:28vw;height:20vw}.home-page #hero .hero-visual{top:20vw}}
+@media(max-width:600px){
+ .home-page #hero .hero-film-stage{display:grid;grid-template-columns:1fr}
+ .home-page #hero .hero-copy{display:contents}
+ .home-page #hero #hero-title{grid-row:1}
+ .home-page #hero .hero-visual,html[data-mode=intelligence] .home-page #hero .hero-visual{grid-row:2;position:relative;left:auto;right:auto;top:auto;inset:auto;width:50vw;height:34vw;margin:-2vw 7vw 0 auto}
+ .home-page #hero .hero-bottom,html[data-mode=intelligence] .home-page #hero .hero-bottom{grid-row:3;margin:32px 22px 0}
+}
