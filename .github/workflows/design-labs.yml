@@ -13,6 +13,8 @@ on:
       - 'tests/project-flow.cjs'
       - 'tests/side-stack.cjs'
       - 'js/**'
+      - 'slider.js'
+      - 'tests/sakuga-slider.cjs'
       - 'tests/premium.cjs'
       - 'ui-zoo.html'
       - 'ui-ux-experiments.html'
@@ -48,6 +50,8 @@ jobs:
           else
             /tmp/lab-check/node_modules/.bin/playwright install --with-deps chromium
           fi
+      - name: Verify Sakuga slider integration
+        run: NODE_PATH=/tmp/lab-check/node_modules node tests/sakuga-slider.cjs
       - name: Verify sideways scroll stack
         run: NODE_PATH=/tmp/lab-check/node_modules node tests/side-stack.cjs
       - name: Verify reference project interactions
