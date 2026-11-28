@@ -68,8 +68,9 @@ export function mountHero(){
  const stage=section.querySelector<HTMLElement>('.hero-film-stage');
  if(!stage||innerWidth<901)return;
  const width=picture.offsetWidth,height=picture.offsetHeight;
- const targetScale=Math.max(innerWidth/width,innerHeight/height);
+ const targetScale=Math.max(innerWidth/width,innerHeight/height)*1.08;
  const targetX=innerWidth/2-(picture.offsetLeft+width/2),targetY=innerHeight/2-(picture.offsetTop+height/2);
+ const card=picture.querySelector<HTMLElement>('.hero-art-main,.hero-system');if(card)gsap.to(card,{rotation:0,borderRadius:0,ease:'none',scrollTrigger:{trigger:section,start:'top top',end:'bottom bottom',scrub:.65,invalidateOnRefresh:true}});
  gsap.fromTo(picture,{x:0,y:0,scale:1},{x:targetX,y:targetY,scale:targetScale,ease:'none',scrollTrigger:{trigger:section,start:'top top',end:'bottom bottom',scrub:.65,invalidateOnRefresh:true,onUpdate:self=>{picture.style.zIndex=self.progress>.06?'4':'3';stage.dataset.expansion=String(self.progress);}}});
  }
  },section);section.dataset.motion='gsap';}

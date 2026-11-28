@@ -18,7 +18,7 @@ html[data-mode=intelligence] .home-page #hero .title-line.second{font-size:14.5v
 .home-page #hero .hero-system .system-title{font-size:clamp(18px,2.3vw,34px)}
 .home-page #hero .hero-system .system-flow{gap:6px}
 .home-page #hero .hero-system .system-node{min-height:32px}
-.home-page #hero .hero-system .system-node strong{font-size:clamp(10px,.9vw,14px)}
+.home-page #hero .hero-system .system-node strong{font-size:14px}
 .home-page #hero .hero-system .system-foot{font-size:12px}
 html[data-mode=intelligence] .home-page #hero .hero-visual{top:5vw;width:27vw;height:20vw}
 @media(min-width:901px) and (prefers-reduced-motion:no-preference){.home-page #hero{height:190svh;min-height:0}.home-page #hero .hero-film-stage{position:sticky;top:0;height:100svh;min-height:0;padding-top:40px}}
