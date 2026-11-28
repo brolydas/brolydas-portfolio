@@ -58,3 +58,5 @@ html[data-mode=intelligence] .home-page .flow-primary{color:#fff}
 .home-page .project-proof{padding-inline:20px}.home-page .contact .contact-billboard h2{font-size:13vw}
 }
 @media(prefers-reduced-motion:reduce){.home-page .hero-art-main img{transition:none}.home-page .hero-art-main:hover img{transform:none}}
+
+@media(max-width:600px){html[data-mode=intelligence] .home-page .hero h1{font-size:14.5vw}}
